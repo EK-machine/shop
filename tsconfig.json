@@ -9,7 +9,7 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "outDir": "",
-    "noEmit": true,
+    "noEmit": false,
     "esModuleInterop": true,
     "target": "ESNext",
     "module": "ESNext",
