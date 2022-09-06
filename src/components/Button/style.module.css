@@ -1,0 +1,42 @@
+.btnWrapper,
+.btnWrapper:focus {
+  background: #333333;
+  height: 50px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 1px;
+  border-radius: 50px;
+  padding: 0 16px;
+}
+
+.underlined,
+.underlined:focus {
+  background: transparent;
+  height: 50px;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 1px;
+  padding: 0 16px;
+  border-bottom: 2px solid #333;
+}
+
+.disabled,
+.disabled:focus {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+}

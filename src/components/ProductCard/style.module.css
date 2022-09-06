@@ -1,0 +1,19 @@
+.productContainer {
+  width: 300px;
+  border: 1px solid grey;
+  border-radius: 16px;
+  padding: 16px 24px;
+  margin: 0 24px 24px 0;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.productImg {
+  width: 252px;
+  margin: 0 auto;
+}
+
+.btnContainer {
+  margin-top: auto;
+}

@@ -1,0 +1,23 @@
+.homeContainer {
+  padding: 10px 24px;
+  text-align: center;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.heading {
+  margin: 24px;
+  font-size: 26px;
+  line-height: 30px;
+}
+
+.reviewsBlock {
+  width: 100%;
+  height: calc(100vh - 185px);
+}
+
+.reviewsBlock::-webkit-scrollbar {
+  display: none;
+}
