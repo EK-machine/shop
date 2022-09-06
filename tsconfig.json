@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "images/*": ["src/assets/images/*"],
+      "fonts/*": ["src/assets/fonts/*"]
+    },
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "outDir": "",
+    "noEmit": true,
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true
+  },
+  "exclude": ["node_modules", "dist", ".vscode"]
+}
