@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "login": "Admin",
+      "password": "Admin123",
+      "role": "admin",
+      "id": 1,
+      "imgUrl": "https://habrastorage.org/webt/5b/db/fe/5bdbfe8c54bc4130948080.jpeg"
+    },
+    {
+      "login": "User1",
+      "password": "User1234",
+      "role": "user",
+      "id": 2,
+      "imgUrl": "https://docs.webitel.com/download/attachments/1146906/user-avatar"
+    },
+    {
+      "login": "User2",
+      "password": "User1234",
+      "role": "user",
+      "id": 3,
+      "imgUrl": "https://d33wubrfki0l68.cloudfront.net/836968ad9fee45dd0abd9e988ea1ca9a16bc2338/36d04/static/kalina_tyrkiel-6074da23ffcfefb5265cc12e0336ba27.jpg"
+    },
+    {
+      "login": "User4",
+      "password": "User1234",
+      "role": "user",
+      "id": 4,
+      "imgUrl": "https://static.thedecisionlab.com/wp-content/uploads/2019/08/Linkedin-300x300.png"
+    },
+    {
+      "login": "User80",
+      "password": "User1234",
+      "role": "user",
+      "id": 5
+    }
+  ]
+}

@@ -4,11 +4,13 @@
   "description": "shop",
   "main": "index.js",
   "scripts": {
-    "serve": "webpack  serve --mode development",
+    "start": "concurrently \"npm run mock-server\" \"npm run serve\"",
+    "serve": "webpack serve --mode development",
     "build": "webpack --mode production",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "mock-server": "json-server src/mockserver/mockserver.json --watch -p 3001"
   },
   "author": "Evgenij Kalabukhin <evgenij.kalabukhin@gmail.com>",
   "license": "ISC",
@@ -30,6 +32,7 @@
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "babel-loader": "^8.2.5",
+    "concurrently": "^7.3.0",
     "css-loader": "^6.7.1",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -47,6 +50,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^8.0.0",
+    "json-server": "^0.17.0",
     "lint-staged": "^13.0.3",
     "mini-css-extract-plugin": "^2.6.1",
     "prettier": "^2.7.1",
