@@ -1,5 +1,10 @@
-.homeContainer {
+.productsPageContainer {
   padding: 24px;
+  position: absolute;
+  top: 84px;
+  left: 0;
+  overflow-y: scroll;
+  height: calc(100vh - 132px) !important;
 }
 
 .productsContainer {

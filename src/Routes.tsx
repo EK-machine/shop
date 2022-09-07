@@ -7,9 +7,10 @@ import ProductsPage from './components/ProductsPage/ProductsPage';
 import NotFoundPage from './components/NotFoundPage/NotFoundPage';
 import { base, home, cart, reviews, products, notFound } from './data/data';
 import Header from './components/Header/Header';
+import styles from './styles.module.css';
 
 const Routes = () => (
-  <>
+  <div className={styles.mainContainer}>
     <Header logged />
     <Switch>
       <Route exact path={base} component={WelcomePage} />
@@ -19,7 +20,7 @@ const Routes = () => (
       <Route exact path={base + products} component={ProductsPage} />
       <Route path={notFound} component={NotFoundPage} />
     </Switch>
-  </>
+  </div>
 );
 
 const AppRoutes = withRouter(Routes);

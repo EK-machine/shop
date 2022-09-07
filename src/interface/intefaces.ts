@@ -1,3 +1,5 @@
+import React, { ReactNode } from 'react';
+
 export interface HeaderProps {
   logged: boolean;
 }
@@ -31,4 +33,15 @@ export interface ButtonProps {
   disabled?: boolean;
   underlined?: boolean;
   text: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+export interface ModalProps {
+  anchor: 'left' | 'top' | 'right' | 'bottom';
+  open: boolean;
+  crossButton?: boolean;
+  toggleModal: (isOpen: boolean) => () => void;
+  extraClassName?: string;
+  backdropClickToggle?: boolean;
+  children: ReactNode;
 }

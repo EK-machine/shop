@@ -12,7 +12,7 @@ const ProductCard: React.FC<ProductType> = ({ id, title, price, category, descri
     <p className={styles.productNumber}>{id}</p>
     <img src={image} alt={title} className={styles.productImg} />
     <div className={styles.btnContainer}>
-      <Button underlined text="add to cart" />
+      <Button underlined text="add to cart" onClick={() => console.log('product')} />
     </div>
   </div>
 );

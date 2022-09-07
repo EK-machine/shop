@@ -20,7 +20,7 @@ const ProductsPage: React.FC = () => {
   }, []);
 
   return (
-    <section className={styles.homeContainer}>
+    <div className={styles.productsPageContainer}>
       {products && products.length > 0 && <Input />}
       <div className={styles.productsContainer}>
         {products &&
@@ -36,7 +36,7 @@ const ProductsPage: React.FC = () => {
             />
           ))}
       </div>
-    </section>
+    </div>
   );
 };
 
