@@ -2,14 +2,14 @@ import React from 'react';
 import { CustomerProps } from '../../interface/intefaces';
 import styles from './style.module.css';
 
-const Customer: React.FC<CustomerProps> = ({ img, name, reply }) => (
-  <>
+const Reviw: React.FC<CustomerProps> = ({ img, name, reply }) => (
+  <div className={styles.container}>
     <img className={styles.img} src={img} alt={name} />
-    <div>
+    <div className={styles.data}>
       <h2 className={styles.name}>{name}</h2>
-      <p className={styles.reply}>{reply}</p>
+      <p className={styles.reply}>{`"${reply}"`}</p>
     </div>
-  </>
+  </div>
 );
 
-export default Customer;
+export default Reviw;

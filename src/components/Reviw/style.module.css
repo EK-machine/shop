@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+  margin: 0 4px 10px 4px;
+  padding: 10px 24px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.img {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  margin-right: 24px;
+}
+
+.data {
+  display: block;
+  width: 100%;
+}
+
+.name {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+  line-height: 26px;
+}
