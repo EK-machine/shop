@@ -7,10 +7,14 @@ export interface HeaderProps {
 export interface ProductType {
   id: number;
   title: string;
-  price: string;
+  price: number;
   category: string;
   description: string;
   image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
 }
 
 export interface UserType {
@@ -83,4 +87,21 @@ export interface InputProps {
 
 export interface ModalLoginRegisterProps {
   modalContent: string;
+}
+
+export interface ModalProductProps {
+  title: string;
+  price: number;
+  id: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
+}
+
+export interface StarRateProps {
+  rating: number;
 }
