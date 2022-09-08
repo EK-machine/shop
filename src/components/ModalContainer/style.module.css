@@ -58,6 +58,22 @@
   min-height: 50px;
 }
 
+.modal_button_text {
+  font-family: 'Halyard Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: left;
+  letter-spacing: 0.5px;
+  color: #333;
+  margin: 0;
+  text-transform: uppercase;
+  position: absolute;
+  left: 24px;
+  top: 18px;
+}
+
 .modal__content {
   height: 100%;
   overflow-y: auto;
@@ -71,8 +87,12 @@
 }
 
 @media (min-width: 991px) {
-  .modal_close_button {
+  .modal_close_button,
+  .modal_button_text {
     top: 40px;
+  }
+
+  .modal_close_button {
     right: 40px;
   }
 }

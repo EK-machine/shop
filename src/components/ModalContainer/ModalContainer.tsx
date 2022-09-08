@@ -4,13 +4,14 @@ import CloseImg from '../../../public/close_icon.svg';
 import { ModalProps } from '../../interface/intefaces';
 import styles from './style.module.css';
 
-const ModalWrapper: React.FC<ModalProps> = ({
+const ModalContainer: React.FC<ModalProps> = ({
   children,
   anchor,
   open,
   crossButton,
   toggleModal,
   backdropClickToggle = true,
+  text,
 }) => {
   const onBackdropClickHandler = () => {
     backdropClickToggle && toggleModal(false);
@@ -38,6 +39,7 @@ const ModalWrapper: React.FC<ModalProps> = ({
     >
       {crossButton && (
         <div className={styles.modal_button_wrapper}>
+          {text && <p className={styles.modal_button_text}>{text && text}</p>}
           <button type="button" className={styles.modal_close_button} onClick={toggleModal(false)}>
             <img src={CloseImg} alt="Close" />
           </button>
@@ -48,4 +50,4 @@ const ModalWrapper: React.FC<ModalProps> = ({
   );
 };
 
-export default ModalWrapper;
+export default ModalContainer;

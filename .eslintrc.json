@@ -63,6 +63,7 @@
       }
     ],
     "no-console": "off",
+    "react/button-has-type": 0,
     "import/extensions": "off",
     "import/no-unresolved": "off",
     "camelcase": "off",
