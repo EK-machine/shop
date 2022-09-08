@@ -1,19 +1,13 @@
-.productContainer {
-  max-width: 280px;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
-  border-radius: 16px;
-  padding: 16px 24px;
-  margin: 0 12px 12px 0;
-  display: flex;
-  flex-direction: column;
+.container {
+  padding: 24px;
 }
 
-.productTitle {
+.title {
   font-family: 'Halyard Display', sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 18px;
+  font-size: 20px;
+  line-height: 20px;
   text-align: center;
   letter-spacing: 0.5px;
   color: #333;
@@ -23,20 +17,21 @@
   display: inline-block;
 }
 
-.productPriceImg {
+.priceImg {
   display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-  justify-content: space-between;
 }
 
 .productImg {
-  width: 60px;
-  margin: 0 12px 0 0;
+  width: 50%;
+  margin: 0 24px 24px 0;
 }
 
-.productPrice,
-.productCategory {
+.price,
+.category,
+.reference,
+.count,
+.description,
+.about {
   font-family: 'Halyard Display', sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -50,8 +45,32 @@
   margin-bottom: 12px;
 }
 
-.productCategory {
-  color: #333;
+.category,
+.reference,
+.count,
+.description,
+.about {
+  color: black;
+}
+
+.count {
+  margin-right: 12px;
+}
+
+.about {
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.description {
+  text-transform: none;
+}
+
+.ratings {
+  display: flex;
+  align-items: baseline;
 }
 
 .btnContainer {

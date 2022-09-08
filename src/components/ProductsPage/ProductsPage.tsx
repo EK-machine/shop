@@ -33,6 +33,7 @@ const ProductsPage: React.FC = () => {
               category={item.category}
               description={item.description}
               image={item.image}
+              rating={item.rating}
             />
           ))}
       </div>
