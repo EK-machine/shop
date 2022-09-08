@@ -1,7 +1,51 @@
+.inputcontainer {
+  margin-bottom: 42px;
+}
+
+.smallmargin {
+  margin-bottom: 10px;
+}
+
+.inputerror {
+  font-family: 'Halyard Display', sans-serif;
+  font-style: normal;
+  font-weight: 350;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: left;
+  letter-spacing: 0.5px;
+  color: #e6473d;
+  margin: 10px 0;
+}
+
+.label {
+  font-family: 'Halyard Display', sans-serif;
+  font-style: normal;
+  font-weight: 350;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: left;
+  letter-spacing: 0.5px;
+  color: #707070;
+  margin-bottom: 2px;
+  margin-top: 0;
+  position: relative;
+}
+
+.labelunset {
+  position: absolute;
+  right: -10px;
+  bottom: -5px;
+  color: #e6473d;
+  font-size: 22px;
+  line-height: 22px;
+}
+
 .input {
-  margin: 0 auto 24px auto;
-  border: 1px solid grey;
-  border-radius: 8px;
-  height: 38px;
-  width: 280px;
+  height: 42px;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  color: #333333;
+  width: 100%;
+  background-color: transparent;
 }

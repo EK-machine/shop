@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { apiGetProducts } from '../api/apis';
+import { apiGetProducts } from '../../api/apis';
 import styles from './style.module.css';
 import ProductCard from '../ProductCard/ProductCard';
-import Input from '../Input/Input';
+// import Input from '../Input/Input';
 import { ProductType } from '../../interface/intefaces';
 
 const ProductsPage: React.FC = () => {
@@ -21,7 +21,7 @@ const ProductsPage: React.FC = () => {
 
   return (
     <div className={styles.productsPageContainer}>
-      {products && products.length > 0 && <Input />}
+      {/* {products && products.length > 0 && <Input />} */}
       <div className={styles.productsContainer}>
         {products &&
           products.map((item) => (
