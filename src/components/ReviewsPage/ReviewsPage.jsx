@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 import { faker } from '@faker-js/faker';
-import Customer from '../Customer/Customer';
+import Reviw from '../Reviw/Reviw';
 import styles from './style.module.css';
 
 const ReviewsPage = () => {
@@ -22,9 +22,12 @@ const ReviewsPage = () => {
       })),
     );
   }, []);
+
   return (
     <div className={styles.homeContainer}>
-      <h1 className={styles.heading}>{`Our happy ${users.length} customers`}</h1>
+      <div className={styles.headingWrapper}>
+        <h1 className={styles.heading}>{`Our happy ${users.length} customers`}</h1>
+      </div>
       <div className={styles.reviewsBlock}>
         <AutoSizer>
           {({ width, height }) => (
@@ -37,8 +40,8 @@ const ReviewsPage = () => {
               // eslint-disable-next-line react/no-unstable-nested-components
               rowRenderer={({ key, index, style, parent }) => (
                 <CellMeasurer key={key} cache={cache.current} parent={parent} columnIndex={0} rowIndex={index}>
-                  <div style={{ ...style, display: 'flex', alignItems: 'center', padding: '10px' }}>
-                    <Customer img={users[index].img} name={users[index].name} reply={users[index].bio} />
+                  <div style={{ ...style, paddingTop: '10px' }}>
+                    <Reviw img={users[index].img} name={users[index].name} reply={users[index].bio} />
                   </div>
                 </CellMeasurer>
               )}

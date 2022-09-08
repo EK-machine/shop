@@ -7,10 +7,19 @@
   display: none;
 }
 
+.headingWrapper {
+  padding: 24px;
+  margin: -10px -24px 0 -24px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
+}
+
 .heading {
-  margin: 24px;
+  font-family: 'Halyard Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
   font-size: 26px;
   line-height: 30px;
+  margin: 0;
 }
 
 .reviewsBlock {
