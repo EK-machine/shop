@@ -137,7 +137,7 @@ const ModalLoginRegister: React.FC<ModalLoginRegisterProps> = ({ modalContent })
         </div>
       )}
       <div className={styles.btnsContainer}>
-        <Button text={modalContent} type="submit" />
+        <Button usual text={modalContent} type="submit" />
       </div>
     </form>
   );

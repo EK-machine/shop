@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 
 export interface HeaderProps {
   logged: boolean;
@@ -29,12 +29,20 @@ export interface CustomerProps {
 }
 
 export interface ButtonProps {
+  type: 'button' | 'submit' | 'reset' | undefined;
+  text: string;
   disabled?: boolean;
   underlined?: boolean;
-  text: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   addAction?: (val: string) => void;
-  type: 'button' | 'submit' | 'reset' | undefined;
+  usual?: boolean;
+  product?: boolean;
+  image?: string;
+  count?: number;
+}
+
+export interface FilterBlockProps extends ProductType {
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface ModalProps {
@@ -75,11 +83,11 @@ export interface InputProps {
   forId: string;
   type: string;
   title: string;
-  value: string | boolean | File;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  value: string | ProductType[];
+  setValue?: React.Dispatch<React.SetStateAction<string>>;
   required?: boolean;
-  error: FormErrors;
-  setError: React.Dispatch<React.SetStateAction<FormErrors>>;
+  error?: FormErrors;
+  setError?: React.Dispatch<React.SetStateAction<FormErrors>>;
   addData?: string;
   addSetData?: React.Dispatch<React.SetStateAction<string>>;
   modalContent?: string;

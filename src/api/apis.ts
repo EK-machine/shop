@@ -3,4 +3,7 @@ import endpoints from './endpoints';
 import { ProductType } from '../interface/intefaces';
 
 export const apiGetProducts = (): Promise<ProductType[]> => httpService.get<ProductType[]>(endpoints.getProducts);
+export const apiGetProduct = (query: string): Promise<ProductType[]> =>
+  httpService.get<ProductType[]>(endpoints.getProduct(query));
+
 export const rr = 1;

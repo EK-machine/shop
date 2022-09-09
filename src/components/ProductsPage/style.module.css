@@ -1,14 +1,15 @@
 .productsPageContainer {
-  padding: 24px;
   position: absolute;
   top: 84px;
   left: 0;
   overflow-y: scroll;
   height: calc(100vh - 132px) !important;
+  width: 100vw;
 }
 
 .productsContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: 24px;
 }

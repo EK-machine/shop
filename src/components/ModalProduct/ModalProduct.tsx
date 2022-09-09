@@ -22,8 +22,8 @@ const ModalProduct: React.FC<ModalProductProps> = ({ title, price, category, des
     <p className={styles.about}>about the product:</p>
     <p className={styles.description}>{description}</p>
     <div className={styles.btnContainer}>
-      <Button underlined text="remove from cart" type="button" onClick={() => console.log('removed')} />
-      <Button text="add to cart" type="button" onClick={() => console.log('added')} />
+      <Button usual underlined text="remove from cart" type="button" onClick={() => console.log('removed')} />
+      <Button usual text="add to cart" type="button" onClick={() => console.log('added')} />
     </div>
   </div>
 );

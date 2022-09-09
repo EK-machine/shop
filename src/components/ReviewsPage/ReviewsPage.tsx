@@ -4,14 +4,24 @@ import { faker } from '@faker-js/faker';
 import Reviw from '../Reviw/Reviw';
 import styles from './style.module.css';
 
-const ReviewsPage = () => {
+const ReviewsPage: React.FC = () => {
+  const [users, setUsers] = useState<{ id: number; name: string; bio: string; img: string }[]>([]);
   const cache = useRef(
     new CellMeasurerCache({
       fixedWidth: true,
       defaultHeight: 100,
     }),
   );
-  const [users, setUsers] = useState([]);
+
+  const updateRowHeight = () => {
+    cache.current.clearAll();
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', () => updateRowHeight());
+    return () => window.removeEventListener('resize', updateRowHeight);
+  }, []);
+
   useEffect(() => {
     setUsers(
       [...Array(10000).keys()].map((key) => ({

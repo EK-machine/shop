@@ -29,8 +29,8 @@ const ProductCard: React.FC<ProductType> = ({ id, title, price, category, descri
         </div>
       </div>
       <div className={styles.btnContainer}>
-        <Button text="add to cart" type="button" onClick={() => console.log('added')} />
-        <Button underlined text="more detail" type="button" onClick={openModal} />
+        <Button usual text="add to cart" type="button" onClick={() => console.log('added')} />
+        <Button usual underlined text="more detail" type="button" onClick={openModal} />
       </div>
       <ModalContainer
         text="product description"
