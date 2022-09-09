@@ -37,8 +37,8 @@ const Header: React.FC<HeaderProps> = ({ logged }) => {
             {item.name}
           </NavLink>
         ))}
-      <Button type="button" text="register" addAction={openWithContent} onClick={openModal} />
-      <Button type="button" text="log in" addAction={openWithContent} onClick={openModal} />
+      <Button usual type="button" text="register" addAction={openWithContent} onClick={openModal} />
+      <Button usual type="button" text="log in" addAction={openWithContent} onClick={openModal} />
       <ModalContainer
         text="Create new account"
         crossButton
