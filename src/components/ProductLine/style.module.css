@@ -1,0 +1,8 @@
+.productLineContainer {
+  padding: 16px 2px;
+  cursor: pointer;
+}
+
+.productLineContainer:hover {
+  background-color: #d8d8d8;
+}
