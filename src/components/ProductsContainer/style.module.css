@@ -1,0 +1,19 @@
+.productsContainer {
+  height: calc(100vh - 172px);
+  width: 100%;
+  box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+}
+
+.shadowContainer {
+  height: calc(100vh - 172px);
+  position: absolute;
+  top: 172px;
+  overflow-y: scroll;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 24px;
+}

@@ -1,0 +1,51 @@
+.loginBtnsContainer {
+  width: 114px;
+  border-radius: 54px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 54px;
+  background-color: #333;
+}
+
+.loginIcon {
+  background-color: #fff;
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+}
+
+.loginBtnsWrapper {
+  display: none;
+  background-color: #fff;
+}
+
+.loginBtnsContainer:hover {
+  border: 2px solid #333;
+  border-bottom: none;
+  background-color: #fff;
+  width: 110px;
+  height: 50px;
+  border-radius: 25px 25px 0 0;
+}
+
+.loginBtnsContainer:hover .loginIcon {
+  background-color: grey;
+}
+
+.loginBtnsContainer:hover .loginBtnsWrapper {
+  display: block;
+  width: 110px;
+  border: 2px solid #333;
+  border-top: none;
+  border-radius: 0 0 25px 25px;
+  position: absolute;
+  left: -2px !important;
+  bottom: -118px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 16px;
+}

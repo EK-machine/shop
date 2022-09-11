@@ -11,8 +11,17 @@
   left: 0;
 }
 
+.bottomShadow {
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
+}
+
 .logoWrapper {
   margin-right: 30px;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
 }
 
 .link {

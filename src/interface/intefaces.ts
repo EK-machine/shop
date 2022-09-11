@@ -2,6 +2,7 @@ import React, { ChangeEvent, ReactNode } from 'react';
 
 export interface HeaderProps {
   logged: boolean;
+  bottomShadow?: boolean;
 }
 
 export interface ProductType {
@@ -15,6 +16,10 @@ export interface ProductType {
     rate: number;
     count: number;
   };
+}
+
+export interface ProductsContainerProps {
+  toDisplay: ProductType[];
 }
 
 export interface UserType {
@@ -35,14 +40,23 @@ export interface ButtonProps {
   underlined?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   addAction?: (val: string) => void;
+  image?: string;
   usual?: boolean;
   product?: boolean;
-  image?: string;
-  count?: number;
+  login?: boolean;
+  category?: boolean;
 }
 
-export interface FilterBlockProps extends ProductType {
+export interface LoginButtonProps {
+  addAction?: (val: string) => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+export interface FilterBlockProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  products: ProductType[];
+  query: string;
+  getSelected: (title: string) => void;
 }
 
 export interface ModalProps {
@@ -65,6 +79,11 @@ export interface FormErrors {
 export interface ValidateLoginData {
   login: string;
   password: string;
+}
+
+export interface ProductLineProps {
+  title: string;
+  getSelected: (title: string) => void;
 }
 
 export interface ValidateRegisterData {
@@ -112,4 +131,9 @@ export interface ModalProductProps {
 
 export interface StarRateProps {
   rating: number;
+}
+
+export interface ProductsSidebarProps {
+  filterByCategory: (title: string) => void;
+  categories: string[];
 }

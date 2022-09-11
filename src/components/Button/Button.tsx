@@ -12,7 +12,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   type,
   addAction,
-  count,
+  category,
 }) => (
   <>
     {usual && (
@@ -37,13 +37,21 @@ const Button: React.FC<ButtonProps> = ({
         type={type}
         className={styles.productBtn}
       >
-        <div className={styles.textContainer}>
-          <p className={styles.title}>{text}</p>
-          <p className={styles.count}>
-            <span className={styles.span}>{count}</span> happy purchases
-          </p>
-        </div>
+        <p className={styles.title}>{text}</p>
         <img src={image} alt="text" className={styles.image} />
+      </button>
+    )}
+    {category && (
+      <button
+        onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+          onClick && onClick(event);
+          addAction && addAction(text);
+        }}
+        type="button"
+        className={styles.categoryBtn}
+      >
+        <img className={styles.categoryIcon} src={image} alt={text} />
+        <span className={styles.categoryText}>{text}</span>
       </button>
     )}
   </>

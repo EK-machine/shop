@@ -1,15 +1,38 @@
 .productsPageContainer {
-  position: absolute;
-  top: 84px;
-  left: 0;
-  overflow-y: scroll;
-  height: calc(100vh - 132px) !important;
+  height: calc(100vh - 85px) !important;
+  display: flex;
   width: 100vw;
 }
 
-.productsContainer {
+.productsBtn {
+  width: 100vw;
+}
+
+.btnContainer {
+  width: 96%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 24px;
+  padding: 14px;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+.preBtnText {
+  font-family: 'Halyard Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  color: #333;
+  margin: 0;
+  text-transform: uppercase;
+  margin-right: 24px;
+}
+
+.span {
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 500;
 }

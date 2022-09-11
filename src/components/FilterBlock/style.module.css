@@ -1,21 +1,49 @@
 .container {
-  padding: 24px;
   background-color: #fff;
   position: sticky;
   left: 0x;
   top: 0;
-  width: 100vw;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
+  width: 45%;
   display: flex;
+}
+
+.iputWrapper {
+  position: relative;
+  width: 100%;
 }
 
 .input {
   height: 42px;
   border: 1px solid #d8d8d8;
-  border-radius: 4px;
+  border-radius: 4px 4px 4px 4px;
   color: #333333;
-  width: 45%;
+  width: 100%;
   background-color: transparent;
   height: 42px;
   margin-right: 24px;
+}
+
+.input:focus {
+  outline: none;
+  border-radius: 4px 4px 4px 4px;
+  border: 2px solid #333;
+}
+
+.withQuery {
+  border: 2px solid #333;
+  border-radius: 4px 4px 0 0 !important;
+  border-bottom: none !important;
+}
+
+.productslist {
+  z-index: 22;
+  position: absolute;
+  width: calc(100% + 4px);
+  border: 2px solid #333;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  background-color: #fff;
+  max-height: calc(100vh - 70px);
+  overflow: hidden;
+  overflow-y: scroll;
 }

@@ -1,17 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { HeaderProps } from '../../interface/intefaces';
+import debounce from 'lodash.debounce';
+import { apiGetProduct } from '../../api/apis';
+import { HeaderProps, ProductType } from '../../interface/intefaces';
 import { navigationLinks, base } from '../../data/data';
 import ModalContainer from '../ModalContainer/ModalContainer';
 import useScreenWidth from '../../hooks/useScreenWidth';
-import Button from '../Button/Button';
+import LoginButton from '../LoginButton/LoginButton';
 import styles from './style.module.css';
-import Logo from '../../../public/logo.svg';
+import Logo from '../../../public/logo.png';
 import ModalLoginRegister from '../ModalLoginRegister/ModalLoginRegister';
+import FilterBlock from '../FilterBlock/FilterBlock';
+import ModalProduct from '../ModalProduct/ModalProduct';
 
-const Header: React.FC<HeaderProps> = ({ logged }) => {
+const Header: React.FC<HeaderProps> = ({ logged, bottomShadow }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>('');
   const [modalContent, setModalContent] = useState<string>('');
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const [product, setProduct] = useState<ProductType>({
+    id: 0,
+    title: '',
+    price: 0,
+    category: '',
+    description: '',
+    image: '',
+    rating: {
+      rate: 0,
+      count: 0,
+    },
+  });
+
   const isMobile: boolean = useScreenWidth() < 768;
 
   const toggleModal = (value: boolean) => () => {
@@ -26,19 +45,43 @@ const Header: React.FC<HeaderProps> = ({ logged }) => {
     setModalContent(val);
   };
 
+  const getSelected = (title: string) => {
+    if (title) {
+      const selected = products.find((item) => item.title === title);
+      selected && setProduct(selected);
+      setIsOpen(true);
+    }
+  };
+
+  const updateQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e?.target?.value);
+  };
+  const debounced = debounce(updateQuery, 300);
+
+  useEffect(() => {
+    const getProduct = async (string: string) => {
+      const prod = await apiGetProduct(string);
+      if (prod) {
+        setProducts(prod);
+      }
+    };
+    getProduct(query);
+  }, [query]);
+
   return (
-    <div className={styles.headerContainer}>
+    <div className={`${styles.headerContainer} ${bottomShadow ? styles.bottomShadow : ''}`}>
       <NavLink className={styles.logoWrapper} to={base}>
-        <img src={Logo} alt="logo" />
+        <img className={styles.logo} src={Logo} alt="logo" />
       </NavLink>
+      <FilterBlock onChange={debounced} products={products} query={query} getSelected={getSelected} />
+
       {logged &&
         navigationLinks.map((item) => (
           <NavLink className={styles.link} key={item.name} to={item.link}>
             {item.name}
           </NavLink>
         ))}
-      <Button usual type="button" text="register" addAction={openWithContent} onClick={openModal} />
-      <Button usual type="button" text="log in" addAction={openWithContent} onClick={openModal} />
+      <LoginButton addAction={openWithContent} onClick={openModal} />
       <ModalContainer
         text="Create new account"
         crossButton
@@ -47,6 +90,15 @@ const Header: React.FC<HeaderProps> = ({ logged }) => {
         toggleModal={toggleModal}
       >
         <ModalLoginRegister modalContent={modalContent} />
+        <ModalProduct
+          id={product.id}
+          title={product.title}
+          price={product.price}
+          category={product.category}
+          description={product.description}
+          image={product.image}
+          rating={product.rating}
+        />
       </ModalContainer>
     </div>
   );

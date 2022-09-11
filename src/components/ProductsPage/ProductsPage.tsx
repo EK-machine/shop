@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import debounce from 'lodash.debounce';
-import { apiGetProduct } from '../../api/apis';
+import Button from '../Button/Button';
+import ProductsSidebar from '../ProductsSidebar/ProductsSidebar';
+import ProductsContainer from '../ProductsContainer/ProductsContainer';
+import { apiGetProducts } from '../../api/apis';
 import styles from './style.module.css';
-import ProductCard from '../ProductCard/ProductCard';
-import FilterBlock from '../FilterBlock/FilterBlock';
 import { ProductType } from '../../interface/intefaces';
+import ModalContainer from '../ModalContainer/ModalContainer';
+import ModalProduct from '../ModalProduct/ModalProduct';
+import useScreenWidth from '../../hooks/useScreenWidth';
 
 const ProductsPage: React.FC = () => {
-  const [query, setQuery] = useState<string>('');
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [toDisplay, setToDisplay] = useState<ProductType[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [most, setMost] = useState<ProductType>({
     id: 0,
     title: '',
@@ -22,63 +27,89 @@ const ProductsPage: React.FC = () => {
     },
   });
 
-  const updateQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e?.target?.value);
+  const isMobile: boolean = useScreenWidth() < 768;
+
+  const setCategs = (data: ProductType[]) => {
+    const all = Array.from(new Set(data.map((cat) => cat.category)));
+    setCategories(all);
   };
-  const debounced = debounce(updateQuery, 300);
+
+  const getProducts = async () => {
+    const data = await apiGetProducts();
+    if (data) {
+      setProducts(data);
+      setToDisplay(data);
+      setCategs(data);
+    }
+  };
+
+  const filterByCategory = (title: string) => {
+    if (title === 'all products') {
+      setToDisplay(products);
+    } else {
+      const filtered = products.filter((prod) => prod.category === title);
+      setToDisplay(filtered);
+    }
+  };
 
   const mostPurchased = () => {
     const mostPurchasedProduct =
-      products &&
-      products.length > 0 &&
-      products.reduce((more, less) => (more.rating.count >= less.rating.count ? more : less));
+      toDisplay &&
+      toDisplay.length > 0 &&
+      toDisplay.reduce((more, less) => (more.rating.count >= less.rating.count ? more : less));
     if (mostPurchasedProduct) {
       setMost(mostPurchasedProduct);
     }
   };
 
-  useEffect(() => {
-    mostPurchased();
-  }, [products]);
+  const toggleModal = (value: boolean) => () => {
+    setIsOpen(value);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
   useEffect(() => {
-    const getProduct = async (string: string) => {
-      const prod = await apiGetProduct(string);
-      if (prod) {
-        setProducts(prod);
-      }
-    };
-    getProduct(query);
-  }, [query]);
+    getProducts();
+  }, []);
+
+  useEffect(() => {
+    mostPurchased();
+  }, [toDisplay]);
 
   return (
     <div className={styles.productsPageContainer}>
-      <FilterBlock
-        onChange={debounced}
-        image={most.image}
-        title={most.title}
-        rating={most.rating}
-        id={most.id}
-        price={most.price}
-        category={most.category}
-        description={most.description}
-      />
-      <div className={styles.productsContainer}>
-        {products &&
-          products.length > 0 &&
-          products.map((item) => (
-            <ProductCard
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              price={item.price}
-              category={item.category}
-              description={item.description}
-              image={item.image}
-              rating={item.rating}
-            />
-          ))}
+      <ProductsSidebar filterByCategory={filterByCategory} categories={categories} />
+      <div className={styles.productsBtn}>
+        <div className={styles.btnContainer}>
+          <div>
+            <p className={styles.preBtnText}>Check out our most popular product!</p>
+            <p className={styles.preBtnText}>
+              <span className={styles.span}>{most.rating.count}</span> happy purchases
+            </p>
+          </div>
+          <Button product text={most.title} image={most.image} type="button" onClick={openModal} />
+        </div>
+        <ProductsContainer toDisplay={toDisplay} />
       </div>
+      <ModalContainer
+        text="Create new account"
+        crossButton
+        anchor={isMobile ? 'bottom' : 'right'}
+        open={isOpen}
+        toggleModal={toggleModal}
+      >
+        <ModalProduct
+          id={most.id}
+          title={most.title}
+          price={most.price}
+          category={most.category}
+          description={most.description}
+          image={most.image}
+          rating={most.rating}
+        />
+      </ModalContainer>
     </div>
   );
 };
