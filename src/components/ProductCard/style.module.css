@@ -1,5 +1,5 @@
 .productContainer {
-  max-width: 280px;
+  width: 328px;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   padding: 16px 24px;
@@ -59,4 +59,8 @@
   margin-top: auto;
   display: flex;
   justify-content: space-between;
+}
+
+.btnsCentered {
+  justify-content: center;
 }

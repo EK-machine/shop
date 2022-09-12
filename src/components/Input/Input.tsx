@@ -16,7 +16,7 @@ const Input: React.FC<InputProps> = (props) => {
         validObj && props.setError({ ...props.error, [props.forId]: validObj.err });
       }
     }
-    if (props.modalContent && props.modalContent === 'log in') {
+    if (props.modalContent && props.modalContent === 'login') {
       if (props.setError && props.required) {
         const validObj: { isValid: boolean; err: string; id: string } | undefined = await validateLoginInput(
           props.value as string,

@@ -1,7 +1,7 @@
-import React, { ChangeEvent, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
+import { Dispatch } from 'redux';
 
 export interface HeaderProps {
-  logged: boolean;
   bottomShadow?: boolean;
 }
 
@@ -16,6 +16,18 @@ export interface ProductType {
     rate: number;
     count: number;
   };
+}
+
+export interface ModalProductProps {
+  product: ProductType;
+  text?: string;
+}
+
+export interface UserProfile {
+  login: string;
+  password: string;
+  role: string;
+  id: number;
 }
 
 export interface ProductsContainerProps {
@@ -47,18 +59,6 @@ export interface ButtonProps {
   category?: boolean;
 }
 
-export interface LoginButtonProps {
-  addAction?: (val: string) => void;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-}
-
-export interface FilterBlockProps {
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  products: ProductType[];
-  query: string;
-  getSelected: (title: string) => void;
-}
-
 export interface ModalProps {
   anchor: 'left' | 'top' | 'right' | 'bottom';
   open: boolean;
@@ -67,6 +67,11 @@ export interface ModalProps {
   extraClassName?: string;
   backdropClickToggle?: boolean;
   children: ReactNode;
+  logged: boolean;
+  modalContent: string;
+}
+
+export interface ModalRegisterLogin {
   text?: string;
 }
 
@@ -112,23 +117,6 @@ export interface InputProps {
   modalContent?: string;
 }
 
-export interface ModalLoginRegisterProps {
-  modalContent: string;
-}
-
-export interface ModalProductProps {
-  title: string;
-  price: number;
-  id: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
-}
-
 export interface StarRateProps {
   rating: number;
 }
@@ -136,4 +124,37 @@ export interface StarRateProps {
 export interface ProductsSidebarProps {
   filterByCategory: (title: string) => void;
   categories: string[];
+}
+
+export interface CommonStateType {
+  loading: boolean;
+  logged: boolean;
+}
+
+export type BaseAction<T> = {
+  type: string;
+  payload: T;
+};
+
+export type BaseDispatch<T> = Dispatch<BaseAction<T>>;
+
+export interface AppStateType {
+  common: {
+    loading: boolean;
+    logged: boolean;
+  };
+  user: {
+    login: string;
+    password: string;
+    role: string;
+    id: number;
+  };
+  modal: {
+    content: string;
+    isOpen: boolean;
+  };
+  products: {
+    products: ProductType[];
+    product: ProductType;
+  };
 }

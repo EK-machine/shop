@@ -1,52 +1,40 @@
 import React from 'react';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import CloseImg from '../../../public/close_icon.svg';
-import { ModalProps } from '../../interface/intefaces';
-import styles from './style.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import ModalContentWrapper from '../ModalContentWrapper/ModalContentWrapper';
+import ModalLogin from '../ModalLogin/ModalLogin';
+import ModalRegister from '../ModalRegister/ModalRegister';
+import ModalProduct from '../ModalProduct/ModalProduct';
+import useScreenWidth from '../../hooks/useScreenWidth';
+import { AppStateType } from '../../interface/intefaces';
+import { getModalTitle } from '../../helpers/utils';
+import { setModalOpen } from '../../redux/slices/modalContentSlice';
 
-const ModalContainer: React.FC<ModalProps> = ({
-  children,
-  anchor,
-  open,
-  crossButton,
-  toggleModal,
-  backdropClickToggle = true,
-  text,
-}) => {
-  const onBackdropClickHandler = () => {
-    backdropClickToggle && toggleModal(false);
+const ModalContainer: React.FC = () => {
+  const logged = useSelector((state: AppStateType) => state.common.logged);
+  const modalContent = useSelector((state: AppStateType) => state.modal.content);
+  const modalIsOpen = useSelector((state: AppStateType) => state.modal.isOpen);
+  const modalProduct = useSelector((state: AppStateType) => state.products.product);
+  const dispatch = useDispatch();
+  const isMobile: boolean = useScreenWidth() < 768;
+  const toggleModal = (value: boolean) => () => {
+    dispatch(setModalOpen(value));
   };
 
-  const openingStyle = `modal__content_wrapper_${anchor}`;
-
   return (
-    <SwipeableDrawer
-      PaperProps={{
-        classes: {
-          root: `${styles.modal__content_wrapper} ${styles[openingStyle]} `,
-        },
-      }}
-      onBackdropClick={onBackdropClickHandler}
-      disableSwipeToOpen
-      disableDiscovery
-      anchor={anchor}
-      onClose={toggleModal(false)}
-      onOpen={toggleModal(true)}
-      open={open}
-      classes={{
-        paperAnchorBottom: `${styles.modal__content_wrapper__bottom}`,
-      }}
-    >
-      {crossButton && (
-        <div className={styles.modal_button_wrapper}>
-          {text && <p className={styles.modal_button_text}>{text && text}</p>}
-          <button type="button" className={styles.modal_close_button} onClick={toggleModal(false)}>
-            <img src={CloseImg} alt="Close" />
-          </button>
-        </div>
-      )}
-      <div className={styles.modal__content}>{children}</div>
-    </SwipeableDrawer>
+    <>
+      <ModalContentWrapper
+        crossButton
+        anchor={isMobile ? 'bottom' : 'right'}
+        open={modalIsOpen}
+        toggleModal={toggleModal}
+        logged={logged}
+        modalContent={modalContent}
+      >
+        {modalContent === 'login' && <ModalLogin text={getModalTitle(modalContent)} />}
+        {modalContent === 'register' && <ModalRegister text={getModalTitle(modalContent)} />}
+        {modalContent === 'product' && <ModalProduct text={getModalTitle(modalContent)} product={modalProduct} />}
+      </ModalContentWrapper>
+    </>
   );
 };
 
