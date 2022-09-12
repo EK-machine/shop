@@ -1,0 +1,31 @@
+.wrapper {
+  padding: 24px;
+}
+
+.modalText {
+  font-family: 'Halyard Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: left;
+  letter-spacing: 0.5px;
+  color: #333;
+  margin: 0 0 24px 0;
+  text-transform: uppercase;
+}
+
+.inputsContainer {
+  margin-bottom: 0;
+}
+
+.btnsContainer {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .btnsContainer {
+    text-align: left;
+  }
+}

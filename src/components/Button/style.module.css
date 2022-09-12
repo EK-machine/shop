@@ -45,7 +45,7 @@
 
 .productBtn:focus,
 .productBtn:hover {
-  border: 1px solid #333;
+  box-shadow: 4px 4px 10px 10px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   padding: 23px;
 }

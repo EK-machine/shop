@@ -1,46 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../Button/Button';
 import ProductsSidebar from '../ProductsSidebar/ProductsSidebar';
 import ProductsContainer from '../ProductsContainer/ProductsContainer';
-import { apiGetProducts } from '../../api/apis';
 import styles from './style.module.css';
-import { ProductType } from '../../interface/intefaces';
-import ModalContainer from '../ModalContainer/ModalContainer';
-import ModalProduct from '../ModalProduct/ModalProduct';
-import useScreenWidth from '../../hooks/useScreenWidth';
+import { AppStateType, ProductType } from '../../interface/intefaces';
+import { setProduct } from '../../redux/slices/allProductsSlice';
+import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';
 
 const ProductsPage: React.FC = () => {
-  const [products, setProducts] = useState<ProductType[]>([]);
+  const products = useSelector((state: AppStateType) => state.products.products);
+  const most = useSelector((state: AppStateType) => state.products.product);
   const [toDisplay, setToDisplay] = useState<ProductType[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [most, setMost] = useState<ProductType>({
-    id: 0,
-    title: '',
-    price: 0,
-    category: '',
-    description: '',
-    image: '',
-    rating: {
-      rate: 0,
-      count: 0,
-    },
-  });
 
-  const isMobile: boolean = useScreenWidth() < 768;
+  const dispatch = useDispatch();
 
   const setCategs = (data: ProductType[]) => {
     const all = Array.from(new Set(data.map((cat) => cat.category)));
     setCategories(all);
-  };
-
-  const getProducts = async () => {
-    const data = await apiGetProducts();
-    if (data) {
-      setProducts(data);
-      setToDisplay(data);
-      setCategs(data);
-    }
   };
 
   const filterByCategory = (title: string) => {
@@ -58,21 +36,26 @@ const ProductsPage: React.FC = () => {
       toDisplay.length > 0 &&
       toDisplay.reduce((more, less) => (more.rating.count >= less.rating.count ? more : less));
     if (mostPurchasedProduct) {
-      setMost(mostPurchasedProduct);
+      dispatch(setProduct(mostPurchasedProduct));
     }
   };
 
-  const toggleModal = (value: boolean) => () => {
-    setIsOpen(value);
+  const getSelected = (val: string) => {
+    const selected = products.find((item) => item.title === val);
+    if (selected) {
+      dispatch(setProduct(selected));
+    }
   };
 
   const openModal = () => {
-    setIsOpen(true);
+    dispatch(setModalOpen(true));
+    dispatch(setModalProduct());
   };
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    setToDisplay(products);
+    setCategs(products);
+  }, [products]);
 
   useEffect(() => {
     mostPurchased();
@@ -89,27 +72,17 @@ const ProductsPage: React.FC = () => {
               <span className={styles.span}>{most.rating.count}</span> happy purchases
             </p>
           </div>
-          <Button product text={most.title} image={most.image} type="button" onClick={openModal} />
+          <Button
+            product
+            text={most.title}
+            image={most.image}
+            type="button"
+            addAction={getSelected}
+            onClick={openModal}
+          />
         </div>
         <ProductsContainer toDisplay={toDisplay} />
       </div>
-      <ModalContainer
-        text="Create new account"
-        crossButton
-        anchor={isMobile ? 'bottom' : 'right'}
-        open={isOpen}
-        toggleModal={toggleModal}
-      >
-        <ModalProduct
-          id={most.id}
-          title={most.title}
-          price={most.price}
-          category={most.category}
-          description={most.description}
-          image={most.image}
-          rating={most.rating}
-        />
-      </ModalContainer>
     </div>
   );
 };

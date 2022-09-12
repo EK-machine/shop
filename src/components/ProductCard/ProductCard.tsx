@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
-import { ProductType } from '../../interface/intefaces';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppStateType, ProductType } from '../../interface/intefaces';
 import styles from './style.module.css';
 import Button from '../Button/Button';
-import ModalContainer from '../ModalContainer/ModalContainer';
-import useScreenWidth from '../../hooks/useScreenWidth';
-import ModalProduct from '../ModalProduct/ModalProduct';
+import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';
+import { setProduct } from '../../redux/slices/allProductsSlice';
 
-const ProductCard: React.FC<ProductType> = ({ id, title, price, category, description, image, rating }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const isMobile: boolean = useScreenWidth() < 768;
+const ProductCard: React.FC<ProductType> = ({ title, price, category, image }) => {
+  const logged = useSelector((state: AppStateType) => state.common.logged);
+  const products = useSelector((state: AppStateType) => state.products.products);
+  const dispatch = useDispatch();
 
-  const toggleModal = (value: boolean) => () => {
-    setIsOpen(value);
+  const getSelected = () => {
+    const selected = products.find((item) => item.title === title);
+    if (selected) {
+      dispatch(setProduct(selected));
+    }
   };
 
   const openModal = () => {
-    setIsOpen(true);
+    getSelected();
+    dispatch(setModalOpen(true));
+    dispatch(setModalProduct());
   };
 
   return (
@@ -28,27 +34,16 @@ const ProductCard: React.FC<ProductType> = ({ id, title, price, category, descri
           <p className={styles.productCategory}>{category}</p>
         </div>
       </div>
-      <div className={styles.btnContainer}>
-        <Button usual text="add to cart" type="button" onClick={() => console.log('added')} />
-        <Button usual underlined text="more detail" type="button" onClick={openModal} />
+      <div className={`${styles.btnContainer} ${logged ? '' : styles.btnsCentered}`}>
+        {logged ? (
+          <>
+            <Button usual text="add to cart" type="button" onClick={() => console.log('added')} />
+            <Button usual underlined text="more detail" type="button" onClick={openModal} />
+          </>
+        ) : (
+          <Button usual underlined text="more detail" type="button" onClick={openModal} />
+        )}
       </div>
-      <ModalContainer
-        text="product description"
-        crossButton
-        anchor={isMobile ? 'bottom' : 'right'}
-        open={isOpen}
-        toggleModal={toggleModal}
-      >
-        <ModalProduct
-          id={id}
-          title={title}
-          price={price}
-          category={category}
-          description={description}
-          image={image}
-          rating={rating}
-        />
-      </ModalContainer>
     </div>
   );
 };
