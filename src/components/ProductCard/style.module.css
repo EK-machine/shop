@@ -10,7 +10,7 @@
 }
 
 .productTitle {
-  font-family: 'Halyard Display', sans-serif;
+  font-family: sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -38,14 +38,14 @@
 
 .productPrice,
 .productCategory {
-  font-family: 'Halyard Display', sans-serif;
+  font-family: sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 16px;
   text-align: left;
   letter-spacing: 0.5px;
-  color: rgb(75, 176, 161);
+  color: rgb(43, 138, 124);
   margin: 0;
   text-transform: capitalize;
   margin-bottom: 12px;

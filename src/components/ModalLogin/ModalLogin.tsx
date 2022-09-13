@@ -6,9 +6,10 @@ import Button from '../Button/Button';
 import styles from './style.module.css';
 import { validateLoginRegister } from '../../helpers/validations';
 import endpoints from '../../api/endpoints';
-import { AppStateType, FormErrors, ModalRegisterLogin } from '../../interface/intefaces';
+import { AppStateType, FormErrors, ModalRegisterLogin, UserProfile } from '../../interface/intefaces';
 import { isLogged, isLoading } from '../../redux/slices/commonStateSlice';
 import { setModalOpen } from '../../redux/slices/modalContentSlice';
+import { setUser } from '../../redux/slices/userProfileSlice';
 
 const ModalLogin: React.FC<ModalRegisterLogin> = ({ text }) => {
   const [login, setLogin] = useState<string>('');
@@ -26,15 +27,14 @@ const ModalLogin: React.FC<ModalRegisterLogin> = ({ text }) => {
     const formValid = await validateLoginRegister(validations, modalContent);
 
     if (formValid === true) {
-      const users = await fetch(endpoints.getUsers)
+      const users: UserProfile = await fetch(endpoints.getUsers)
         .then((all) => all.json())
         .then((registered) =>
-          registered.find(
-            (user: { login: string; password: string }) => user.login === login && user.password === password,
-          ),
+          registered.find((user: UserProfile) => user.login === login && user.password === password),
         );
       if (Object.keys(users).length > 0) {
         history.push('/cart');
+        dispatch(setUser(users));
         dispatch(isLogged(true));
         dispatch(isLoading(false));
         dispatch(setModalOpen(false));

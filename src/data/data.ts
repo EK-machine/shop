@@ -3,6 +3,9 @@ import two from '../../public/2.svg';
 import three from '../../public/3.svg';
 import four from '../../public/4.svg';
 import five from '../../public/5.svg';
+import cartIcon from '../../public/cart.svg';
+import likeIcon from '../../public/liked.svg';
+import cardIcon from '../../public/creditCard.svg';
 
 export const base = '/';
 export const cart = 'cart';
@@ -81,3 +84,17 @@ export const specCharacters = [
 ];
 
 export const categoryIcons = [one, two, three, four, five];
+export const cartSideData = [
+  {
+    copy: 'your cart',
+    icon: cartIcon,
+  },
+  {
+    copy: 'liked',
+    icon: likeIcon,
+  },
+  {
+    copy: 'your orders',
+    icon: cardIcon,
+  },
+];

@@ -18,6 +18,7 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/,
         use: [
           'style-loader',
           {
@@ -29,6 +30,11 @@ module.exports = {
           },
         ],
         include: /\module\.css$/,
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+        exclude: /\.module\.css$/,
       },
       {
         test: /\.(js|jsx)$/,

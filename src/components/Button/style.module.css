@@ -63,14 +63,12 @@
   line-height: 1;
   font-weight: 400;
   letter-spacing: 1px;
-  padding: 0 16px;
   border-bottom: 2px solid #333;
   display: inline;
 }
 
 .underlined:hover,
 .underlined:focus {
-  padding: 0 16px;
   border-bottom: 2px dashed #333;
 }
 
@@ -86,7 +84,7 @@
 }
 
 .title {
-  font-family: 'Halyard Display', sans-serif;
+  font-family: sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -103,7 +101,7 @@
 .categoryBtn:focus {
   display: block;
   background-color: #fff;
-  width: calc(100% - 12px);
+  width: 100%;
   border: none;
   cursor: pointer;
   height: 50px;
@@ -112,8 +110,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border-radius: 50px;
-  margin: 0 auto 5px auto;
+  border-radius: 3px;
+  margin-bottom: 5px;
 }
 
 .categoryIcon {
@@ -122,7 +120,7 @@
 }
 
 .categoryText {
-  font-family: 'Halyard Display', sans-serif;
+  font-family: sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -133,5 +131,45 @@
 
 .categoryBtn:hover,
 .categoryBtn:focus {
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
+  background: #f7f7f7;
+}
+
+.categoryBtnActive {
+  background: #f7f7f7;
+}
+
+.cartSideBtn {
+  background: transparent;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.cartSideBtn:hover {
+  background: #f7f7f7;
+}
+
+.cartSideBtnActive {
+  background: #f7f7f7;
+}
+
+.cartSideIcon {
+  width: 26px;
+  height: 26px;
+  margin-right: 10px;
+}
+
+.cartSideText {
+  text-align: center;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 400;
+  color: #333;
+  letter-spacing: 1px;
 }

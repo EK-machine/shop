@@ -68,7 +68,7 @@
   padding: 24px;
   bottom: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 @media (max-width: 999px) {

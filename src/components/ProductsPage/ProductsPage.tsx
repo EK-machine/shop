@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../Button/Button';
-import ProductsSidebar from '../ProductsSidebar/ProductsSidebar';
+import Sidebar from '../Sidebar/Sidebar';
 import ProductsContainer from '../ProductsContainer/ProductsContainer';
 import styles from './style.module.css';
 import { AppStateType, ProductType } from '../../interface/intefaces';
@@ -13,19 +13,23 @@ const ProductsPage: React.FC = () => {
   const most = useSelector((state: AppStateType) => state.products.product);
   const [toDisplay, setToDisplay] = useState<ProductType[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
+  const [active, setActive] = useState<number>(0);
 
   const dispatch = useDispatch();
 
   const setCategs = (data: ProductType[]) => {
     const all = Array.from(new Set(data.map((cat) => cat.category)));
+    all.unshift('all products');
     setCategories(all);
   };
 
   const filterByCategory = (title: string) => {
     if (title === 'all products') {
       setToDisplay(products);
+      setActive(0);
     } else {
       const filtered = products.filter((prod) => prod.category === title);
+      categories.forEach((categ, i) => categ === title && setActive(i));
       setToDisplay(filtered);
     }
   };
@@ -63,7 +67,7 @@ const ProductsPage: React.FC = () => {
 
   return (
     <div className={styles.productsPageContainer}>
-      <ProductsSidebar filterByCategory={filterByCategory} categories={categories} />
+      <Sidebar products active={active} filterByCategory={filterByCategory} categories={categories} />
       <div className={styles.productsBtn}>
         <div className={styles.btnContainer}>
           <div>

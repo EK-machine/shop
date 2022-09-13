@@ -1,0 +1,59 @@
+.likeItem {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.itemTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 14px;
+}
+
+.likeItemImgWrapper,
+.heartWrapper {
+  height: 50px;
+  width: 50px;
+  min-width: 50px;
+  border-radius: 25px;
+  overflow: hidden;
+  margin-right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.likeItemImgWrapper {
+  border: 1px solid #d75a4a;
+}
+
+.heartWrapper {
+  border: none;
+}
+
+.likeItemImg {
+  object-fit: cover;
+  height: 40px;
+}
+
+.heart {
+  height: 40px;
+}
+
+.likeItemTitle {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: left;
+  letter-spacing: 0.5px;
+  color: #333;
+  margin: 0;
+  text-transform: capitalize;
+  margin-bottom: 12px;
+}

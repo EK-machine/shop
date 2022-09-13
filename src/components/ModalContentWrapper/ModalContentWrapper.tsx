@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import CloseImg from '../../../public/close_icon.svg';
-import { ModalProps } from '../../interface/intefaces';
+import CloseImg from '../../../public/closeIcon.svg';
+import { AppStateType, ModalProps } from '../../interface/intefaces';
 import styles from './style.module.css';
 import Button from '../Button/Button';
 
@@ -13,13 +14,33 @@ const ModalContentWrapper: React.FC<ModalProps> = ({
   toggleModal,
   logged,
   modalContent,
+  title,
   backdropClickToggle = true,
 }) => {
+  const [inCart, setInCart] = useState<boolean>(false);
+  const userCart = useSelector((state: AppStateType) => state.user.cart);
   const onBackdropClickHandler = () => {
     backdropClickToggle && toggleModal(false);
   };
 
   const openingStyle = `modalContentWrapper${anchor}`;
+
+  const productInCart = (val: string) => {
+    if (userCart.length > 0) {
+      const inside = userCart.find((item) => item.title === val);
+      if (inside && Object.keys(inside).length > 0) {
+        setInCart(true);
+      } else {
+        setInCart(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (title) {
+      productInCart(title);
+    }
+  }, [title]);
 
   return (
     <SwipeableDrawer
@@ -47,10 +68,13 @@ const ModalContentWrapper: React.FC<ModalProps> = ({
         </div>
       )}
       <div className={styles.modalContent}>{children}</div>
-      {!logged && modalContent === 'product' && (
+      {logged && modalContent === 'product' && (
         <div className={styles.modalBottomWrapper}>
-          <Button usual underlined text="remove from cart" type="button" onClick={() => console.log('removed')} />
-          <Button usual text="add to cart" type="button" onClick={() => console.log('added')} />
+          {inCart ? (
+            <Button usual underlined text="remove from cart" type="button" onClick={() => console.log('removed')} />
+          ) : (
+            <Button usual text="add to cart" type="button" onClick={() => console.log('added')} />
+          )}
         </div>
       )}
     </SwipeableDrawer>

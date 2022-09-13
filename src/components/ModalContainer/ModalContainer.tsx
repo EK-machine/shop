@@ -29,6 +29,7 @@ const ModalContainer: React.FC = () => {
         toggleModal={toggleModal}
         logged={logged}
         modalContent={modalContent}
+        title={modalProduct.title}
       >
         {modalContent === 'login' && <ModalLogin text={getModalTitle(modalContent)} />}
         {modalContent === 'register' && <ModalRegister text={getModalTitle(modalContent)} />}
