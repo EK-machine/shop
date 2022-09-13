@@ -1,0 +1,31 @@
+.container {
+  margin: 0 auto;
+  padding: 10px;
+  max-width: 100%;
+}
+
+.heading {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 30px;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+:global(.swiper-slide) {
+  height: auto;
+}
+
+:global(.swiper-button-next),
+:global(.swiper-button-prev) {
+  width: 48px !important;
+  height: 48px !important;
+  padding: 2px !important;
+  border-radius: 3px !important;
+  background-color: #f7f7f7;
+  color: #333 !important;
+}

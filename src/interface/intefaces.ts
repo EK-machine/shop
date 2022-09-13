@@ -18,6 +18,37 @@ export interface ProductType {
   };
 }
 
+export interface MostSliderProps {
+  products: ProductType[];
+  getSelected: (title: string) => void;
+  openModal: () => void;
+}
+
+export interface MostSlideProps {
+  title: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  addAction?: (val: string) => void;
+}
+
+export interface UserCartItem extends ProductType {
+  quantity: number;
+}
+
+export interface UserLikedItem extends ProductType {
+  liked: boolean;
+}
+
+export interface UserOrders {
+  dateTill: Date;
+  dateOrdered: Date;
+  orders: UserCartItem[];
+}
+
 export interface ModalProductProps {
   product: ProductType;
   text?: string;
@@ -28,6 +59,10 @@ export interface UserProfile {
   password: string;
   role: string;
   id: number;
+  imgUrl: string;
+  cart: UserCartItem[];
+  orders: UserOrders[];
+  liked: UserLikedItem[];
 }
 
 export interface ProductsContainerProps {
@@ -56,7 +91,9 @@ export interface ButtonProps {
   usual?: boolean;
   product?: boolean;
   login?: boolean;
-  category?: boolean;
+  categorySide?: boolean;
+  cartSide?: boolean;
+  activeBtn?: boolean;
 }
 
 export interface ModalProps {
@@ -69,6 +106,7 @@ export interface ModalProps {
   children: ReactNode;
   logged: boolean;
   modalContent: string;
+  title?: string;
 }
 
 export interface ModalRegisterLogin {
@@ -121,9 +159,12 @@ export interface StarRateProps {
   rating: number;
 }
 
-export interface ProductsSidebarProps {
-  filterByCategory: (title: string) => void;
-  categories: string[];
+export interface SidebarProps {
+  filterByCategory?: (title: string) => void;
+  categories?: string[];
+  products?: boolean;
+  cart?: boolean;
+  active?: number;
 }
 
 export interface CommonStateType {
@@ -138,6 +179,16 @@ export type BaseAction<T> = {
 
 export type BaseDispatch<T> = Dispatch<BaseAction<T>>;
 
+export interface LikedItemProps {
+  image: string;
+  title: string;
+}
+
+export interface CartItemProps extends LikedItemProps {
+  quantity: number;
+  price: number;
+}
+
 export interface AppStateType {
   common: {
     loading: boolean;
@@ -148,6 +199,10 @@ export interface AppStateType {
     password: string;
     role: string;
     id: number;
+    imgUrl: string;
+    cart: UserCartItem[];
+    orders: UserOrders[];
+    liked: UserLikedItem[];
   };
   modal: {
     content: string;

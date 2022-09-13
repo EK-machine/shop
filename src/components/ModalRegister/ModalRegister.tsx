@@ -31,6 +31,10 @@ const ModalRegister: React.FC<ModalRegisterLogin> = ({ text }) => {
         login,
         password,
         role: 'user',
+        imgUrl: '',
+        cart: [],
+        orders: [],
+        liked: [],
       };
       await fetch(endpoints.getUsers, {
         method: 'POST',

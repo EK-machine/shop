@@ -10,9 +10,11 @@ const Button: React.FC<ButtonProps> = ({
   underlined,
   text,
   onClick,
-  type,
   addAction,
-  category,
+  type,
+  categorySide,
+  cartSide,
+  activeBtn,
 }) => (
   <>
     {usual && (
@@ -41,17 +43,30 @@ const Button: React.FC<ButtonProps> = ({
         <img src={image} alt="text" className={styles.image} />
       </button>
     )}
-    {category && (
+    {categorySide && (
       <button
         onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
           onClick && onClick(event);
           addAction && addAction(text);
         }}
-        type="button"
-        className={styles.categoryBtn}
+        type={type}
+        className={`${styles.categoryBtn} ${activeBtn ? styles.categoryBtnActive : ''}`}
       >
         <img className={styles.categoryIcon} src={image} alt={text} />
         <span className={styles.categoryText}>{text}</span>
+      </button>
+    )}
+    {cartSide && (
+      <button
+        onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+          onClick && onClick(event);
+          addAction && addAction(text);
+        }}
+        type={type}
+        className={`${styles.cartSideBtn} ${activeBtn ? styles.cartSideBtnActive : ''}`}
+      >
+        <img className={styles.cartSideIcon} src={image} alt={text} />
+        <span className={styles.cartSideText}>{text}</span>
       </button>
     )}
   </>

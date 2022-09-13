@@ -1,0 +1,27 @@
+.productsSidebar {
+  background-color: #fff;
+  position: sticky;
+  width: 68px;
+  left: 0;
+  top: 0;
+  display: inline-block;
+  z-index: 19;
+  padding: 24px 0;
+  overflow: hidden;
+}
+
+.productsSidebar:hover {
+  width: 250px;
+}
+
+.cartSidebar {
+  width: 198px;
+  display: inline-block;
+  background: #fff;
+  box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
+  border-radius: 3px;
+  margin: 0 24px 0 0;
+  padding: 24px 0;
+  max-height: calc(100vh - 235px);
+  justify-self: stretch;
+}

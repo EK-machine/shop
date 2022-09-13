@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType, ProductType } from '../../interface/intefaces';
 import styles from './style.module.css';
@@ -7,6 +7,8 @@ import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSl
 import { setProduct } from '../../redux/slices/allProductsSlice';
 
 const ProductCard: React.FC<ProductType> = ({ title, price, category, image }) => {
+  const [inCart, setInCart] = useState<boolean>(false);
+  const userCart = useSelector((state: AppStateType) => state.user.cart);
   const logged = useSelector((state: AppStateType) => state.common.logged);
   const products = useSelector((state: AppStateType) => state.products.products);
   const dispatch = useDispatch();
@@ -24,6 +26,23 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image }) =
     dispatch(setModalProduct());
   };
 
+  const productInCart = (val: string) => {
+    if (userCart.length > 0) {
+      const inside = userCart.find((item) => item.title === val);
+      if (inside && Object.keys(inside).length > 0) {
+        setInCart(true);
+      } else {
+        setInCart(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (title) {
+      productInCart(title);
+    }
+  }, [title]);
+
   return (
     <div className={styles.productContainer}>
       <h1 className={styles.productTitle}>{title}</h1>
@@ -37,7 +56,11 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image }) =
       <div className={`${styles.btnContainer} ${logged ? '' : styles.btnsCentered}`}>
         {logged ? (
           <>
-            <Button usual text="add to cart" type="button" onClick={() => console.log('added')} />
+            {inCart ? (
+              <Button usual underlined text="remove from cart" type="button" onClick={() => console.log('removed')} />
+            ) : (
+              <Button usual text="add to cart" type="button" onClick={() => console.log('added')} />
+            )}
             <Button usual underlined text="more detail" type="button" onClick={openModal} />
           </>
         ) : (

@@ -1,11 +1,14 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../Button/Button';
 import styles from './style.module.css';
 import Profile from '../../../public/profile.svg';
 import { setModalRegister, setModalLogin, setModalOpen } from '../../redux/slices/modalContentSlice';
+import { AppStateType } from '../../interface/intefaces';
 
 const LoginButton: React.FC = () => {
+  const logged = useSelector((state: AppStateType) => state.common.logged);
+  const userImg = useSelector((state: AppStateType) => state.user.imgUrl);
   const dispatch = useDispatch();
   const openLoginModal = () => {
     dispatch(setModalOpen(true));
@@ -19,10 +22,19 @@ const LoginButton: React.FC = () => {
 
   return (
     <div className={styles.loginBtnsContainer}>
-      <img className={styles.loginIcon} src={Profile} alt="login" />
+      <img className={styles.loginIcon} src={logged && userImg ? userImg : Profile} alt="login" />
       <div className={styles.loginBtnsWrapper}>
-        <Button usual underlined type="button" text="register" onClick={openRegisterModal} />
-        <Button usual underlined type="button" text="login" onClick={openLoginModal} />
+        {logged ? (
+          <>
+            <Button usual underlined type="button" text="settings" onClick={() => console.log('settings')} />
+            <Button usual underlined type="button" text="log out" onClick={() => console.log('log out')} />
+          </>
+        ) : (
+          <>
+            <Button usual underlined type="button" text="register" onClick={openRegisterModal} />
+            <Button usual underlined type="button" text="login" onClick={openLoginModal} />
+          </>
+        )}
       </div>
     </div>
   );
