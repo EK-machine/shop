@@ -30,6 +30,7 @@
     "react-virtualized": "^9.22.3",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
+    "redux-persist": "^6.0.0",
     "swiper": "^8.3.2"
   },
   "devDependencies": {
