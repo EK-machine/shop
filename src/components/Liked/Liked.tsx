@@ -70,7 +70,7 @@ const Liked: React.FC = () => {
   return (
     <div className={styles.cart}>
       {likedProducts.map((item) => (
-        <LikedItem key={item.title} image={item.image} title={item.title} />
+        <LikedItem key={item.title} image={item.image} title={item.title} onClick={openModal} addAction={getSelected} />
       ))}
       <MostSlider products={most} getSelected={getSelected} openModal={openModal} />
     </div>

@@ -43,10 +43,9 @@ export interface UserLikedItem extends ProductType {
   liked: boolean;
 }
 
-export interface UserOrders {
-  dateTill: Date;
-  dateOrdered: Date;
-  orders: UserCartItem[];
+export interface UserOrder {
+  dateTill: string;
+  items: UserCartItem[];
 }
 
 export interface ModalProductProps {
@@ -61,7 +60,7 @@ export interface UserProfile {
   id: number;
   imgUrl: string;
   cart: UserCartItem[];
-  orders: UserOrders[];
+  orders: UserOrder[];
   liked: UserLikedItem[];
 }
 
@@ -182,6 +181,8 @@ export type BaseDispatch<T> = Dispatch<BaseAction<T>>;
 export interface LikedItemProps {
   image: string;
   title: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  addAction?: (val: string) => void;
 }
 
 export interface CartItemProps extends LikedItemProps {
@@ -201,7 +202,7 @@ export interface AppStateType {
     id: number;
     imgUrl: string;
     cart: UserCartItem[];
-    orders: UserOrders[];
+    orders: UserOrder[];
     liked: UserLikedItem[];
   };
   modal: {

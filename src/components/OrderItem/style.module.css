@@ -1,0 +1,103 @@
+.orderItem {
+  border-radius: 3px;
+  background-color: #f7f7f7;
+  margin-bottom: 24px;
+  padding: 14px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+}
+
+.orderItem:hover {
+  box-shadow: 4px 4px 10px 10px rgba(0, 0, 0, 0.08);
+}
+
+.orderItemDelivered {
+  background-color: #4af0a5d0;
+}
+
+.orderItemOpened {
+  display: block;
+}
+
+.orderStatusWrapper {
+  height: 50px;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 6px 0 0;
+}
+
+.orderStatusWrapperOpened {
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+}
+
+.orderStatus {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: left;
+  letter-spacing: 0.5px;
+  color: #333;
+  margin: 0;
+  text-transform: initial;
+  margin: 0;
+  width: 130px;
+}
+
+.orderStatusOpened {
+  margin: 0 10px 0 74px;
+  width: 200px;
+}
+
+.orderItemLine {
+  display: flex;
+  align-items: center;
+}
+
+.orderItemLineOpened {
+  margin: 0 0 10px 0;
+}
+
+.orderImgWrapper {
+  height: 50px;
+  width: 50px;
+  min-width: 50px;
+  border-radius: 50px;
+  overflow: hidden;
+  margin-right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #333;
+  box-sizing: border-box;
+}
+
+.orderImg {
+  object-fit: cover;
+  height: 40px;
+}
+
+.orderStr {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 13px;
+  text-align: left;
+  letter-spacing: 0.5px;
+  color: #333;
+  margin: 0 6px 0 0;
+  display: none;
+}
+
+.orderStrOpened {
+  display: inline;
+}
