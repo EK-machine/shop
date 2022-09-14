@@ -1,17 +1,14 @@
 .productsSidebar {
   background-color: #fff;
-  position: sticky;
-  width: 68px;
-  left: 0;
-  top: 0;
+  min-width: 134px;
+  width: 100%;
+  max-width: 198px;
+  box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
+  border-radius: 3px;
   display: inline-block;
-  z-index: 19;
+  margin: 0 24px 0 0;
   padding: 24px 0;
   overflow: hidden;
-}
-
-.productsSidebar:hover {
-  width: 250px;
 }
 
 .cartSidebar {

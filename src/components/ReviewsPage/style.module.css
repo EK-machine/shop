@@ -10,7 +10,6 @@
 .headingWrapper {
   padding: 24px;
   margin: -10px -24px 0 -24px;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .heading {
@@ -18,15 +17,21 @@
   font-style: normal;
   font-weight: 400;
   font-size: 26px;
+  letter-spacing: 2px;
   line-height: 30px;
   margin: 0;
   text-align: center;
-  text-transform: uppercase;
+  text-transform: initial;
+  color: #333;
+  opacity: 0.8;
 }
 
 .reviewsBlock {
   width: 100%;
-  height: calc(100vh - 185px);
+  max-width: 1230px;
+  margin: 0 auto;
+  box-shadow: 0px 28px 8px 0px rgba(255, 255, 255, 1) inset;
+  height: calc(100vh - 142px);
 }
 
 .reviewsBlock::-webkit-scrollbar {

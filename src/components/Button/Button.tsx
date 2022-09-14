@@ -25,7 +25,7 @@ const Button: React.FC<ButtonProps> = ({
         }}
         type={type}
         className={`${underlined ? styles.underlined : styles.btnWrapper}
-    ${disabled ? styles.disabled : ''}`}
+        ${disabled ? styles.disabled : ''}`}
       >
         {text}
       </button>
@@ -52,8 +52,10 @@ const Button: React.FC<ButtonProps> = ({
         type={type}
         className={`${styles.categoryBtn} ${activeBtn ? styles.categoryBtnActive : ''}`}
       >
-        <img className={styles.categoryIcon} src={image} alt={text} />
-        <span className={styles.categoryText}>{text}</span>
+        <div className={styles.categoryIconWrapper}>
+          <img className={styles.categoryIcon} src={image} alt={text} />
+        </div>
+        <span className={styles.categoryText}>{text.split(' ')[0]}</span>
       </button>
     )}
     {cartSide && (

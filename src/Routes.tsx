@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { withRouter, Route, Switch, useLocation } from 'react-router-dom';
+import { withRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import CartPage from './components/CartPage/CartPage';
 import ReviewsPage from './components/ReviewsPage/ReviewsPage';
@@ -14,7 +14,6 @@ import ModalContainer from './components/ModalContainer/ModalContainer';
 
 const Routes = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
 
   const getProducts = async () => {
     const prods = await apiGetProducts();
@@ -29,7 +28,7 @@ const Routes = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <Header bottomShadow={location.pathname.includes('cart')} />
+      <Header bottomShadow />
       <Switch>
         <Route exact path={base} component={ProductsPage} />
         <Route exact path={base + cart} component={CartPage} />

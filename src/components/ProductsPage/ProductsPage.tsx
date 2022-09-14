@@ -67,25 +67,27 @@ const ProductsPage: React.FC = () => {
 
   return (
     <div className={styles.productsPageContainer}>
-      <Sidebar products active={active} filterByCategory={filterByCategory} categories={categories} />
-      <div className={styles.productsBtn}>
-        <div className={styles.btnContainer}>
-          <div>
-            <p className={styles.preBtnText}>Check out our most popular product!</p>
-            <p className={styles.preBtnText}>
-              <span className={styles.span}>{most.rating.count}</span> happy purchases
-            </p>
+      <p className={styles.heading}>Our products</p>
+      <div className={styles.mainContent}>
+        <Sidebar products active={active} filterByCategory={filterByCategory} categories={categories} />
+        <div className={styles.btnProdsContainer}>
+          <div className={styles.btnContainer}>
+            <div>
+              <p className={styles.preBtnText}>
+                Most popular: <span className={styles.span}>{most.rating.count}</span> purchases!
+              </p>
+            </div>
+            <Button
+              product
+              text={most.title}
+              image={most.image}
+              type="button"
+              addAction={getSelected}
+              onClick={openModal}
+            />
           </div>
-          <Button
-            product
-            text={most.title}
-            image={most.image}
-            type="button"
-            addAction={getSelected}
-            onClick={openModal}
-          />
+          <ProductsContainer toDisplay={toDisplay} />
         </div>
-        <ProductsContainer toDisplay={toDisplay} />
       </div>
     </div>
   );

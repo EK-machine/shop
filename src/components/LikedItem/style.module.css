@@ -73,6 +73,7 @@
   text-align: left;
   letter-spacing: 0.5px;
   color: #333;
+  opacity: 0.8;
   margin: 0;
   text-transform: capitalize;
 }

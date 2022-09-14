@@ -18,8 +18,9 @@
 .itemTitle {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-right: 14px;
+  width: 70%;
 }
 
 .cartItemImgWrapper {
@@ -43,10 +44,16 @@
 }
 
 .priceQuantity {
+  width: 30%;
   height: 50px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.quantityWrapper {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .cartItemPrice,
@@ -75,6 +82,10 @@
 .cartItemQuantity,
 .cartItemTitle {
   color: #333;
+}
+
+.cartItemQuantity {
+  margin-right: 14px;
 }
 
 .cartItemTitle {
