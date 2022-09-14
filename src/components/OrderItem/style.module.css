@@ -44,6 +44,7 @@
   text-align: left;
   letter-spacing: 0.5px;
   color: #333;
+  opacity: 0.8;
   margin: 0;
   text-transform: initial;
   margin: 0;
@@ -94,6 +95,7 @@
   text-align: left;
   letter-spacing: 0.5px;
   color: #333;
+  opacity: 0.8;
   margin: 0 6px 0 0;
   display: none;
 }

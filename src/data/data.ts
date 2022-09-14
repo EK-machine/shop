@@ -1,11 +1,13 @@
-import one from '../../public/1.svg';
-import two from '../../public/2.svg';
-import three from '../../public/3.svg';
-import four from '../../public/4.svg';
-import five from '../../public/5.svg';
+import womanIcon from '../../public/woman.svg';
+import manIcon from '../../public/man.svg';
+import jewlryIcon from '../../public/jewlry.svg';
+import allIcon from '../../public/all.svg';
+import electronicIcon from '../../public/electronic.svg';
 import cartIcon from '../../public/cart.svg';
 import likeIcon from '../../public/liked.svg';
 import cardIcon from '../../public/creditCard.svg';
+
+export const categoryIcons = [allIcon, manIcon, jewlryIcon, electronicIcon, womanIcon];
 
 export const base = '/';
 export const cart = 'cart';
@@ -83,7 +85,6 @@ export const specCharacters = [
   '~',
 ];
 
-export const categoryIcons = [one, two, three, four, five];
 export const cartSideData = [
   {
     copy: 'your cart',

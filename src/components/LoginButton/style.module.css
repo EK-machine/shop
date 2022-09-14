@@ -1,14 +1,14 @@
 .loginBtnsContainer {
   width: 114px;
   min-width: 114px;
-  border-radius: 54px;
+  border-radius: 44px;
   border: none;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  height: 54px;
+  height: 44px;
   background-color: #333;
 }
 
@@ -24,18 +24,18 @@
   background-color: #fff;
 }
 
-.loginBtnsContainer.loginBtnsContainer:hover {
+.loginBtnsContainer:hover {
   border-bottom: none;
   background-color: #fff;
   width: 110px;
   min-width: 110px;
   border: 2px solid #333;
-  height: 50px;
+  height: 40px;
   border-radius: 25px 25px 0 0;
 }
 
 .loginBtnsContainer:hover .loginIcon {
-  background-color: grey;
+  background-color: #c9c9c9;
 }
 
 .loginBtnsContainer:hover .loginBtnsWrapper {

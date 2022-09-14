@@ -34,7 +34,7 @@
 .productBtn {
   background: #ffffff;
   border: transparent;
-  border-radius: 16px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   padding: 24px;
@@ -65,6 +65,7 @@
   letter-spacing: 1px;
   border-bottom: 2px solid #333;
   display: inline;
+  opacity: 0.8;
 }
 
 .underlined:hover,
@@ -95,6 +96,7 @@
   margin: 0;
   text-transform: capitalize;
   margin-right: 12px;
+  opacity: 0.8;
 }
 
 .categoryBtn,
@@ -111,11 +113,20 @@
   justify-content: flex-start;
   align-items: center;
   border-radius: 3px;
-  margin-bottom: 5px;
+}
+
+.categoryIconWrapper {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
 }
 
 .categoryIcon {
-  margin-right: 10px;
+  width: 40px;
+  height: 40px;
   display: inline;
 }
 
@@ -127,6 +138,8 @@
   line-height: 16px;
   text-align: left;
   text-transform: uppercase;
+  color: #333;
+  opacity: 0.8;
 }
 
 .categoryBtn:hover,
@@ -171,5 +184,6 @@
   line-height: 1;
   font-weight: 400;
   color: #333;
+  opacity: 0.8;
   letter-spacing: 1px;
 }

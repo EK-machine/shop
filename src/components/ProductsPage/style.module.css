@@ -1,38 +1,63 @@
 .productsPageContainer {
   height: calc(100vh - 85px) !important;
-  display: flex;
-  width: 100vw;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1230px;
+  padding-top: 24px;
 }
 
-.productsBtn {
-  width: 100vw;
+.heading {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: 2px;
+  line-height: 30px;
+  margin: 0;
+  text-align: center;
+  text-transform: initial;
+  opacity: 0.8;
+  margin: 0 0 24px 0;
+}
+
+.mainContent {
+  width: 100%;
+  display: flex;
+}
+
+.btnProdsContainer {
+  box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
+  border-radius: 3px;
+  padding: 24px;
+  width: 100%;
+  max-width: 968px;
+  max-height: calc(100vh - 200px);
+  overflow: hidden;
 }
 
 .btnContainer {
-  width: 96%;
   display: flex;
-  padding: 14px;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  z-index: 20;
+  margin-bottom: 14px;
 }
 
 .preBtnText {
   font-family: sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 18px;
-  line-height: 18px;
-  text-align: center;
-  letter-spacing: 0.5px;
-  color: #333;
+  letter-spacing: 2px;
+  line-height: 20px;
   margin: 0;
-  text-transform: uppercase;
+  text-align: center;
+  text-transform: initial;
+  color: #333;
+  opacity: 0.8;
   margin-right: 24px;
 }
 
 .span {
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 20px;
   font-weight: 500;
 }

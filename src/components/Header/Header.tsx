@@ -12,24 +12,27 @@ const Header: React.FC<HeaderProps> = ({ bottomShadow }) => {
   const logged = useSelector((state: AppStateType) => state.common.logged);
   return (
     <div className={`${styles.headerContainer} ${bottomShadow ? styles.bottomShadow : ''}`}>
-      <NavLink className={styles.logoWrapper} to={base}>
-        <img className={styles.logo} src={Logo} alt="logo" />
-      </NavLink>
-      <FilterBlock />
-
-      {logged &&
-        navigationLinks.map((item) => (
-          <NavLink className={styles.link} key={item.name} to={item.link}>
-            {item.name}
-          </NavLink>
-        ))}
-      {!logged &&
-        [navigationLinks[1]].map((item) => (
-          <NavLink className={styles.link} key={item.name} to={item.link}>
-            {item.name}
-          </NavLink>
-        ))}
-      <LoginButton />
+      <div className={styles.logoSearch}>
+        <NavLink className={styles.logoWrapper} to={base}>
+          <img className={styles.logo} src={Logo} alt="logo" />
+        </NavLink>
+        <FilterBlock />
+      </div>
+      <div className={styles.links}>
+        {logged &&
+          navigationLinks.map((item) => (
+            <NavLink className={styles.link} key={item.name} to={item.link}>
+              {item.name}
+            </NavLink>
+          ))}
+        {!logged &&
+          [navigationLinks[1]].map((item) => (
+            <NavLink className={styles.link} key={item.name} to={item.link}>
+              {item.name}
+            </NavLink>
+          ))}
+        <LoginButton />
+      </div>
     </div>
   );
 };

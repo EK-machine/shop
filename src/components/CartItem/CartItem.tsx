@@ -22,7 +22,8 @@ const CartItem: React.FC<CartItemProps> = ({ image, title, quantity, price, onCl
         <p className={styles.cartItemTitle}>{title}</p>
       </div>
       <div className={styles.priceQuantity}>
-        <div onClick={(e) => e.stopPropagation()}>
+        <div className={styles.quantityWrapper} onClick={(e) => e.stopPropagation()}>
+          <p className={styles.cartItemQuantity}>Quantity: </p>
           <select
             value={productQuantity}
             onChange={(event) => {
@@ -39,7 +40,6 @@ const CartItem: React.FC<CartItemProps> = ({ image, title, quantity, price, onCl
         <p className={styles.cartItemPrice}>
           Total: <span>{price * quantity} $</span>
         </p>
-        <p className={styles.cartItemQuantity}>Quantity: {quantity}</p>
       </div>
     </button>
   );
