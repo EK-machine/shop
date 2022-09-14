@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import debounce from 'lodash.debounce';
 import { apiGetProduct } from '../../api/apis';
 import styles from './style.module.css';
-import { AppStateType } from '@/interface/intefaces';
+import { AppStateType } from '@/interfaces/intefaces';
 import ProductLine from '../ProductLine/ProductLine';
 import { setAllProducts, setProduct } from '../../redux/slices/allProductsSlice';
 import { setModalProduct, setModalOpen } from '../../redux/slices/modalContentSlice';

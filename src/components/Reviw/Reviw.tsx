@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomerProps } from '../../interface/intefaces';
+import { CustomerProps } from '../../interfaces/intefaces';
 import styles from './style.module.css';
 
 const Reviw: React.FC<CustomerProps> = ({ img, name, reply }) => (

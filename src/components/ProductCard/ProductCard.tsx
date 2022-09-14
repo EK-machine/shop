@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppStateType, ProductType } from '../../interface/intefaces';
+import { AppStateType, ProductType } from '../../interfaces/intefaces';
 import styles from './style.module.css';
 import Button from '../Button/Button';
 import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';

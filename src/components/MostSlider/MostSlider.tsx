@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Mousewheel, Navigation } from 'swiper';
 import styles from './style.module.css';
 import MostSlide from '../MostSlide/MostSlide';
-import { MostSliderProps } from '../../interface/intefaces';
+import { MostSliderProps } from '../../interfaces/intefaces';
 import 'swiper/css';
 import 'swiper/css/navigation';
 

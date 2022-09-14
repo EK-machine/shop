@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './style.module.css';
 import { categoryIcons, cartSideData } from '../../data/data';
 import Button from '../Button/Button';
-import { SidebarProps } from '../../interface/intefaces';
+import { SidebarProps } from '../../interfaces/intefaces';
 
 const Sidebar: React.FC<SidebarProps> = ({ filterByCategory, categories, products, cart, active }) => (
   <>

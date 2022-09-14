@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './style.module.css';
-import { ButtonProps } from '../../interface/intefaces';
+import { ButtonProps } from '../../interfaces/intefaces';
 
 const Button: React.FC<ButtonProps> = ({
   usual,

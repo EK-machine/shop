@@ -1,5 +1,5 @@
 import React, { FocusEventHandler, SetStateAction } from 'react';
-import { InputProps, FormErrors } from '../../interface/intefaces';
+import { InputProps, FormErrors } from '../../interfaces/intefaces';
 import styles from './style.module.css';
 import { validateRegisterInput, validateLoginInput } from '../../helpers/validations';
 

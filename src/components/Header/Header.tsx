@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { HeaderProps, AppStateType } from '../../interface/intefaces';
+import { HeaderProps, AppStateType } from '../../interfaces/intefaces';
 import { navigationLinks, base } from '../../data/data';
 import LoginButton from '../LoginButton/LoginButton';
 import styles from './style.module.css';

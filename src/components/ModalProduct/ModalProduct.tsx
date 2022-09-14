@@ -1,5 +1,5 @@
 import React from 'react';
-import { ModalProductProps } from '../../interface/intefaces';
+import { ModalProductProps } from '../../interfaces/intefaces';
 import styles from './style.module.css';
 import StarRate from '../StarRate/StarRate';
 
