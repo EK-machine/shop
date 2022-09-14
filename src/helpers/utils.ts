@@ -22,3 +22,11 @@ export const getDate = (val: string) => {
   const strDate = `${dateMonth}/${dateDate}/${dateYear}`;
   return { strDate, deliv };
 };
+
+export const disablePastDates = () => {
+  const today = new Date();
+  const dd = String(today.getDate() + 1).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
+  return `${yyyy}-${mm}-${dd}`;
+};

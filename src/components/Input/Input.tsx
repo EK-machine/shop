@@ -2,6 +2,7 @@ import React, { FocusEventHandler, SetStateAction } from 'react';
 import { InputProps, FormErrors } from '../../interfaces/intefaces';
 import styles from './style.module.css';
 import { validateRegisterInput, validateLoginInput } from '../../helpers/validations';
+import { disablePastDates } from '../../helpers/utils';
 
 const Input: React.FC<InputProps> = (props) => {
   const blurFormHandler: FocusEventHandler<HTMLInputElement> = async () => {
@@ -79,6 +80,7 @@ const Input: React.FC<InputProps> = (props) => {
           </label>
           <input
             name={props.forId}
+            min={disablePastDates()}
             id={props.forId}
             type={props.type}
             value={props.value as string}
