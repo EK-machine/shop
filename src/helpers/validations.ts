@@ -2,7 +2,7 @@
 /* eslint-disable consistent-return */
 import { regexp, specCharacters, errorMessages } from '../data/data';
 import endpoints from '../api/endpoints';
-import { RegExps, ValidateLoginData, ValidateRegisterData, UserType } from '../interface/intefaces';
+import { RegExps, ValidateLoginData, ValidateRegisterData, UserType } from '../interfaces/intefaces';
 
 const x = (isValid: boolean, err: string, id: string): Promise<{ isValid: boolean; err: string; id: string }> =>
   new Promise((resolve) => {

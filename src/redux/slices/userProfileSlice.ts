@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserProfile } from '../../interface/intefaces';
+import { UserProfile } from '../../interfaces/intefaces';
 
 const initialState = {
   login: '',
@@ -26,6 +26,16 @@ const userProfileSlice = createSlice({
       state.cart = action.payload.cart as [];
       state.orders = action.payload.orders as [];
       state.liked = action.payload.liked as [];
+    },
+    unsetUser: (state) => {
+      state.login = initialState.login;
+      state.password = initialState.password;
+      state.role = initialState.role;
+      state.id = initialState.id;
+      state.imgUrl = initialState.imgUrl;
+      state.cart = initialState.cart;
+      state.orders = initialState.orders;
+      state.liked = initialState.liked;
     },
     setLogin: (state, action: PayloadAction<UserProfile>) => {
       state.login = action.payload.login;
@@ -54,7 +64,7 @@ const userProfileSlice = createSlice({
   },
 });
 
-export const { setUser, setLogin, setPassword, setRole, setId, setImgUrl, setCart, setOrders, setLiked } =
+export const { setUser, unsetUser, setLogin, setPassword, setRole, setId, setImgUrl, setCart, setOrders, setLiked } =
   userProfileSlice.actions;
 
 export default userProfileSlice.reducer;

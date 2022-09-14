@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './style.module.css';
 import ProductCard from '../ProductCard/ProductCard';
-import { ProductsContainerProps } from '../../interface/intefaces';
+import { ProductsContainerProps } from '../../interfaces/intefaces';
 
 const ProductsContainer: React.FC<ProductsContainerProps> = ({ toDisplay }) => (
   <div className={styles.productsContainer}>

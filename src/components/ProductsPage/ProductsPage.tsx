@@ -4,7 +4,7 @@ import Button from '../Button/Button';
 import Sidebar from '../Sidebar/Sidebar';
 import ProductsContainer from '../ProductsContainer/ProductsContainer';
 import styles from './style.module.css';
-import { AppStateType, ProductType } from '../../interface/intefaces';
+import { AppStateType, ProductType } from '../../interfaces/intefaces';
 import { setProduct } from '../../redux/slices/allProductsSlice';
 import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';
 

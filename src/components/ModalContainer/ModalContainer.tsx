@@ -5,7 +5,7 @@ import ModalLogin from '../ModalLogin/ModalLogin';
 import ModalRegister from '../ModalRegister/ModalRegister';
 import ModalProduct from '../ModalProduct/ModalProduct';
 import useScreenWidth from '../../hooks/useScreenWidth';
-import { AppStateType } from '../../interface/intefaces';
+import { AppStateType } from '../../interfaces/intefaces';
 import { getModalTitle } from '../../helpers/utils';
 import { setModalOpen } from '../../redux/slices/modalContentSlice';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './style.module.css';
-import { LikedItemProps } from '../../interface/intefaces';
+import { LikedItemProps } from '../../interfaces/intefaces';
 import Heart from '../../../public/likedRed.svg';
 
 const LikedItem: React.FC<LikedItemProps> = ({ image, title }) => (

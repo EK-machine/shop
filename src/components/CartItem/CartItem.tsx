@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './style.module.css';
-import { CartItemProps } from '../../interface/intefaces';
+import { CartItemProps } from '../../interfaces/intefaces';
 
 const CartItem: React.FC<CartItemProps> = ({ image, title, quantity, price }) => (
   <div className={styles.cartItem}>

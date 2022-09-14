@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import styles from './style.module.css';
 import { validateLoginRegister } from '../../helpers/validations';
 import endpoints from '../../api/endpoints';
-import { AppStateType, FormErrors, ModalRegisterLogin, UserProfile } from '../../interface/intefaces';
+import { AppStateType, FormErrors, ModalRegisterLogin, UserProfile } from '../../interfaces/intefaces';
 import { isLogged, isLoading } from '../../redux/slices/commonStateSlice';
 import { setModalOpen } from '../../redux/slices/modalContentSlice';
 import { setUser } from '../../redux/slices/userProfileSlice';

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './style.module.css';
-import { StarRateProps } from '../../interface/intefaces';
+import { StarRateProps } from '../../interfaces/intefaces';
 
 const StarRate: React.FC<StarRateProps> = ({ rating }) => (
   <div className={styles.starContainer}>

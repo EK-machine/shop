@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import CloseImg from '../../../public/closeIcon.svg';
-import { AppStateType, ModalProps } from '../../interface/intefaces';
+import { AppStateType, ModalProps } from '../../interfaces/intefaces';
 import styles from './style.module.css';
 import Button from '../Button/Button';
 
