@@ -1,8 +1,18 @@
 .likeItem {
-  max-width: 100%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  margin-bottom: 10px;
+}
+
+.likeItem:hover {
+  box-shadow: 4px 4px 10px 10px rgba(0, 0, 0, 0.08);
 }
 
 .itemTitle {
@@ -29,10 +39,20 @@
 
 .likeItemImgWrapper {
   border: 1px solid #d75a4a;
+  box-sizing: border-box;
 }
 
 .heartWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
+  cursor: pointer;
+}
+
+.heartWrapper:hover {
+  border: 1px solid #d75a4a;
+  box-sizing: border-box;
 }
 
 .likeItemImg {
@@ -55,5 +75,4 @@
   color: #333;
   margin: 0;
   text-transform: capitalize;
-  margin-bottom: 12px;
 }

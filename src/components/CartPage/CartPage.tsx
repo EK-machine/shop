@@ -3,6 +3,7 @@ import styles from './style.module.css';
 import Sidebar from '../Sidebar/Sidebar';
 import Cart from '../Cart/Cart';
 import Liked from '../Liked/Liked';
+import Orders from '../Orders/Orders';
 
 const CartPage: React.FC = () => {
   const [cartPcontent, setCartPContent] = useState<string>('cart');
@@ -26,13 +27,13 @@ const CartPage: React.FC = () => {
   return (
     <div className={styles.cartContainer}>
       <div className={styles.cartContent}>
-        <h1 className={styles.cartHeading}>Cart Page</h1>
+        <h1 className={styles.cartHeading}>Your cart</h1>
         <div className={styles.cartMain}>
           <Sidebar cart filterByCategory={setContent} active={active} />
           <div className={styles.cartMainContent}>
             {cartPcontent === 'cart' && <Cart />}
             {cartPcontent === 'liked' && <Liked />}
-            {cartPcontent === 'orders' && <div>orders</div>}
+            {cartPcontent === 'orders' && <Orders />}
           </div>
         </div>
       </div>

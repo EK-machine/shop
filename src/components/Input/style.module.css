@@ -2,6 +2,10 @@
   margin-bottom: 42px;
 }
 
+.dateContainer {
+  margin-bottom: 0;
+}
+
 .smallmargin {
   margin-bottom: 10px;
 }
@@ -18,7 +22,8 @@
   margin: 10px 0;
 }
 
-.label {
+.label,
+.dateLabel {
   font-family: sans-serif;
   font-style: normal;
   font-weight: 350;
@@ -32,7 +37,13 @@
   position: relative;
 }
 
-.labelunset {
+.dateLabel {
+  min-width: 120px;
+  margin: 0 14px 0 0;
+}
+
+.labelunset,
+.dateLabelunset {
   position: absolute;
   right: -10px;
   bottom: -5px;
@@ -41,11 +52,25 @@
   line-height: 22px;
 }
 
-.input {
+.dateLabelunset {
+  right: -5px;
+}
+
+.input,
+.dateInput {
   height: 42px;
   border: 1px solid #d8d8d8;
   border-radius: 4px;
   color: #333333;
   width: 100%;
   background-color: transparent;
+}
+
+.dateInput {
+  width: unset;
+}
+
+.dateWrapper {
+  display: flex;
+  align-items: center;
 }
