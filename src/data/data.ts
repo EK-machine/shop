@@ -6,12 +6,18 @@ import electronicIcon from '../../public/electronic.svg';
 import cartIcon from '../../public/cart.svg';
 import likeIcon from '../../public/liked.svg';
 import cardIcon from '../../public/creditCard.svg';
+import loginIcon from '../../public/login.svg';
+import passIcon from '../../public/password.svg';
+import avaIcon from '../../public/avatar.svg';
+import refresharrows from '../../public/refresharrows.svg';
 
 export const categoryIcons = [allIcon, manIcon, jewlryIcon, electronicIcon, womanIcon];
 
 export const base = '/';
+export const settings = 'settings';
 export const cart = 'cart';
 export const reviews = 'reviews';
+export const reviewsmore = 'reviewsmore';
 export const notFound = '*';
 
 export const navigationLinks = [
@@ -99,3 +105,21 @@ export const cartSideData = [
     icon: cardIcon,
   },
 ];
+
+export const setSideData = [
+  {
+    copy: 'login',
+    icon: loginIcon,
+  },
+  {
+    copy: 'password',
+    icon: passIcon,
+  },
+  {
+    copy: 'avatar',
+    icon: avaIcon,
+  },
+];
+
+export const newAva = avaIcon;
+export const change = refresharrows;

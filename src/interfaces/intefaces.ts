@@ -1,10 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Dispatch } from 'redux';
 
-export interface HeaderProps {
-  bottomShadow?: boolean;
-}
-
 export interface ProductType {
   id: number;
   title: string;
@@ -16,6 +12,11 @@ export interface ProductType {
     rate: number;
     count: number;
   };
+}
+
+export interface LayoutProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  children: any;
 }
 
 export interface MostSliderProps {
@@ -147,11 +148,13 @@ export interface InputProps {
   value: string | ProductType[];
   setValue?: React.Dispatch<React.SetStateAction<string>>;
   required?: boolean;
+  requiredMark?: boolean;
   error?: FormErrors;
   setError?: React.Dispatch<React.SetStateAction<FormErrors>>;
   addData?: string;
+  placeholder?: string;
   addSetData?: React.Dispatch<React.SetStateAction<string>>;
-  modalContent?: string;
+  content?: string;
 }
 
 export interface StarRateProps {
@@ -163,6 +166,7 @@ export interface SidebarProps {
   categories?: string[];
   products?: boolean;
   cart?: boolean;
+  settings?: boolean;
   active?: number;
 }
 
@@ -194,6 +198,9 @@ export interface AppStateType {
   common: {
     loading: boolean;
     logged: boolean;
+  };
+  heading: {
+    heading: string;
   };
   user: {
     login: string;

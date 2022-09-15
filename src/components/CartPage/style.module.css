@@ -1,39 +1,10 @@
-.cartContainer {
-  max-width: 100%;
-}
-
-.cartContent {
-  max-width: 1230px;
-  margin: 0 auto;
-  padding: 24px 0;
-}
-
-.cartHeading {
-  font-family: sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 26px;
-  letter-spacing: 2px;
-  line-height: 30px;
-  margin: 0;
-  text-align: center;
-  text-transform: initial;
-  opacity: 0.8;
-  margin: 0 0 24px 0;
-}
-
-.cartMain {
-  display: flex;
-  justify-content: space-between;
-}
-
 .cartMainContent {
   box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
   border-radius: 3px;
   padding: 24px;
   width: 100%;
   max-width: 968px;
-  max-height: calc(100vh - 235px);
   overflow: hidden;
   overflow-y: scroll;
+  height: calc(100vh - 210px);
 }

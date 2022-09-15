@@ -9,6 +9,7 @@ import endpoints from '../../api/endpoints';
 import { AppStateType, FormErrors, ModalRegisterLogin } from '../../interfaces/intefaces';
 import { isLogged, isLoading } from '../../redux/slices/commonStateSlice';
 import { setModalOpen } from '../../redux/slices/modalContentSlice';
+import { setHeading } from '../../redux/slices/headingSlice';
 
 const ModalRegister: React.FC<ModalRegisterLogin> = ({ text }) => {
   const [login, setLogin] = useState<string>('');
@@ -45,6 +46,7 @@ const ModalRegister: React.FC<ModalRegisterLogin> = ({ text }) => {
       });
       history.push('/products');
       dispatch(isLogged(true));
+      dispatch(setHeading('All products'));
       dispatch(isLoading(false));
       dispatch(setModalOpen(false));
     } else {
@@ -61,28 +63,31 @@ const ModalRegister: React.FC<ModalRegisterLogin> = ({ text }) => {
           value={login}
           title="login"
           required
+          requiredMark
           forId="login"
           setValue={setLogin}
           error={errors}
           setError={setErrors}
           type="text"
-          modalContent={modalContent}
+          content={modalContent}
         />
         <Input
           value={password}
           title="password"
           required
+          requiredMark
           forId="password"
           setValue={setPassword}
           error={errors}
           setError={setErrors}
           type="text"
-          modalContent={modalContent}
+          content={modalContent}
         />
         <Input
           value={repeatpassword}
           title="repeat password"
           required
+          requiredMark
           forId="repeatpassword"
           setValue={setRepeatPassword}
           error={errors}
@@ -90,7 +95,7 @@ const ModalRegister: React.FC<ModalRegisterLogin> = ({ text }) => {
           type="text"
           addData={password}
           addSetData={setRepeatPassword}
-          modalContent={modalContent}
+          content={modalContent}
         />
       </div>
 

@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Layout from '../Layout/Layout';
 import Button from '../Button/Button';
 import Sidebar from '../Sidebar/Sidebar';
 import ProductsContainer from '../ProductsContainer/ProductsContainer';
 import styles from './style.module.css';
+import '../../common.css';
 import { AppStateType, ProductType } from '../../interfaces/intefaces';
 import { setProduct } from '../../redux/slices/allProductsSlice';
 import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';
+import { setHeading } from '../../redux/slices/headingSlice';
+import { setTitle } from '../../helpers/utils';
 
 const ProductsPage: React.FC = () => {
   const products = useSelector((state: AppStateType) => state.products.products);
@@ -24,6 +28,7 @@ const ProductsPage: React.FC = () => {
   };
 
   const filterByCategory = (title: string) => {
+    dispatch(setHeading(setTitle(title)));
     if (title === 'all products') {
       setToDisplay(products);
       setActive(0);
@@ -65,18 +70,21 @@ const ProductsPage: React.FC = () => {
     mostPurchased();
   }, [toDisplay]);
 
+  useEffect(() => {
+    dispatch(setHeading('All products'));
+  }, []);
+
   return (
-    <div className={styles.productsPageContainer}>
-      <p className={styles.heading}>Our products</p>
-      <div className={styles.mainContent}>
-        <Sidebar products active={active} filterByCategory={filterByCategory} categories={categories} />
-        <div className={styles.btnProdsContainer}>
-          <div className={styles.btnContainer}>
-            <div>
-              <p className={styles.preBtnText}>
-                Most popular: <span className={styles.span}>{most.rating.count}</span> purchases!
-              </p>
-            </div>
+    <Layout>
+      <Sidebar products active={active} filterByCategory={filterByCategory} categories={categories} />
+      <div className="contentBlock">
+        <div className={styles.btnContainer}>
+          <div className={styles.popular}>
+            <p className={styles.preBtnText}>
+              Most popular: <span className={styles.span}>{most.rating.count}</span> purchases!
+            </p>
+          </div>
+          <div className={styles.btn}>
             <Button
               product
               text={most.title}
@@ -86,10 +94,10 @@ const ProductsPage: React.FC = () => {
               onClick={openModal}
             />
           </div>
-          <ProductsContainer toDisplay={toDisplay} />
         </div>
+        <ProductsContainer toDisplay={toDisplay} />
       </div>
-    </div>
+    </Layout>
   );
 };
 

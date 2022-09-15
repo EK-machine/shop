@@ -10,6 +10,7 @@ import { AppStateType, FormErrors, ModalRegisterLogin, UserProfile } from '../..
 import { isLogged, isLoading } from '../../redux/slices/commonStateSlice';
 import { setModalOpen } from '../../redux/slices/modalContentSlice';
 import { setUser } from '../../redux/slices/userProfileSlice';
+import { setHeading } from '../../redux/slices/headingSlice';
 
 const ModalLogin: React.FC<ModalRegisterLogin> = ({ text }) => {
   const [login, setLogin] = useState<string>('');
@@ -36,6 +37,7 @@ const ModalLogin: React.FC<ModalRegisterLogin> = ({ text }) => {
         history.push('/cart');
         dispatch(setUser(users));
         dispatch(isLogged(true));
+        dispatch(setHeading('Your cart'));
         dispatch(isLoading(false));
         dispatch(setModalOpen(false));
       }
@@ -53,23 +55,25 @@ const ModalLogin: React.FC<ModalRegisterLogin> = ({ text }) => {
           value={login}
           title="login"
           required
+          requiredMark
           forId="login"
           setValue={setLogin}
           error={errors}
           setError={setErrors}
           type="text"
-          modalContent={modalContent}
+          content={modalContent}
         />
         <Input
           value={password}
           title="password"
           required
+          requiredMark
           forId="password"
           setValue={setPassword}
           error={errors}
           setError={setErrors}
           type="text"
-          modalContent={modalContent}
+          content={modalContent}
         />
       </div>
       <div className={styles.btnsContainer}>

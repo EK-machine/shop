@@ -6,7 +6,7 @@ import { disablePastDates } from '../../helpers/utils';
 
 const Input: React.FC<InputProps> = (props) => {
   const blurFormHandler: FocusEventHandler<HTMLInputElement> = async () => {
-    if (props.modalContent && props.modalContent === 'register') {
+    if (props.content && props.content === 'register') {
       if (props.setError && props.required) {
         const validObj: { isValid: boolean; err: string; id: string } | undefined = await validateRegisterInput(
           props.value as string,
@@ -17,7 +17,7 @@ const Input: React.FC<InputProps> = (props) => {
         validObj && props.setError({ ...props.error, [props.forId]: validObj.err });
       }
     }
-    if (props.modalContent && props.modalContent === 'login') {
+    if (props.content && props.content === 'login') {
       if (props.setError && props.required) {
         const validObj: { isValid: boolean; err: string; id: string } | undefined = await validateLoginInput(
           props.value as string,
@@ -47,11 +47,11 @@ const Input: React.FC<InputProps> = (props) => {
           : ''
       }`}
     >
-      {props.type === 'text' && (
+      {(props.forId === 'login' || props.forId === 'password' || props.forId === 'repeatpassword') && (
         <>
           <label htmlFor={props.forId} className={styles.label}>
             {props.title}
-            {props.required && <span className={styles.labelunset}>*</span>}
+            {props.requiredMark && <span className={styles.labelunset}>*</span>}
           </label>
           <input
             name={props.forId}
@@ -72,7 +72,26 @@ const Input: React.FC<InputProps> = (props) => {
           )}
         </>
       )}
-      {props.type === 'date' && (
+      {props.forId === 'avatar' && (
+        <>
+          <label htmlFor={props.forId} className={styles.label}>
+            {props.title}
+          </label>
+          <input
+            name={props.forId}
+            id={props.forId}
+            type={props.type}
+            value={props.value as string}
+            placeholder={props.placeholder && props.placeholder}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              props.setValue && props.setValue(e.target?.value as SetStateAction<string>)
+            }
+            autoComplete="off"
+            className={styles.input}
+          />
+        </>
+      )}
+      {props.forId === 'date' && (
         <div className={styles.dateWrapper}>
           <label htmlFor={props.forId} className={styles.dateLabel}>
             {props.title}
