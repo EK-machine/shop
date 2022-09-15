@@ -1,13 +1,13 @@
 import React from 'react';
-import styles from './style.module.css';
-import { categoryIcons, cartSideData } from '../../data/data';
+import { categoryIcons, cartSideData, setSideData } from '../../data/data';
 import Button from '../Button/Button';
 import { SidebarProps } from '../../interfaces/intefaces';
+import '../../common.css';
 
-const Sidebar: React.FC<SidebarProps> = ({ filterByCategory, categories, products, cart, active }) => (
-  <>
+const Sidebar: React.FC<SidebarProps> = ({ filterByCategory, categories, products, settings, cart, active }) => (
+  <div className="sidebar">
     {products && (
-      <div className={styles.productsSidebar}>
+      <>
         {categories &&
           categories.length > 0 &&
           categories.map((categ, i) => (
@@ -21,10 +21,10 @@ const Sidebar: React.FC<SidebarProps> = ({ filterByCategory, categories, product
               activeBtn={i === active}
             />
           ))}
-      </div>
+      </>
     )}
     {cart && (
-      <div className={styles.cartSidebar}>
+      <>
         {cartSideData.map((data, i) => (
           <Button
             key={data.copy}
@@ -36,9 +36,24 @@ const Sidebar: React.FC<SidebarProps> = ({ filterByCategory, categories, product
             activeBtn={i === active}
           />
         ))}
-      </div>
+      </>
     )}
-  </>
+    {settings && (
+      <>
+        {setSideData.map((data, i) => (
+          <Button
+            key={data.copy}
+            cartSide
+            type="button"
+            image={data.icon}
+            text={data.copy}
+            addAction={filterByCategory}
+            activeBtn={i === active}
+          />
+        ))}
+      </>
+    )}
+  </div>
 );
 
 export default Sidebar;

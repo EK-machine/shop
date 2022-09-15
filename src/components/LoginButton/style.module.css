@@ -10,6 +10,7 @@
   cursor: pointer;
   height: 44px;
   background-color: #333;
+  z-index: 20;
 }
 
 .loginIcon {
@@ -52,4 +53,30 @@
   flex-direction: column;
   justify-content: center;
   padding-bottom: 16px;
+}
+
+.link {
+  background: transparent;
+  height: 48px;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+  text-decoration: none;
+}
+
+.link:hover,
+.link:focus {
+  border-bottom: 2px dashed #333;
 }

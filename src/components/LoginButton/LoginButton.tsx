@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import Button from '../Button/Button';
 import styles from './style.module.css';
 import Profile from '../../../public/profile.svg';
@@ -8,6 +8,7 @@ import { setModalRegister, setModalLogin, setModalOpen } from '../../redux/slice
 import { isLogged } from '../../redux/slices/commonStateSlice';
 import { unsetUser } from '../../redux/slices/userProfileSlice';
 import { AppStateType } from '../../interfaces/intefaces';
+import { base, settings } from '../../data/data';
 
 const LoginButton: React.FC = () => {
   const logged = useSelector((state: AppStateType) => state.common.logged);
@@ -37,7 +38,9 @@ const LoginButton: React.FC = () => {
       <div className={styles.loginBtnsWrapper}>
         {logged ? (
           <>
-            <Button usual underlined type="button" text="settings" onClick={() => console.log('settings')} />
+            <NavLink className={styles.link} to={base + settings}>
+              settings
+            </NavLink>
             <Button usual underlined type="button" text="log out" onClick={logOut} />
           </>
         ) : (

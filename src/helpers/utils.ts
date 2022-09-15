@@ -30,3 +30,40 @@ export const disablePastDates = () => {
   const yyyy = today.getFullYear();
   return `${yyyy}-${mm}-${dd}`;
 };
+
+export const setTitle = (val: string) => {
+  if (val.toLocaleLowerCase() === `men's clothing`) {
+    return 'Products for men';
+  }
+  if (val.toLocaleLowerCase() === `jewelry`) {
+    return 'Jewelry products';
+  }
+  if (val.toLocaleLowerCase() === `electronics`) {
+    return 'Electronics products';
+  }
+  if (val.toLocaleLowerCase() === `women's clothing`) {
+    return 'Products for women';
+  }
+  if (val.toLocaleLowerCase() === 'all products') {
+    return 'All products';
+  }
+  if (val.toLocaleLowerCase() === 'your cart') {
+    return 'Your cart';
+  }
+  if (val.toLocaleLowerCase() === 'liked') {
+    return 'Products you like';
+  }
+  if (val.toLocaleLowerCase() === 'your orders') {
+    return 'Your orders';
+  }
+  if (val.toLocaleLowerCase() === 'login') {
+    return 'Change your login';
+  }
+  if (val.toLocaleLowerCase() === 'password') {
+    return 'Change your password';
+  }
+  if (val.toLocaleLowerCase() === 'avatar') {
+    return 'Change your avatar';
+  }
+  return '';
+};

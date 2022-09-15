@@ -1,0 +1,24 @@
+.contentBlock {
+  box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
+  border-radius: 3px;
+  padding: 24px;
+  width: 100%;
+  max-width: 968px;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: calc(100vh - 210px);
+}
+
+.sidebar {
+  background-color: #fff;
+  min-width: 134px;
+  width: 100%;
+  max-width: 198px;
+  box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
+  border-radius: 3px;
+  display: inline-block;
+  margin: 0 24px 0 0;
+  padding: 24px 0;
+  height: calc(100vh - 210px);
+  overflow: hidden;
+}
