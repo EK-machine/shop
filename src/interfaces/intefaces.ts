@@ -1,6 +1,11 @@
 import React, { ReactNode } from 'react';
 import { Dispatch } from 'redux';
 
+export interface InfoBannerProps {
+  successM: string;
+  errorM: string;
+}
+
 export interface ProductType {
   id: number;
   title: string;
@@ -194,6 +199,13 @@ export interface CartItemProps extends LikedItemProps {
   price: number;
 }
 
+export interface usersState {
+  users: UserProfile[];
+  userError: string;
+  createUserError: string;
+  user: UserProfile;
+}
+
 export interface AppStateType {
   common: {
     loading: boolean;
@@ -202,16 +214,7 @@ export interface AppStateType {
   heading: {
     heading: string;
   };
-  user: {
-    login: string;
-    password: string;
-    role: string;
-    id: number;
-    imgUrl: string;
-    cart: UserCartItem[];
-    orders: UserOrder[];
-    liked: UserLikedItem[];
-  };
+  user: usersState;
   modal: {
     content: string;
     isOpen: boolean;

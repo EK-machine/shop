@@ -5,11 +5,11 @@ import Input from '../Input/Input';
 import Button from '../Button/Button';
 import styles from './style.module.css';
 import { validateLoginRegister } from '../../helpers/validations';
-import endpoints from '../../api/endpoints';
-import { AppStateType, FormErrors, ModalRegisterLogin, UserProfile } from '../../interfaces/intefaces';
+// import endpoints from '../../api/endpoints';
+import { AppStateType, FormErrors, ModalRegisterLogin } from '../../interfaces/intefaces';
 import { isLogged, isLoading } from '../../redux/slices/commonStateSlice';
 import { setModalOpen } from '../../redux/slices/modalContentSlice';
-import { setUser } from '../../redux/slices/userProfileSlice';
+import { setUser } from '../../redux/slices/userSlice';
 import { setHeading } from '../../redux/slices/headingSlice';
 
 const ModalLogin: React.FC<ModalRegisterLogin> = ({ text }) => {
@@ -17,6 +17,7 @@ const ModalLogin: React.FC<ModalRegisterLogin> = ({ text }) => {
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<FormErrors>({});
   const modalContent = useSelector((state: AppStateType) => state.modal.content);
+  const users = useSelector((state: AppStateType) => state.user.users);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -28,14 +29,11 @@ const ModalLogin: React.FC<ModalRegisterLogin> = ({ text }) => {
     const formValid = await validateLoginRegister(validations, modalContent);
 
     if (formValid === true) {
-      const users: UserProfile = await fetch(endpoints.getUsers)
-        .then((all) => all.json())
-        .then((registered) =>
-          registered.find((user: UserProfile) => user.login === login && user.password === password),
-        );
-      if (Object.keys(users).length > 0) {
+      const user = users.find((person) => person.login === login && person.password === password);
+
+      if (user && Object.keys(user).length > 0) {
         history.push('/cart');
-        dispatch(setUser(users));
+        dispatch(setUser(user));
         dispatch(isLogged(true));
         dispatch(setHeading('Your cart'));
         dispatch(isLoading(false));

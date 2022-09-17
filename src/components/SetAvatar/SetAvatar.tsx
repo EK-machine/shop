@@ -9,7 +9,7 @@ import { newAva, change } from '../../data/data';
 const SetAvatar: React.FC = () => {
   const [newImg, setNewImg] = useState<string>('');
   const [initNewImg, setInitNewImg] = useState<string>('');
-  const avatar = useSelector((state: AppStateType) => state.user.imgUrl);
+  const avatar = useSelector((state: AppStateType) => state.user.user.imgUrl);
 
   const submitChange = () => {
     console.log('saved');

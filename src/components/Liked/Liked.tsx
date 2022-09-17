@@ -12,7 +12,7 @@ const Liked: React.FC = () => {
   const [prodCategs, setProdCategs] = useState<ProductType[][]>([]);
   const [most, setMost] = useState<ProductType[]>([]);
   const products = useSelector((state: AppStateType) => state.products.products);
-  const likedProducts = useSelector((state: AppStateType) => state.user.liked);
+  const likedProducts = useSelector((state: AppStateType) => state.user.user.liked);
   const dispatch = useDispatch();
 
   const setCategs = (data: ProductType[]) => {

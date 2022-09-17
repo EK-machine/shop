@@ -12,7 +12,7 @@ import useOutsideClick from '../../hooks/useOutsideClick';
 const Cart: React.FC = () => {
   const [isDateSetter, setIsDateSetter] = useState<boolean>(false);
   const [date, setDate] = useState<string>('');
-  const userCart = useSelector((state: AppStateType) => state.user.cart);
+  const userCart = useSelector((state: AppStateType) => state.user.user.cart);
   const products = useSelector((state: AppStateType) => state.products.products);
   const dispatch = useDispatch();
   const cartRef = useRef(null);
