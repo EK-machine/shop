@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalContentWrapper from '../ModalContentWrapper/ModalContentWrapper';
 import ModalLogin from '../ModalLogin/ModalLogin';
@@ -8,6 +8,7 @@ import useScreenWidth from '../../hooks/useScreenWidth';
 import { AppStateType } from '../../interfaces/intefaces';
 import { getModalTitle } from '../../helpers/utils';
 import { setModalOpen } from '../../redux/slices/modalContentSlice';
+import { getUsersRequest, unsetUsers } from '../../redux/slices/userSlice';
 
 const ModalContainer: React.FC = () => {
   const logged = useSelector((state: AppStateType) => state.common.logged);
@@ -18,7 +19,16 @@ const ModalContainer: React.FC = () => {
   const isMobile: boolean = useScreenWidth() < 768;
   const toggleModal = (value: boolean) => () => {
     dispatch(setModalOpen(value));
+    if (!value) {
+      dispatch(unsetUsers());
+    }
   };
+
+  useEffect(() => {
+    if (!logged && modalIsOpen && (modalContent === 'login' || modalContent === 'register')) {
+      dispatch(getUsersRequest());
+    }
+  }, [logged, modalContent, modalIsOpen]);
 
   return (
     <>

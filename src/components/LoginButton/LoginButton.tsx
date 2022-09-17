@@ -6,13 +6,13 @@ import styles from './style.module.css';
 import Profile from '../../../public/profile.svg';
 import { setModalRegister, setModalLogin, setModalOpen } from '../../redux/slices/modalContentSlice';
 import { isLogged } from '../../redux/slices/commonStateSlice';
-import { unsetUser } from '../../redux/slices/userProfileSlice';
+import { unsetUser } from '../../redux/slices/userSlice';
 import { AppStateType } from '../../interfaces/intefaces';
 import { base, settings } from '../../data/data';
 
 const LoginButton: React.FC = () => {
   const logged = useSelector((state: AppStateType) => state.common.logged);
-  const userImg = useSelector((state: AppStateType) => state.user.imgUrl);
+  const userImg = useSelector((state: AppStateType) => logged && state.user.user.imgUrl);
   const dispatch = useDispatch();
   const history = useHistory();
 

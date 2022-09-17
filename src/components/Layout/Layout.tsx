@@ -6,6 +6,7 @@ import styles from './style.module.css';
 import { apiGetProducts } from '../../api/apis';
 import { setAllProducts } from '../../redux/slices/allProductsSlice';
 import ModalContainer from '../ModalContainer/ModalContainer';
+// import InfoBanner from '../InfoBanner/InfoBanner';
 import { LayoutProps } from '../../interfaces/intefaces';
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
@@ -38,6 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className={styles.mainContainer}>
+      {/* <InfoBanner /> */}
       <Header />
       <div className={`${styles.mainContent} ${styling ? styles.mainContentReviews : ''}`}>{children}</div>
       <ModalContainer />

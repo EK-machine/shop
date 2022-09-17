@@ -8,8 +8,8 @@ import { setProduct } from '../../redux/slices/allProductsSlice';
 
 const ProductCard: React.FC<ProductType> = ({ title, price, category, image }) => {
   const [inCart, setInCart] = useState<boolean>(false);
-  const userCart = useSelector((state: AppStateType) => state.user.cart);
   const logged = useSelector((state: AppStateType) => state.common.logged);
+  const userCart = useSelector((state: AppStateType) => logged && state.user.user.cart);
   const products = useSelector((state: AppStateType) => state.products.products);
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image }) =
   };
 
   const productInCart = (val: string) => {
-    if (userCart.length > 0) {
+    if (userCart && userCart.length > 0) {
       const inside = userCart.find((item) => item.title === val);
       if (inside && Object.keys(inside).length > 0) {
         setInCart(true);

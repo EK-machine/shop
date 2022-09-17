@@ -5,7 +5,7 @@ import OrderItem from '../OrderItem/OrderItem';
 import { AppStateType } from '../../interfaces/intefaces';
 
 const Orders: React.FC = () => {
-  const orders = useSelector((state: AppStateType) => state.user.orders);
+  const orders = useSelector((state: AppStateType) => state.user.user.orders);
   return (
     <div className={styles.cart}>
       {orders.map((item, i) => (
