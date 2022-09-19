@@ -1,21 +1,16 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserProfile, usersState } from '../../interfaces/intefaces';
+import { UserProfile, UsersState } from '../../interfaces/intefaces';
 
-const initialState: usersState = {
+const initialState: UsersState = {
   users: [],
   userError: '',
   createUserError: '',
-  user: {
-    login: '',
-    password: '',
-    role: '',
-    id: 0,
-    imgUrl: '',
-    cart: [],
-    orders: [],
-    liked: [],
-  },
+  user: {} as UserProfile,
+  userRequest: {} as UserProfile,
+  avatarRequest: {} as { id: number; imgUrl: string },
+  loginRequest: {} as { id: number; login: string },
+  passwordRequest: {} as { id: number; password: string },
 };
 
 const userSlice = createSlice({
@@ -40,29 +35,48 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<UserProfile>) => {
       state.user = action.payload;
     },
-    setUserLogin: (state, action: PayloadAction<string>) => {
-      state.user.login = action.payload;
-    },
-    setUserPassword: (state, action: PayloadAction<string>) => {
-      state.user.password = action.payload;
-    },
-    setUserAvatar: (state, action: PayloadAction<string>) => {
-      state.user.imgUrl = action.payload;
-    },
     unsetUser: (state) => {
       state.users = initialState.users;
       state.userError = initialState.userError;
       state.user = initialState.user;
     },
-    createUserRequest: (state) => {
-      state.users = initialState.users;
+    createUserRequest: (state, action: PayloadAction<UserProfile>) => {
+      state.userRequest = action.payload;
     },
-    createUserSuccess: (state, action: PayloadAction<{ users: UserProfile[]; newUser: UserProfile }>) => {
-      state.users = action.payload.users;
-      state.user = action.payload.newUser;
+    createUserSuccess: (state, action: PayloadAction<UserProfile>) => {
+      state.userRequest = initialState.userRequest;
+      state.user = action.payload;
     },
     createUserFailed: (state, action: PayloadAction<string>) => {
+      state.userRequest = initialState.userRequest;
       state.createUserError = action.payload;
+    },
+    setAvatarRequest: (state, action: PayloadAction<{ id: number; imgUrl: string }>) => {
+      state.avatarRequest = action.payload;
+    },
+    setAvatarSuccess: (state, action: PayloadAction<{ imgUrl: string }>) => {
+      state.user.imgUrl = action.payload.imgUrl;
+    },
+    setAvatarFailed: (state, action: PayloadAction<string>) => {
+      state.userError = action.payload;
+    },
+    setLoginRequest: (state, action: PayloadAction<{ id: number; login: string }>) => {
+      state.loginRequest = action.payload;
+    },
+    setLoginSuccess: (state, action: PayloadAction<{ login: string }>) => {
+      state.user.login = action.payload.login;
+    },
+    setLoginFailed: (state, action: PayloadAction<string>) => {
+      state.userError = action.payload;
+    },
+    setPasswordRequest: (state, action: PayloadAction<{ id: number; password: string }>) => {
+      state.passwordRequest = action.payload;
+    },
+    setPasswordSuccess: (state, action: PayloadAction<{ password: string }>) => {
+      state.user.password = action.payload.password;
+    },
+    setPasswordFailed: (state, action: PayloadAction<string>) => {
+      state.userError = action.payload;
     },
   },
 });
@@ -74,13 +88,19 @@ export const {
   setUsers,
   unsetUsers,
   setUser,
-  setUserLogin,
-  setUserPassword,
-  setUserAvatar,
   unsetUser,
   createUserRequest,
   createUserSuccess,
   createUserFailed,
+  setAvatarRequest,
+  setAvatarSuccess,
+  setAvatarFailed,
+  setLoginRequest,
+  setLoginSuccess,
+  setLoginFailed,
+  setPasswordRequest,
+  setPasswordSuccess,
+  setPasswordFailed,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -31,7 +31,7 @@ export const disablePastDates = () => {
   return `${yyyy}-${mm}-${dd}`;
 };
 
-export const setTitle = (val: string) => {
+export const setTitle = (val: string, add?: boolean) => {
   if (val.toLocaleLowerCase() === `men's clothing`) {
     return 'Products for men';
   }
@@ -62,8 +62,11 @@ export const setTitle = (val: string) => {
   if (val.toLocaleLowerCase() === 'password') {
     return 'Change your password';
   }
-  if (val.toLocaleLowerCase() === 'avatar') {
+  if (val.toLocaleLowerCase() === 'avatar' && add) {
     return 'Change your avatar';
+  }
+  if (val.toLocaleLowerCase() === 'avatar' && !add) {
+    return 'Set your avatar';
   }
   return '';
 };
