@@ -108,16 +108,16 @@ export const cartSideData = [
 
 export const setSideData = [
   {
+    copy: 'avatar',
+    icon: avaIcon,
+  },
+  {
     copy: 'login',
     icon: loginIcon,
   },
   {
     copy: 'password',
     icon: passIcon,
-  },
-  {
-    copy: 'avatar',
-    icon: avaIcon,
   },
 ];
 

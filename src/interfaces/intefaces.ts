@@ -199,11 +199,15 @@ export interface CartItemProps extends LikedItemProps {
   price: number;
 }
 
-export interface usersState {
+export interface UsersState {
   users: UserProfile[];
   userError: string;
   createUserError: string;
   user: UserProfile;
+  userRequest: UserProfile;
+  avatarRequest: { id: number; imgUrl: string };
+  loginRequest: { id: number; login: string };
+  passwordRequest: { id: number; password: string };
 }
 
 export interface AppStateType {
@@ -214,7 +218,7 @@ export interface AppStateType {
   heading: {
     heading: string;
   };
-  user: usersState;
+  user: UsersState;
   modal: {
     content: string;
     isOpen: boolean;

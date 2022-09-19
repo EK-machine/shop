@@ -19,6 +19,7 @@ export enum HTTPMethods {
   POST = 'POST',
   PUT = 'PUT',
   DELETE = 'DELETE',
+  PATCH = 'PATCH',
 }
 
 interface IRequestParams {
@@ -33,10 +34,10 @@ function apiService<T>(url: string, method: HTTPMethods, body?: unknown | null, 
   const requestParams: IRequestParams = {
     method,
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
     },
   };
-  if (method === HTTPMethods.POST || method === HTTPMethods.PUT) {
+  if (method === HTTPMethods.POST || method === HTTPMethods.PUT || method === HTTPMethods.PATCH) {
     requestParams.body = JSON.stringify(body);
   }
   return fetch(url, {
@@ -85,6 +86,12 @@ const httpService = {
 
   post: <T>(url: string, body?: unknown, hideError?: boolean): Promise<T> =>
     apiService(url, HTTPMethods.POST, body, hideError),
+
+  put: <T>(url: string, body?: unknown, hideError?: boolean): Promise<T> =>
+    apiService(url, HTTPMethods.PUT, body, hideError),
+
+  patch: <T>(url: string, body: unknown, hideError?: boolean): Promise<T> =>
+    apiService(url, HTTPMethods.PATCH, body, hideError),
 };
 
 export default httpService;

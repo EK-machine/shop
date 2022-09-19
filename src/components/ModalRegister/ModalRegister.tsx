@@ -5,17 +5,17 @@ import Input from '../Input/Input';
 import Button from '../Button/Button';
 import styles from './style.module.css';
 import { validateLoginRegister } from '../../helpers/validations';
-import endpoints from '../../api/endpoints';
 import { AppStateType, FormErrors, ModalRegisterLogin } from '../../interfaces/intefaces';
 import { isLogged, isLoading } from '../../redux/slices/commonStateSlice';
 import { setModalOpen } from '../../redux/slices/modalContentSlice';
-import { setHeading } from '../../redux/slices/headingSlice';
+import { createUserRequest } from '../../redux/slices/userSlice';
 
 const ModalRegister: React.FC<ModalRegisterLogin> = ({ text }) => {
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [repeatpassword, setRepeatPassword] = useState<string>('');
   const [errors, setErrors] = useState<FormErrors>({});
+  const numberOfUsers = useSelector((state: AppStateType) => state.user.users.length);
   const modalContent = useSelector((state: AppStateType) => state.modal.content);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -36,17 +36,11 @@ const ModalRegister: React.FC<ModalRegisterLogin> = ({ text }) => {
         cart: [],
         orders: [],
         liked: [],
+        id: numberOfUsers + 1,
       };
-      await fetch(endpoints.getUsers, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      });
-      history.push('/products');
+      dispatch(createUserRequest(body));
+      history.push('/settings');
       dispatch(isLogged(true));
-      dispatch(setHeading('All products'));
       dispatch(isLoading(false));
       dispatch(setModalOpen(false));
     } else {
@@ -80,7 +74,7 @@ const ModalRegister: React.FC<ModalRegisterLogin> = ({ text }) => {
           setValue={setPassword}
           error={errors}
           setError={setErrors}
-          type="text"
+          type="password"
           content={modalContent}
         />
         <Input
@@ -92,7 +86,7 @@ const ModalRegister: React.FC<ModalRegisterLogin> = ({ text }) => {
           setValue={setRepeatPassword}
           error={errors}
           setError={setErrors}
-          type="text"
+          type="password"
           addData={password}
           addSetData={setRepeatPassword}
           content={modalContent}

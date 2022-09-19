@@ -70,7 +70,7 @@ const ModalLogin: React.FC<ModalRegisterLogin> = ({ text }) => {
           setValue={setPassword}
           error={errors}
           setError={setErrors}
-          type="text"
+          type="password"
           content={modalContent}
         />
       </div>
