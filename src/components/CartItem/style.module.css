@@ -20,7 +20,7 @@
   align-items: center;
   justify-content: flex-start;
   margin-right: 14px;
-  width: 70%;
+  width: 50%;
 }
 
 .cartItemImgWrapper {
@@ -43,8 +43,12 @@
   height: 40px;
 }
 
+.delete {
+  width: 25%;
+}
+
 .priceQuantity {
-  width: 30%;
+  width: 25%;
   height: 50px;
   display: flex;
   align-items: center;
@@ -62,8 +66,8 @@
   font-family: sans-serif;
   font-style: normal;
   font-weight: 300;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: 14px;
+  line-height: 14px;
   text-align: left;
   letter-spacing: 0.5px;
   color: rgb(43, 138, 124);

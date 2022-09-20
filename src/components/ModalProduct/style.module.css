@@ -16,6 +16,13 @@
   text-transform: uppercase;
 }
 
+.textBtn {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
 .title {
   font-family: sans-serif;
   font-style: normal;
@@ -28,7 +35,7 @@
   opacity: 0.8;
   margin: 0;
   text-transform: uppercase;
-  margin-bottom: 24px;
+  margin: 0;
   display: inline-block;
 }
 

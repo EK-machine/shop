@@ -6,7 +6,7 @@
   max-width: 968px;
   overflow: hidden;
   overflow-y: scroll;
-  height: calc(100vh - 210px);
+  height: calc(100vh - 190px);
 }
 
 .sidebar {
@@ -19,6 +19,6 @@
   display: inline-block;
   margin: 0 24px 0 0;
   padding: 24px 0;
-  height: calc(100vh - 210px);
+  height: calc(100vh - 190px);
   overflow: hidden;
 }

@@ -15,6 +15,7 @@ const ModalContentWrapper: React.FC<ModalProps> = ({
   logged,
   modalContent,
   title,
+  addRemove,
   backdropClickToggle = true,
 }) => {
   const [inCart, setInCart] = useState<boolean>(false);
@@ -40,7 +41,7 @@ const ModalContentWrapper: React.FC<ModalProps> = ({
     if (title) {
       productInCart(title);
     }
-  }, [title]);
+  }, [title, userCart]);
 
   return (
     <SwipeableDrawer
@@ -71,9 +72,9 @@ const ModalContentWrapper: React.FC<ModalProps> = ({
       {logged && modalContent === 'product' && (
         <div className={styles.modalBottomWrapper}>
           {inCart ? (
-            <Button usual underlined text="remove from cart" type="button" onClick={() => console.log('removed')} />
+            <Button usual underlined text="remove from cart" type="button" onClick={addRemove} />
           ) : (
-            <Button usual text="add to cart" type="button" onClick={() => console.log('added')} />
+            <Button usual text="add to cart" type="button" onClick={addRemove} />
           )}
         </div>
       )}

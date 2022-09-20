@@ -7,6 +7,7 @@ import MostSlider from '../MostSlider/MostSlider';
 import { setProduct } from '../../redux/slices/allProductsSlice';
 import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';
 import { setLikeRequest, unsetLikeRequest } from '../../redux/slices/userSlice';
+import { setHeading } from '../../redux/slices/headingSlice';
 
 const Liked: React.FC = () => {
   const [categories, setCategories] = useState<string[]>([]);
@@ -101,20 +102,34 @@ const Liked: React.FC = () => {
     getMostPurchasedArr();
   }, [prodCategs]);
 
+  useEffect(() => {
+    if (likedProds && likedProds.length === 0) {
+      dispatch(setHeading('You have no liked products'));
+    } else {
+      dispatch(setHeading('Products You Like'));
+    }
+  }, [likedProds]);
+
   return (
-    <div className={styles.cart}>
-      {likedProds &&
-        likedProds.map((item) => (
-          <LikedItem
-            key={item.title}
-            image={item.image}
-            title={item.title}
-            onClick={openModal}
-            addAction={getSelected}
-            like={like}
-          />
-        ))}
-      <MostSlider products={most} getSelected={getSelected} openModal={openModal} />
+    <div className={styles.liked}>
+      {likedProds && likedProds.length === 0 ? (
+        <MostSlider products={most} getSelected={getSelected} openModal={openModal} />
+      ) : (
+        <>
+          {' '}
+          {likedProds &&
+            likedProds.map((item) => (
+              <LikedItem
+                key={item.title}
+                image={item.image}
+                title={item.title}
+                onClick={openModal}
+                addAction={getSelected}
+                like={like}
+              />
+            ))}
+        </>
+      )}
     </div>
   );
 };

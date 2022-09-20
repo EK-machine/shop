@@ -19,21 +19,7 @@ export interface ProductType {
   };
 }
 
-// export interface UserLikedItem extends ProductType {
-//   liked: boolean;
-// }
-
 export interface UserLikedItem extends ProductType {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  description: string;
-  image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
   liked: boolean;
 }
 
@@ -71,6 +57,9 @@ export interface UserOrder {
 export interface ModalProductProps {
   product: ProductType;
   text?: string;
+  logged: boolean;
+  liked?: boolean;
+  like?: () => void;
 }
 
 export interface UserProfile {
@@ -113,6 +102,8 @@ export interface ButtonProps {
   categorySide?: boolean;
   cartSide?: boolean;
   activeBtn?: boolean;
+  like?: () => void;
+  liked?: boolean;
 }
 
 export interface ModalProps {
@@ -126,6 +117,7 @@ export interface ModalProps {
   logged: boolean;
   modalContent: string;
   title?: string;
+  addRemove?: () => void;
 }
 
 export interface ModalRegisterLogin {
@@ -212,6 +204,15 @@ export interface LikedItemProps {
 export interface CartItemProps extends LikedItemProps {
   quantity: number;
   price: number;
+  id: number;
+  category: string;
+  description: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
+  title: string;
+  image: string;
 }
 
 export interface AllProductsState {

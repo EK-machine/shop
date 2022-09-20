@@ -1,10 +1,10 @@
 .productsContainer {
-  height: calc(100vh - 290px);
+  height: calc(100vh - 270px);
   width: 100%;
 }
 
 .shadowContainer {
-  height: calc(100vh - 290px);
+  height: calc(100vh - 270px);
   top: 245px;
   overflow-y: scroll;
   width: 100%;
