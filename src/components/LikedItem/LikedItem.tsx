@@ -3,7 +3,7 @@ import styles from './style.module.css';
 import { LikedItemProps } from '../../interfaces/intefaces';
 import Heart from '../../../public/likedRed.svg';
 
-const LikedItem: React.FC<LikedItemProps> = ({ image, title, onClick, addAction }) => (
+const LikedItem: React.FC<LikedItemProps> = ({ image, title, onClick, addAction, like }) => (
   <button
     onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       onClick && onClick(event);
@@ -22,11 +22,11 @@ const LikedItem: React.FC<LikedItemProps> = ({ image, title, onClick, addAction 
       tabIndex={0}
       onKeyUp={(event: React.KeyboardEvent<HTMLDivElement>) => {
         event.stopPropagation();
-        console.log('unliked!');
+        like && like(title);
       }}
       onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
-        console.log('unliked!');
+        like && like(title);
       }}
       className={styles.heartWrapper}
     >

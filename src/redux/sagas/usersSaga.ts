@@ -28,7 +28,7 @@ export function* workerGetUsersSaga() {
     yield put({
       type: getUsersFailed.type,
       payload: {
-        userError: (e as { userError: string }).userError,
+        usersError: `Get users: ${(e as { usersError: string }).usersError}`,
       },
     });
   }
@@ -42,7 +42,7 @@ export function* workerPostUserSaga(action: { type: typeof createUserRequest.typ
     yield put({
       type: createUserFailed.type,
       payload: {
-        userError: (e as { userError: string }).userError,
+        createError: `Create user: ${(e as { createError: string }).createError}`,
       },
     });
   }
@@ -60,7 +60,7 @@ export function* workerSetAvatarSaga(action: {
     yield put({
       type: setAvatarFailed.type,
       payload: {
-        userError: (e as { userError: string }).userError,
+        userError: `Set avatar: ${(e as { userError: string }).userError}`,
       },
     });
   }
@@ -78,7 +78,7 @@ export function* workerSetLoginSaga(action: {
     yield put({
       type: setLoginFailed.type,
       payload: {
-        userError: (e as { userError: string }).userError,
+        userError: `Set login: ${(e as { userError: string }).userError}`,
       },
     });
   }
@@ -110,7 +110,7 @@ export function* workerSetPasswordSaga(action: {
     yield put({
       type: setPasswordFailed.type,
       payload: {
-        userError: (e as { userError: string }).userError,
+        userError: `Set password: ${(e as { userError: string }).userError}`,
       },
     });
   }

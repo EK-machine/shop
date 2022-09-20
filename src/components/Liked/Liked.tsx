@@ -2,17 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './style.module.css';
 import LikedItem from '../LikedItem/LikedItem';
-import { AppStateType, ProductType } from '../../interfaces/intefaces';
+import { AppStateType, ProductType, UserLikedItem } from '../../interfaces/intefaces';
 import MostSlider from '../MostSlider/MostSlider';
 import { setProduct } from '../../redux/slices/allProductsSlice';
 import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';
+import { setLikeRequest, unsetLikeRequest } from '../../redux/slices/userSlice';
 
 const Liked: React.FC = () => {
   const [categories, setCategories] = useState<string[]>([]);
   const [prodCategs, setProdCategs] = useState<ProductType[][]>([]);
   const [most, setMost] = useState<ProductType[]>([]);
+  const logged = useSelector((state: AppStateType) => state.common.logged);
+  const user = useSelector((state: AppStateType) => logged && state.user.user);
   const products = useSelector((state: AppStateType) => state.products.products);
-  const likedProducts = useSelector((state: AppStateType) => state.user.user.liked);
+  const likedProds = useSelector((state: AppStateType) => logged && state.user.user.liked);
   const dispatch = useDispatch();
 
   const setCategs = (data: ProductType[]) => {
@@ -50,6 +53,37 @@ const Liked: React.FC = () => {
     }
   };
 
+  const getProductData = (val: string) => {
+    const product = products.find((item) => item.title === val);
+    return product;
+  };
+
+  const like = (val: string) => {
+    if (likedProds) {
+      const isLiked = !!likedProds.find((item) => item.title === val && item.liked);
+      if (isLiked) {
+        const newLiked = likedProds.filter((item) => item.title !== val);
+        const dispatchBody = { id: user && user.id, liked: newLiked };
+        dispatch(setLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[] }));
+      } else {
+        const product = getProductData(val);
+        const prod = {
+          id: product?.id,
+          title: product?.title,
+          price: product?.price,
+          category: product?.category,
+          description: product?.description,
+          image: product?.image,
+          rating: product?.rating,
+          liked: !isLiked,
+        };
+        const newLiked = [...likedProds, prod];
+        const dispatchBody = { id: user && user.id, liked: newLiked };
+        dispatch(unsetLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[] }));
+      }
+    }
+  };
+
   const openModal = () => {
     dispatch(setModalOpen(true));
     dispatch(setModalProduct());
@@ -69,9 +103,17 @@ const Liked: React.FC = () => {
 
   return (
     <div className={styles.cart}>
-      {likedProducts.map((item) => (
-        <LikedItem key={item.title} image={item.image} title={item.title} onClick={openModal} addAction={getSelected} />
-      ))}
+      {likedProds &&
+        likedProds.map((item) => (
+          <LikedItem
+            key={item.title}
+            image={item.image}
+            title={item.title}
+            onClick={openModal}
+            addAction={getSelected}
+            like={like}
+          />
+        ))}
       <MostSlider products={most} getSelected={getSelected} openModal={openModal} />
     </div>
   );

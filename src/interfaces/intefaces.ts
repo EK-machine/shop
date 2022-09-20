@@ -19,6 +19,28 @@ export interface ProductType {
   };
 }
 
+// export interface UserLikedItem extends ProductType {
+//   liked: boolean;
+// }
+
+export interface UserLikedItem extends ProductType {
+  id: number;
+  title: string;
+  price: number;
+  category: string;
+  description: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
+  liked: boolean;
+}
+
+export interface UserCartItem extends ProductType {
+  quantity: number;
+}
+
 export interface LayoutProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: any;
@@ -39,14 +61,6 @@ export interface MostSlideProps {
   };
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   addAction?: (val: string) => void;
-}
-
-export interface UserCartItem extends ProductType {
-  quantity: number;
-}
-
-export interface UserLikedItem extends ProductType {
-  liked: boolean;
 }
 
 export interface UserOrder {
@@ -192,6 +206,7 @@ export interface LikedItemProps {
   title: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   addAction?: (val: string) => void;
+  like?: (val: string) => void;
 }
 
 export interface CartItemProps extends LikedItemProps {
@@ -199,32 +214,49 @@ export interface CartItemProps extends LikedItemProps {
   price: number;
 }
 
+export interface AllProductsState {
+  products: ProductType[];
+  product: ProductType;
+}
+
 export interface UsersState {
   users: UserProfile[];
-  userError: string;
-  createUserError: string;
   user: UserProfile;
   userRequest: UserProfile;
   avatarRequest: { id: number; imgUrl: string };
   loginRequest: { id: number; login: string };
   passwordRequest: { id: number; password: string };
+  addToCartRequest: { id: number; cart: UserCartItem[] };
+  deleteFromCartRequest: { id: number; cart: UserCartItem[] };
+  changeQuantityRequest: { id: number; cart: UserCartItem[] };
+  setLikeRequest: { id: number; liked: UserLikedItem[] };
+  unsetLikeRequest: { id: number; liked: UserLikedItem[] };
+  cartError: string;
+  userError: string;
+  createError: string;
+  likedError: string;
+  orderError: string;
+  usersError: string;
+}
+
+export interface HeadingState {
+  heading: string;
+}
+
+export interface ModalState {
+  content: string;
+  isOpen: boolean;
+}
+
+export interface CommonState {
+  loading: boolean;
+  logged: boolean;
 }
 
 export interface AppStateType {
-  common: {
-    loading: boolean;
-    logged: boolean;
-  };
-  heading: {
-    heading: string;
-  };
+  common: CommonState;
+  heading: HeadingState;
   user: UsersState;
-  modal: {
-    content: string;
-    isOpen: boolean;
-  };
-  products: {
-    products: ProductType[];
-    product: ProductType;
-  };
+  modal: ModalState;
+  products: AllProductsState;
 }

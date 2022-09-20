@@ -1,6 +1,6 @@
 import httpService from './httpService';
 import endpoints from './endpoints';
-import { ProductType, UserProfile } from '../interfaces/intefaces';
+import { ProductType, UserCartItem, UserLikedItem, UserProfile } from '../interfaces/intefaces';
 
 export const apiGetProducts = (): Promise<ProductType[]> => httpService.get<ProductType[]>(endpoints.getProducts);
 export const apiGetProduct = (query: string): Promise<ProductType[]> =>
@@ -12,5 +12,10 @@ export const apiPostUser = (newUser: UserProfile): Promise<UserProfile[]> =>
   httpService.post<UserProfile[]>(endpoints.getUsers, newUser);
 export const apiPatchUser = (
   query: string,
-  body: { imgUrl: string } | { login: string } | { password: string },
+  body:
+    | { imgUrl: string }
+    | { login: string }
+    | { password: string }
+    | { cart: UserCartItem[] }
+    | { liked: UserLikedItem[] },
 ): Promise<void> => httpService.patch<void>(endpoints.getUserById(query), body);
