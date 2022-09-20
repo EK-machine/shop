@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CommonState } from '../../interfaces/intefaces';
 
-const initialState = {
+const initialState: CommonState = {
   loading: false,
   logged: false,
 };
@@ -10,10 +11,10 @@ const commonStateSlice = createSlice({
   name: 'commonState',
   initialState,
   reducers: {
-    isLoading: (state, action) => {
+    isLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
-    isLogged: (state, action) => {
+    isLogged: (state, action: PayloadAction<boolean>) => {
       state.logged = action.payload;
     },
   },

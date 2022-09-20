@@ -5,6 +5,7 @@ import allIcon from '../../public/all.svg';
 import electronicIcon from '../../public/electronic.svg';
 import cartIcon from '../../public/cart.svg';
 import likeIcon from '../../public/liked.svg';
+import tolikeIcon from '../../public/tolike.svg';
 import cardIcon from '../../public/creditCard.svg';
 import loginIcon from '../../public/login.svg';
 import passIcon from '../../public/password.svg';
@@ -123,3 +124,5 @@ export const setSideData = [
 
 export const newAva = avaIcon;
 export const change = refresharrows;
+export const toLike = tolikeIcon;
+export const isliked = likeIcon;
