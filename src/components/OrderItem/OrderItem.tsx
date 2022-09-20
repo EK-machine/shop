@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './style.module.css';
-import { UserOrder } from '../../interfaces/intefaces';
+import { OrderItemProps } from '../../interfaces/intefaces';
 import { getDate } from '../../helpers/utils';
 import Button from '../Button/Button';
 import useOutsideClick from '../../hooks/useOutsideClick';
 
-const OrderItem: React.FC<UserOrder> = ({ dateTill, items }) => {
+const OrderItem: React.FC<OrderItemProps> = ({ dateTill, items, id, deleteOrder }) => {
   const [orderString, setOrderString] = useState<string>('');
   const [delivered, setDelivered] = useState<boolean>(false);
   const [isOpened, setIsOpened] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const OrderItem: React.FC<UserOrder> = ({ dateTill, items }) => {
 
   const stopPropag = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
-    console.log('cancelled!');
+    deleteOrder && deleteOrder(id);
   };
 
   useEffect(() => {

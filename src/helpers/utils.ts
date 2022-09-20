@@ -1,3 +1,6 @@
+/* eslint-disable no-else-return */
+import { UserOrder } from '../interfaces/intefaces';
+
 /* eslint-disable consistent-return */
 export const getModalTitle = (val: string) => {
   if (val === 'login') {
@@ -21,6 +24,38 @@ export const getDate = (val: string) => {
   const dateDate = date.getDate();
   const strDate = `${dateMonth}/${dateDate}/${dateYear}`;
   return { strDate, deliv };
+};
+
+const compareTime = (val: string) => {
+  const current = new Date().getTime();
+  const given = new Date(val).getTime();
+  if (current > given) {
+    return true;
+  }
+  return false;
+};
+
+export const sortByDate = (orders: UserOrder[]) => {
+  const delivered: UserOrder[] = [];
+  const awaited: UserOrder[] = [];
+  orders &&
+    orders.length > 0 &&
+    orders.forEach((item) => {
+      const val = compareTime(item.dateTill);
+      if (val) {
+        delivered.push(item);
+      } else {
+        awaited.push(item);
+      }
+    });
+  if (delivered.length === 0) {
+    return awaited;
+  } else if (awaited.length === 0) {
+    return delivered;
+  } else {
+    const newOrder = awaited.concat(delivered);
+    return newOrder;
+  }
 };
 
 export const disablePastDates = () => {

@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserProfile, UsersState, UserCartItem, UserLikedItem } from '../../interfaces/intefaces';
+import { UserProfile, UsersState, UserCartItem, UserLikedItem, UserOrder } from '../../interfaces/intefaces';
 
 const initialState: UsersState = {
   users: [],
@@ -14,12 +14,15 @@ const initialState: UsersState = {
   changeQuantityRequest: {} as { id: number; cart: UserCartItem[] },
   setLikeRequest: {} as { id: number; liked: UserLikedItem[] },
   unsetLikeRequest: {} as { id: number; liked: UserLikedItem[] },
+  setOrderRequest: {} as { id: number; orders: UserOrder[] },
+  deleteOrderRequest: {} as { id: number; orders: UserOrder[] },
   usersError: '',
   userError: '',
   createError: '',
   cartError: '',
   likedError: '',
   orderError: '',
+  usetCart: [],
 };
 
 const userSlice = createSlice({
@@ -119,7 +122,6 @@ const userSlice = createSlice({
       state.addToCartRequest = initialState.addToCartRequest;
       state.cartError = action.payload;
     },
-
     deleterFromCartRequest: (state, action: PayloadAction<{ id: number; cart: UserCartItem[] }>) => {
       state.deleteFromCartRequest = action.payload;
     },
@@ -131,7 +133,6 @@ const userSlice = createSlice({
       state.deleteFromCartRequest = initialState.deleteFromCartRequest;
       state.cartError = action.payload;
     },
-
     changeQuantityRequest: (state, action: PayloadAction<{ id: number; cart: UserCartItem[] }>) => {
       state.changeQuantityRequest = action.payload;
     },
@@ -155,7 +156,6 @@ const userSlice = createSlice({
       state.setLikeRequest = initialState.setLikeRequest;
       state.likedError = action.payload;
     },
-
     unsetLikeRequest: (state, action: PayloadAction<{ id: number; liked: UserLikedItem[] }>) => {
       state.unsetLikeRequest = action.payload;
     },
@@ -165,6 +165,30 @@ const userSlice = createSlice({
     },
     unsetLikeFailed: (state, action: PayloadAction<string>) => {
       state.unsetLikeRequest = initialState.unsetLikeRequest;
+      state.likedError = action.payload;
+    },
+    // orders
+    setOrderRequest: (state, action: PayloadAction<{ id: number; orders: UserOrder[] }>) => {
+      state.setOrderRequest = action.payload;
+    },
+    setOrderSuccess: (state, action: PayloadAction<{ id: number; orders: UserOrder[] }>) => {
+      state.setOrderRequest = initialState.setOrderRequest;
+      state.user.orders = action.payload.orders;
+      state.user.cart = initialState.usetCart;
+    },
+    setOrderFailed: (state, action: PayloadAction<string>) => {
+      state.setLikeRequest = initialState.setLikeRequest;
+      state.likedError = action.payload;
+    },
+    deleteOrderRequest: (state, action: PayloadAction<{ id: number; orders: UserOrder[] }>) => {
+      state.deleteOrderRequest = action.payload;
+    },
+    deleteOrderSuccess: (state, action: PayloadAction<{ id: number; orders: UserOrder[] }>) => {
+      state.deleteOrderRequest = initialState.setOrderRequest;
+      state.user.orders = action.payload.orders;
+    },
+    deleteOrderFailed: (state, action: PayloadAction<string>) => {
+      state.deleteOrderRequest = initialState.deleteOrderRequest;
       state.likedError = action.payload;
     },
   },
@@ -207,6 +231,18 @@ export const {
   unsetLikeRequest,
   unsetLikeSuccess,
   unsetLikeFailed,
+  // orders
+  setOrderRequest,
+  setOrderSuccess,
+  setOrderFailed,
+  deleteOrderRequest,
+  deleteOrderSuccess,
+  deleteOrderFailed,
 } = userSlice.actions;
 
 export default userSlice.reducer;
+
+// {
+//   dateTill: string;
+//   items: UserCartItem[];
+// }

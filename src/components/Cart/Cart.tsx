@@ -10,6 +10,7 @@ import { setProduct } from '../../redux/slices/allProductsSlice';
 import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';
 import { setHeading } from '../../redux/slices/headingSlice';
 import Input from '../Input/Input';
+import { setOrderRequest } from '../../redux/slices/userSlice';
 
 const Cart: React.FC = () => {
   const [isDateSetter, setIsDateSetter] = useState<boolean>(false);
@@ -19,6 +20,8 @@ const Cart: React.FC = () => {
   const [most, setMost] = useState<ProductType[]>([]);
   const userCart = useSelector((state: AppStateType) => state.user.user.cart);
   const products = useSelector((state: AppStateType) => state.products.products);
+  const orders = useSelector((state: AppStateType) => state.user.user.orders);
+  const user = useSelector((state: AppStateType) => state.user.user);
   const dispatch = useDispatch();
   const cartRef = useRef(null);
 
@@ -73,6 +76,26 @@ const Cart: React.FC = () => {
     dispatch(setModalProduct());
   };
 
+  const placeOrder = () => {
+    if (userCart && userCart.length > 0 && date !== '') {
+      const latestId = () => {
+        if (orders.length > 0) {
+          return orders.length + 1;
+        }
+        return 1;
+      };
+      const orderItem = { dateTill: date, id: latestId(), items: userCart };
+      const newOrders = orders.concat(orderItem);
+      const payload = { id: user && user.id, orders: newOrders };
+      dispatch(setOrderRequest(payload));
+    }
+  };
+
+  const orderHandler = () => {
+    placeOrder();
+    closeDate();
+  };
+
   useEffect(() => {
     setCategs(products);
   }, [products]);
@@ -86,7 +109,7 @@ const Cart: React.FC = () => {
   }, [prodCategs]);
 
   useEffect(() => {
-    if (userCart.length === 0) {
+    if (userCart && userCart.length === 0) {
       dispatch(setHeading('Your cart is empty'));
     } else {
       dispatch(setHeading('Your cart'));
@@ -95,40 +118,35 @@ const Cart: React.FC = () => {
 
   return (
     <div ref={cartRef} className={styles.cart}>
-      {userCart.length === 0 ? (
+      {userCart && userCart.length === 0 ? (
         <MostSlider products={most} getSelected={getSelected} openModal={openModal} />
       ) : (
         <>
           <div className={styles.buttonWrapper}>
             {!isDateSetter && <Button onClick={showDateSetter} usual underlined type="button" text="Place order" />}
             {isDateSetter && (
-              <form
-                className={styles.dateForm}
-                onSubmit={() => {
-                  console.log('submitted');
-                  closeDate();
-                }}
-              >
-                <Button usual text="Place order" type="submit" />
+              <form className={styles.dateForm} onSubmit={orderHandler}>
+                <Button usual text="Place order" disabled={date === ''} type="submit" />
                 <Input forId="date" type="date" title="Set delivery date" value={date} setValue={setDate} required />
               </form>
             )}
           </div>
-          {userCart.map((item) => (
-            <CartItem
-              onClick={openModal}
-              addAction={getSelected}
-              key={item.title}
-              image={item.image}
-              title={item.title}
-              quantity={item.quantity}
-              price={item.price}
-              id={item.id}
-              category={item.category}
-              description={item.description}
-              rating={item.rating}
-            />
-          ))}
+          {userCart &&
+            userCart.map((item) => (
+              <CartItem
+                onClick={openModal}
+                addAction={getSelected}
+                key={item.title}
+                image={item.image}
+                title={item.title}
+                quantity={item.quantity}
+                price={item.price}
+                id={item.id}
+                category={item.category}
+                description={item.description}
+                rating={item.rating}
+              />
+            ))}
         </>
       )}
     </div>
