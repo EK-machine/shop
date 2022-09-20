@@ -1,4 +1,5 @@
-.btnWrapper {
+.btnWrapper,
+.btnWrapper:focus {
   background: #333333;
   height: 50px;
   border: none;
@@ -16,8 +17,7 @@
   color: #fff;
 }
 
-.btnWrapper:hover,
-.btnWrapper:focus {
+.btnWrapper:hover {
   border: 1px solid;
   cursor: pointer;
   padding: 0 15px;
@@ -31,7 +31,8 @@
   justify-content: flex-end;
 }
 
-.productBtn {
+.productBtn,
+.productBtn:focus {
   background: #ffffff;
   border: transparent;
   border-radius: 3px;
@@ -43,14 +44,14 @@
   height: 60px;
 }
 
-.productBtn:focus,
 .productBtn:hover {
   box-shadow: 4px 4px 10px 10px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   padding: 23px;
 }
 
-.underlined {
+.underlined,
+.underlined:focus {
   background: transparent;
   height: 50px;
   color: #333;
@@ -68,8 +69,7 @@
   opacity: 0.8;
 }
 
-.underlined:hover,
-.underlined:focus {
+.underlined:hover {
   border-bottom: 2px dashed #333;
 }
 
@@ -130,7 +130,8 @@
   display: inline;
 }
 
-.categoryText {
+.categoryText,
+.categoryBtn:focus {
   font-family: sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -142,8 +143,7 @@
   opacity: 0.8;
 }
 
-.categoryBtn:hover,
-.categoryBtn:focus {
+.categoryBtn:hover {
   background: #f7f7f7;
 }
 
@@ -186,4 +186,22 @@
   color: #333;
   opacity: 0.8;
   letter-spacing: 1px;
+}
+
+.likebtn,
+.likebtn:focus {
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.likeImg {
+  width: 30px;
+  height: 30px;
 }

@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppStateType, ProductType, UserLikedItem } from '../../interfaces/intefaces';
+import { AppStateType, ProductType, UserCartItem, UserLikedItem } from '../../interfaces/intefaces';
 import styles from './style.module.css';
 import Button from '../Button/Button';
 import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';
 import { setProduct } from '../../redux/slices/allProductsSlice';
-import { setLikeRequest, unsetLikeRequest } from '../../redux/slices/userSlice';
-import { toLike, isliked } from '../../data/data';
+import {
+  setLikeRequest,
+  unsetLikeRequest,
+  addToCartRequest,
+  deleterFromCartRequest,
+} from '../../redux/slices/userSlice';
 
 const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id, description, rating }) => {
   const [liked, setLiked] = useState<boolean>(false);
@@ -47,8 +51,8 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
       const isLiked = !!likedProds.find((item) => item.title === title && item.liked);
       if (isLiked) {
         const newLiked = likedProds.filter((item) => item.title !== title);
-        const dispatchBody = { id: user && user.id, liked: newLiked };
-        dispatch(setLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[] }));
+        const payload = { id: user && user.id, liked: newLiked };
+        dispatch(setLikeRequest(payload as { id: number; liked: UserLikedItem[] }));
       } else {
         const prod = {
           id,
@@ -61,8 +65,8 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
           liked: !isLiked,
         };
         const newLiked = [...likedProds, prod];
-        const dispatchBody = { id: user && user.id, liked: newLiked };
-        dispatch(unsetLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[] }));
+        const payload = { id: user && user.id, liked: newLiked };
+        dispatch(unsetLikeRequest(payload as { id: number; liked: UserLikedItem[] }));
       }
     }
   };
@@ -78,11 +82,49 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
     }
   };
 
+  const addRemove = () => {
+    if (userCart) {
+      if (inCart) {
+        const newCart = userCart.filter((item) => item.title !== title);
+        const payload = { id: user && user.id, cart: newCart };
+        dispatch(
+          deleterFromCartRequest(
+            payload as {
+              id: number;
+              cart: UserCartItem[];
+            },
+          ),
+        );
+      } else {
+        const prod = {
+          id,
+          title,
+          price,
+          category,
+          description,
+          image,
+          rating,
+          quantity: 1,
+        };
+        const newCart = userCart.concat(prod);
+        const payload = { id: user && user.id, cart: newCart };
+        dispatch(
+          addToCartRequest(
+            payload as {
+              id: number;
+              cart: UserCartItem[];
+            },
+          ),
+        );
+      }
+    }
+  };
+
   useEffect(() => {
     if (title) {
       productInCart(title);
     }
-  }, [title]);
+  }, [title, userCart]);
 
   useEffect(() => {
     if (title) {
@@ -94,11 +136,7 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
     <div className={styles.productContainer}>
       <div className={styles.titleBtn}>
         <h1 className={styles.productTitle}>{title}</h1>
-        {logged && (
-          <button onClick={like} className={styles.likebtn}>
-            <img className={styles.likeImg} src={liked ? isliked : toLike} alt="like" />
-          </button>
-        )}
+        {logged && <Button like={like} liked={liked} type="button" text="" />}
       </div>
       <div className={styles.productPriceImg}>
         <img src={image} alt={title} className={styles.productImg} />
@@ -111,9 +149,9 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
         {logged ? (
           <>
             {inCart ? (
-              <Button usual underlined text="remove from cart" type="button" onClick={() => console.log('removed')} />
+              <Button usual underlined text="remove from cart" type="button" onClick={addRemove} />
             ) : (
-              <Button usual text="add to cart" type="button" onClick={() => console.log('added')} />
+              <Button usual text="add to cart" type="button" onClick={addRemove} />
             )}
             <Button usual underlined text="more detail" type="button" onClick={openModal} />
           </>

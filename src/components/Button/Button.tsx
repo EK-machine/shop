@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './style.module.css';
 import { ButtonProps } from '../../interfaces/intefaces';
+import { toLike, isliked } from '../../data/data';
 
 const Button: React.FC<ButtonProps> = ({
   usual,
@@ -15,6 +16,8 @@ const Button: React.FC<ButtonProps> = ({
   categorySide,
   cartSide,
   activeBtn,
+  like,
+  liked,
 }) => (
   <>
     {usual && (
@@ -69,6 +72,11 @@ const Button: React.FC<ButtonProps> = ({
       >
         <img className={styles.cartSideIcon} src={image} alt={text} />
         <span className={styles.cartSideText}>{text}</span>
+      </button>
+    )}
+    {like && (
+      <button type={type} onClick={like} className={styles.likebtn}>
+        <img className={styles.likeImg} src={liked ? isliked : toLike} alt="like" />
       </button>
     )}
   </>

@@ -1,12 +1,16 @@
 import React from 'react';
 import { ModalProductProps } from '../../interfaces/intefaces';
+import Button from '../Button/Button';
 import styles from './style.module.css';
 import StarRate from '../StarRate/StarRate';
 
-const ModalProduct: React.FC<ModalProductProps> = ({ product, text }) => (
+const ModalProduct: React.FC<ModalProductProps> = ({ product, text, logged, like, liked }) => (
   <div className={styles.container}>
     {text && <p className={styles.modalText}>{text}</p>}
-    <h1 className={styles.title}>{product.title}</h1>
+    <div className={styles.textBtn}>
+      <h1 className={styles.title}>{product.title}</h1>
+      {logged && <Button like={like} liked={liked} type="button" text="" />}
+    </div>
     <div className={styles.priceImg}>
       <img src={product.image} alt={product.title} className={styles.productImg} />
       <div>
