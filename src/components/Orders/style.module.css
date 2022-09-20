@@ -1,3 +1,27 @@
-.cart {
+.orders {
   max-width: 100%;
+}
+
+.noOrders {
+  width: 100%;
+}
+
+.noText,
+.noTextLink {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: 2px;
+  line-height: 30px;
+  text-align: center;
+  color: #333;
+  opacity: 0.8;
+  margin: 14px 0;
+  text-transform: initial;
+}
+
+.noTextLink {
+  text-transform: uppercase;
+  text-decoration: underline;
 }

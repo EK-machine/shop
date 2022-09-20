@@ -51,7 +51,12 @@ export interface MostSlideProps {
 
 export interface UserOrder {
   dateTill: string;
+  id: number;
   items: UserCartItem[];
+}
+
+export interface OrderItemProps extends UserOrder {
+  deleteOrder?: (id: number) => void;
 }
 
 export interface ModalProductProps {
@@ -232,12 +237,15 @@ export interface UsersState {
   changeQuantityRequest: { id: number; cart: UserCartItem[] };
   setLikeRequest: { id: number; liked: UserLikedItem[] };
   unsetLikeRequest: { id: number; liked: UserLikedItem[] };
+  setOrderRequest: { id: number; orders: UserOrder[] };
+  deleteOrderRequest: { id: number; orders: UserOrder[] };
   cartError: string;
   userError: string;
   createError: string;
   likedError: string;
   orderError: string;
   usersError: string;
+  usetCart: [];
 }
 
 export interface HeadingState {
