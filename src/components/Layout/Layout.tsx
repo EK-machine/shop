@@ -3,23 +3,14 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Header from '../Header/Header';
 import styles from './style.module.css';
-import { apiGetProducts } from '../../api/apis';
-import { setAllProducts } from '../../redux/slices/allProductsSlice';
 import ModalContainer from '../ModalContainer/ModalContainer';
-// import InfoBanner from '../InfoBanner/InfoBanner';
 import { LayoutProps } from '../../interfaces/intefaces';
+import { allProductsRequest } from '../../redux/slices/allProductsSlice';
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children, productCategory }) => {
   const [styling, setStyling] = useState<boolean>(false);
   const dispatch = useDispatch();
   const location = useLocation();
-
-  const getProducts = async () => {
-    const prods = await apiGetProducts();
-    if (prods) {
-      dispatch(setAllProducts(prods));
-    }
-  };
 
   const layoutStyle = (val: string) => {
     if (val.includes('reviews')) {
@@ -30,7 +21,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   useEffect(() => {
-    getProducts();
+    dispatch(allProductsRequest());
   }, []);
 
   useEffect(() => {
@@ -40,7 +31,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className={styles.mainContainer}>
       {/* <InfoBanner /> */}
-      <Header />
+      <Header productCategory={productCategory} />
       <div className={`${styles.mainContent} ${styling ? styles.mainContentReviews : ''}`}>{children}</div>
       <ModalContainer />
     </div>

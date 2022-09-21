@@ -24,9 +24,7 @@ export function* workerAddToCartSaga(action: {
   } catch (e) {
     yield put({
       type: addToCartFailed.type,
-      payload: {
-        cartError: `Add cart Item: ${(e as { cartError: string }).cartError}`,
-      },
+      payload: `Add cart item error: ${(e as { message: string }).message}`,
     });
   }
 }
@@ -45,9 +43,7 @@ export function* workerDeleteFromCartSaga(action: {
   } catch (e) {
     yield put({
       type: deleterFromCartFailed.type,
-      payload: {
-        cartError: `Delete cart Item: ${(e as { cartError: string }).cartError}`,
-      },
+      payload: `Delete cart item error: ${(e as { message: string }).message}`,
     });
   }
 }
@@ -66,9 +62,7 @@ export function* workerChangeQuantitySaga(action: {
   } catch (e) {
     yield put({
       type: changeQuantityFailed.type,
-      payload: {
-        cartError: `Change quantity: ${(e as { cartError: string }).cartError}`,
-      },
+      payload: `Change quantity error: ${(e as { message: string }).message}`,
     });
   }
 }

@@ -105,3 +105,19 @@ export const setTitle = (val: string, add?: boolean) => {
   }
   return '';
 };
+
+export const locationProducts = (val: string): boolean => {
+  if (val.includes('settings')) {
+    return false;
+  }
+  if (val.includes('cart')) {
+    return false;
+  }
+  if (val.includes('reviews')) {
+    return false;
+  }
+  if (val.includes('reviewsmore')) {
+    return false;
+  }
+  return true;
+};

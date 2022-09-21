@@ -21,9 +21,7 @@ export function* workerSetOrderSaga(action: {
   } catch (e) {
     yield put({
       type: setOrderFailed.type,
-      payload: {
-        orderError: `Add order: ${(e as { orderError: string }).orderError}`,
-      },
+      payload: `Add order error: ${(e as { message: string }).message}`,
     });
   }
 }
@@ -39,9 +37,7 @@ export function* workerDeleteOrderSaga(action: {
   } catch (e) {
     yield put({
       type: deleteOrderFailed.type,
-      payload: {
-        orderError: `Delete order: ${(e as { orderError: string }).orderError}`,
-      },
+      payload: `Delete order error: ${(e as { message: string }).message}`,
     });
   }
 }

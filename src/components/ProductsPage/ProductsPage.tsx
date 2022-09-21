@@ -14,6 +14,7 @@ import { setTitle } from '../../helpers/utils';
 
 const ProductsPage: React.FC = () => {
   const products = useSelector((state: AppStateType) => state.products.products);
+  const displayProducts = useSelector((state: AppStateType) => state.products.displayProducts);
   const most = useSelector((state: AppStateType) => state.products.product);
   const [toDisplay, setToDisplay] = useState<ProductType[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
@@ -30,10 +31,10 @@ const ProductsPage: React.FC = () => {
   const filterByCategory = (title: string) => {
     dispatch(setHeading(setTitle(title)));
     if (title === 'all products') {
-      setToDisplay(products);
+      setToDisplay(displayProducts);
       setActive(0);
     } else {
-      const filtered = products.filter((prod) => prod.category === title);
+      const filtered = displayProducts.filter((prod) => prod.category === title);
       categories.forEach((categ, i) => categ === title && setActive(i));
       setToDisplay(filtered);
     }
@@ -50,7 +51,7 @@ const ProductsPage: React.FC = () => {
   };
 
   const getSelected = (val: string) => {
-    const selected = products.find((item) => item.title === val);
+    const selected = displayProducts.find((item) => item.title === val);
     if (selected) {
       dispatch(setProduct(selected));
     }
@@ -62,9 +63,12 @@ const ProductsPage: React.FC = () => {
   };
 
   useEffect(() => {
-    setToDisplay(products);
+    setToDisplay(displayProducts);
+  }, [displayProducts]);
+
+  useEffect(() => {
     setCategs(products);
-  }, [products]);
+  }, [displayProducts]);
 
   useEffect(() => {
     mostPurchased();
@@ -75,7 +79,7 @@ const ProductsPage: React.FC = () => {
   }, []);
 
   return (
-    <Layout>
+    <Layout productCategory={categories[active]}>
       <Sidebar products active={active} filterByCategory={filterByCategory} categories={categories} />
       <div className="contentBlock">
         <div className={styles.btnContainer}>

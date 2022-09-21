@@ -27,9 +27,7 @@ export function* workerGetUsersSaga() {
   } catch (e) {
     yield put({
       type: getUsersFailed.type,
-      payload: {
-        usersError: `Get users: ${(e as { usersError: string }).usersError}`,
-      },
+      payload: `Get users error: ${(e as { message: string }).message}`,
     });
   }
 }
@@ -41,9 +39,7 @@ export function* workerPostUserSaga(action: { type: typeof createUserRequest.typ
   } catch (e) {
     yield put({
       type: createUserFailed.type,
-      payload: {
-        createError: `Create user: ${(e as { createError: string }).createError}`,
-      },
+      payload: `Create user error: ${(e as { message: string }).message}`,
     });
   }
 }
@@ -59,9 +55,7 @@ export function* workerSetAvatarSaga(action: {
   } catch (e) {
     yield put({
       type: setAvatarFailed.type,
-      payload: {
-        userError: `Set avatar: ${(e as { userError: string }).userError}`,
-      },
+      payload: `Set avatar error: ${(e as { message: string }).message}`,
     });
   }
 }
@@ -77,26 +71,10 @@ export function* workerSetLoginSaga(action: {
   } catch (e) {
     yield put({
       type: setLoginFailed.type,
-      payload: {
-        userError: `Set login: ${(e as { userError: string }).userError}`,
-      },
+      payload: `Set login error: ${(e as { message: string }).message}`,
     });
   }
 }
-
-// export function* workerGetUserSaga(action: { type: typeof getUserRequest.type; payload: string }) {
-//   try {
-//     const user: SagaReturnType<typeof apiGetUser> = yield call(apiGetUser, action.payload);
-//     yield put({ type: getUserSuccess.type, payload: user[0] });
-//   } catch (e) {
-//     yield put({
-//       type: getUserFailed.type,
-//       payload: {
-//         message: (e as { message: string }).message,
-//       },
-//     });
-//   }
-// }
 
 export function* workerSetPasswordSaga(action: {
   type: typeof setPasswordRequest.type;
@@ -109,9 +87,7 @@ export function* workerSetPasswordSaga(action: {
   } catch (e) {
     yield put({
       type: setPasswordFailed.type,
-      payload: {
-        userError: `Set password: ${(e as { userError: string }).userError}`,
-      },
+      payload: `Set password error: ${(e as { message: string }).message}`,
     });
   }
 }
