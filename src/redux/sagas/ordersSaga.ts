@@ -9,6 +9,7 @@ import {
 } from '../slices/userSlice';
 import { apiPatchUser } from '../../api/apis';
 import { UserOrder } from '../../interfaces/intefaces';
+import alert from '../../components/Alert/Alert';
 
 export function* workerSetOrderSaga(action: {
   type: typeof setOrderRequest.type;
@@ -18,10 +19,13 @@ export function* workerSetOrderSaga(action: {
     const setOrder = () => apiPatchUser(action.payload.id.toString(), { orders: action.payload.orders });
     yield call(setOrder);
     yield put({ type: setOrderSuccess.type, payload: { orders: action.payload.orders } });
+    alert.success('Your order was placed successfully');
   } catch (e) {
+    const message = `Add order error: ${(e as { message: string }).message}`;
+    alert.error(message);
     yield put({
       type: setOrderFailed.type,
-      payload: `Add order error: ${(e as { message: string }).message}`,
+      payload: message,
     });
   }
 }
@@ -34,10 +38,13 @@ export function* workerDeleteOrderSaga(action: {
     const deleteOrder = () => apiPatchUser(action.payload.id.toString(), { orders: action.payload.orders });
     yield call(deleteOrder);
     yield put({ type: deleteOrderSuccess.type, payload: { orders: action.payload.orders } });
+    alert.success('Your order was cancelled successfully');
   } catch (e) {
+    const message = `Delete order error: ${(e as { message: string }).message}`;
+    alert.error(message);
     yield put({
       type: deleteOrderFailed.type,
-      payload: `Delete order error: ${(e as { message: string }).message}`,
+      payload: message,
     });
   }
 }

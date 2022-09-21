@@ -1,11 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Dispatch } from 'redux';
 
-export interface InfoBannerProps {
-  successM: string;
-  errorM: string;
-}
-
 export interface ProductType {
   id: number;
   title: string;
@@ -122,7 +117,6 @@ export interface ModalProps {
   crossButton?: boolean;
   toggleModal: (isOpen: boolean) => () => void;
   extraClassName?: string;
-  backdropClickToggle?: boolean;
   children: ReactNode;
   logged: boolean;
   modalContent: string;
@@ -211,7 +205,12 @@ export interface LikedItemProps {
   like?: (val: string) => void;
 }
 
-export interface CartItemProps extends LikedItemProps {
+export interface CartItemProps {
+  image: string;
+  title: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  addAction?: (val: string) => void;
+  like?: (val: string) => void;
   quantity: number;
   price: number;
   id: number;
@@ -221,8 +220,6 @@ export interface CartItemProps extends LikedItemProps {
     rate: number;
     count: number;
   };
-  title: string;
-  image: string;
 }
 
 export interface AllProductsState {
@@ -248,12 +245,12 @@ export interface UsersState {
   unsetLikeRequest: { id: number; liked: UserLikedItem[] };
   setOrderRequest: { id: number; orders: UserOrder[] };
   deleteOrderRequest: { id: number; orders: UserOrder[] };
-  cartError: string;
+  usersError: string;
   userError: string;
   createError: string;
+  cartError: string;
   likedError: string;
   orderError: string;
-  usersError: string;
   usetCart: [];
 }
 

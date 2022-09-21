@@ -16,22 +16,22 @@ const ModalContentWrapper: React.FC<ModalProps> = ({
   modalContent,
   title,
   addRemove,
-  backdropClickToggle = true,
 }) => {
   const [inCart, setInCart] = useState<boolean>(false);
   const userCart = useSelector((state: AppStateType) => logged && state.user.user.cart);
-  const onBackdropClickHandler = () => {
-    backdropClickToggle && toggleModal(false);
-  };
 
   const openingStyle = `modalContentWrapper${anchor}`;
 
   const productInCart = (val: string) => {
-    if (userCart && userCart.length > 0) {
-      const inside = userCart.find((item) => item.title === val);
-      if (inside && Object.keys(inside).length > 0) {
-        setInCart(true);
-      } else {
+    if (userCart) {
+      if (userCart.length > 0) {
+        const inside = userCart.find((item) => item.title === val);
+        if (inside && Object.keys(inside).length > 0) {
+          setInCart(true);
+        } else {
+          setInCart(false);
+        }
+      } else if (userCart.length === 0) {
         setInCart(false);
       }
     }
@@ -50,7 +50,6 @@ const ModalContentWrapper: React.FC<ModalProps> = ({
           root: `${styles.modalContentWrapper} ${styles[openingStyle]} `,
         },
       }}
-      onBackdropClick={onBackdropClickHandler}
       disableSwipeToOpen
       disableDiscovery
       anchor={anchor}

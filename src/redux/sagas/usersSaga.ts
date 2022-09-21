@@ -17,6 +17,7 @@ import {
   setPasswordFailed,
 } from '../slices/userSlice';
 import { apiGetUsers, apiPostUser, apiPatchUser } from '../../api/apis';
+import alert from '../../components/Alert/Alert';
 
 import { UserProfile } from '../../interfaces/intefaces';
 
@@ -25,9 +26,11 @@ export function* workerGetUsersSaga() {
     const users: SagaReturnType<typeof apiGetUsers> = yield call(apiGetUsers);
     yield put({ type: getUsersSuccess.type, payload: users });
   } catch (e) {
+    const message = `Get users error: ${(e as { message: string }).message}`;
+    alert.error(message);
     yield put({
       type: getUsersFailed.type,
-      payload: `Get users error: ${(e as { message: string }).message}`,
+      payload: message,
     });
   }
 }
@@ -36,10 +39,13 @@ export function* workerPostUserSaga(action: { type: typeof createUserRequest.typ
   try {
     yield call(apiPostUser, action.payload);
     yield put({ type: createUserSuccess.type, payload: action.payload });
+    alert.success('You have rigistered successfully');
   } catch (e) {
+    const message = `Create user error: ${(e as { message: string }).message}`;
+    alert.error(message);
     yield put({
       type: createUserFailed.type,
-      payload: `Create user error: ${(e as { message: string }).message}`,
+      payload: message,
     });
   }
 }
@@ -52,10 +58,13 @@ export function* workerSetAvatarSaga(action: {
     const changeAvatar = () => apiPatchUser(action.payload.id.toString(), { imgUrl: action.payload.imgUrl });
     yield call(changeAvatar);
     yield put({ type: setAvatarSuccess.type, payload: { imgUrl: action.payload.imgUrl } });
+    alert.success('Your avatar was successfully changed');
   } catch (e) {
+    const message = `Set avatar error: ${(e as { message: string }).message}`;
+    alert.error(message);
     yield put({
       type: setAvatarFailed.type,
-      payload: `Set avatar error: ${(e as { message: string }).message}`,
+      payload: message,
     });
   }
 }
@@ -68,10 +77,13 @@ export function* workerSetLoginSaga(action: {
     const changeLogin = () => apiPatchUser(action.payload.id.toString(), { login: action.payload.login });
     yield call(changeLogin);
     yield put({ type: setLoginSuccess.type, payload: { login: action.payload.login } });
+    alert.success('Your login was successfully changed');
   } catch (e) {
+    const message = `Set login error: ${(e as { message: string }).message}`;
+    alert.error(message);
     yield put({
       type: setLoginFailed.type,
-      payload: `Set login error: ${(e as { message: string }).message}`,
+      payload: message,
     });
   }
 }
@@ -84,10 +96,13 @@ export function* workerSetPasswordSaga(action: {
     const changePass = () => apiPatchUser(action.payload.id.toString(), { password: action.payload.password });
     yield call(changePass);
     yield put({ type: setPasswordSuccess.type, payload: { password: action.payload.password } });
+    alert.success('Your password was successfully changed');
   } catch (e) {
+    const message = `Set password error: ${(e as { message: string }).message}`;
+    alert.error(message);
     yield put({
       type: setPasswordFailed.type,
-      payload: `Set password error: ${(e as { message: string }).message}`,
+      payload: message,
     });
   }
 }

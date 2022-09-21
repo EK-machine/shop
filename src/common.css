@@ -22,3 +22,30 @@
   height: calc(100vh - 190px);
   overflow: hidden;
 }
+
+.alertSuccess {
+  padding: 0;
+  margin: 0 !important;
+  color: #333;
+  font-size: 16px;
+  font-family: Halyard, sans-serif;
+}
+
+.alertWrapper {
+  padding-top: 64px;
+  padding-left: 0;
+  padding-right: 0;
+  z-index: 10000 !important;
+}
+
+.alertWrapper > div {
+  box-shadow: none !important;
+  width: 100%;
+  border-radius: 0;
+}
+
+@media screen and (min-width: 999px) {
+  .alertWrapper {
+    padding-top: 4.9em;
+  }
+}

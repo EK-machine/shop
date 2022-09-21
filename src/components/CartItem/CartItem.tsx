@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './style.module.css';
 import { CartItemProps, AppStateType, UserCartItem } from '../../interfaces/intefaces';
 import Button from '../Button/Button';
-import { deleterFromCartRequest, changeQuantityRequest } from '../../redux/slices/userSlice';
+import { deleteFromCartRequest, changeQuantityRequest } from '../../redux/slices/userSlice';
 
 const CartItem: React.FC<CartItemProps> = ({
   image,
@@ -29,7 +29,7 @@ const CartItem: React.FC<CartItemProps> = ({
     const newCart = userCart.filter((item) => item.title !== title);
     const payload = { id: user && user.id, cart: newCart };
     dispatch(
-      deleterFromCartRequest(
+      deleteFromCartRequest(
         payload as {
           id: number;
           cart: UserCartItem[];
@@ -65,8 +65,8 @@ const CartItem: React.FC<CartItemProps> = ({
   }, [productQuantity]);
 
   return (
-    <button
-      onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    <div
+      onClick={(event: React.MouseEvent<HTMLDivElement>) => {
         onClick && onClick(event);
         addAction && addAction(title);
       }}
@@ -101,7 +101,7 @@ const CartItem: React.FC<CartItemProps> = ({
           Total: <span>{price * quantity} $</span>
         </p>
       </div>
-    </button>
+    </div>
   );
 };
 

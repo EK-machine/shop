@@ -3,7 +3,7 @@ import {
   addToCartRequest,
   addToCartSuccess,
   addToCartFailed,
-  deleterFromCartRequest,
+  deleteFromCartRequest,
   deleterFromCartSuccess,
   deleterFromCartFailed,
   changeQuantityRequest,
@@ -12,6 +12,7 @@ import {
 } from '../slices/userSlice';
 import { apiPatchUser } from '../../api/apis';
 import { UserCartItem } from '../../interfaces/intefaces';
+import alert from '../../components/Alert/Alert';
 
 export function* workerAddToCartSaga(action: {
   type: typeof addToCartRequest.type;
@@ -22,15 +23,17 @@ export function* workerAddToCartSaga(action: {
     yield call(addToCart);
     yield put({ type: addToCartSuccess.type, payload: { cart: action.payload.cart } });
   } catch (e) {
+    const message = `Add cart item error: ${(e as { message: string }).message}`;
+    alert.error(message);
     yield put({
       type: addToCartFailed.type,
-      payload: `Add cart item error: ${(e as { message: string }).message}`,
+      payload: message,
     });
   }
 }
 
 export function* workerDeleteFromCartSaga(action: {
-  type: typeof deleterFromCartRequest.type;
+  type: typeof deleteFromCartRequest.type;
   payload: { id: number; cart: UserCartItem[] };
 }) {
   try {
@@ -41,9 +44,11 @@ export function* workerDeleteFromCartSaga(action: {
       payload: { cart: action.payload.cart },
     });
   } catch (e) {
+    const message = `Delete cart item error: ${(e as { message: string }).message}`;
+    alert.error(message);
     yield put({
       type: deleterFromCartFailed.type,
-      payload: `Delete cart item error: ${(e as { message: string }).message}`,
+      payload: message,
     });
   }
 }
@@ -60,9 +65,11 @@ export function* workerChangeQuantitySaga(action: {
       payload: { cart: action.payload.cart },
     });
   } catch (e) {
+    const message = `Change quantity error: ${(e as { message: string }).message}`;
+    alert.error(message);
     yield put({
       type: changeQuantityFailed.type,
-      payload: `Change quantity error: ${(e as { message: string }).message}`,
+      payload: message,
     });
   }
 }
@@ -72,7 +79,7 @@ export function* watchAddToCartSaga() {
 }
 
 export function* deleteFromCartSaga() {
-  yield takeEvery(deleterFromCartRequest.type, workerDeleteFromCartSaga);
+  yield takeEvery(deleteFromCartRequest.type, workerDeleteFromCartSaga);
 }
 
 export function* changeQuantitySaga() {

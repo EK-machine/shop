@@ -1,3 +1,5 @@
+import alert from '../components/Alert/Alert';
+
 export interface httpErr {
   response: {
     data: string;
@@ -61,20 +63,20 @@ function apiService<T>(url: string, method: HTTPMethods, body?: unknown | null, 
       if (!hideError) {
         if (error.response && error.response.data) {
           const errorMessage = error.response.data;
-          console.error(errorMessage);
+          alert.error(errorMessage);
           throw error;
         } else if (error) {
           if (typeof JSON.parse(error.message) === 'object') {
             if ('message' in JSON.parse(error.message)) {
               if (JSON.parse(error.message).message !== '') {
-                console.error(JSON.parse(error.message).message);
+                alert.error(JSON.parse(error.message).message);
               }
             }
           } else {
-            console.error(error.message);
+            alert.error(error.message);
           }
         } else {
-          console.error('Something went wrong.');
+          alert.error('Something went wrong.');
         }
       }
       throw error;
