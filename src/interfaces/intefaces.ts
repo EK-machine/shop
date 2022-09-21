@@ -30,6 +30,11 @@ export interface UserCartItem extends ProductType {
 export interface LayoutProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: any;
+  productCategory?: string;
+}
+
+export interface HeaderProps {
+  productCategory?: string;
 }
 
 export interface MostSliderProps {
@@ -221,7 +226,11 @@ export interface CartItemProps extends LikedItemProps {
 }
 
 export interface AllProductsState {
+  productsRequest: ProductType[];
   products: ProductType[];
+  displayProducts: ProductType[];
+  debounceProductsRequest: string;
+  productsError: string;
   product: ProductType;
 }
 

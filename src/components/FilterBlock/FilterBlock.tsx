@@ -1,18 +1,21 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import debounce from 'lodash.debounce';
-import { apiGetProduct } from '../../api/apis';
-import styles from './style.module.css';
-import { AppStateType } from '@/interfaces/intefaces';
-import ProductLine from '../ProductLine/ProductLine';
-import { setAllProducts, setProduct } from '../../redux/slices/allProductsSlice';
-import { setModalProduct, setModalOpen } from '../../redux/slices/modalContentSlice';
 import useOutsideClick from '../../hooks/useOutsideClick';
+import ProductLine from '../ProductLine/ProductLine';
+import styles from './style.module.css';
+import { setProduct, debounceProductsRequest } from '../../redux/slices/allProductsSlice';
+import { setModalProduct, setModalOpen } from '../../redux/slices/modalContentSlice';
+import { setProductsHeading, setHeading } from '../../redux/slices/headingSlice';
+import { AppStateType } from '@/interfaces/intefaces';
+import { locationProducts } from '../../helpers/utils';
+import { HeaderProps } from '../../interfaces/intefaces';
 
-const FilterBlock: React.FC = () => {
-  const products = useSelector((state: AppStateType) => state.products.products);
+const FilterBlock: React.FC<HeaderProps> = ({ productCategory }) => {
+  const displayProducts = useSelector((state: AppStateType) => state.products.displayProducts);
   const [query, setQuery] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
+  const location = useLocation();
 
   const dispatch = useDispatch();
 
@@ -30,7 +33,7 @@ const FilterBlock: React.FC = () => {
 
   const getSelected = (title: string) => {
     if (title) {
-      const selected = products.find((item) => item.title === title);
+      const selected = displayProducts.find((item) => item.title === title);
       if (selected) {
         dispatch(setProduct(selected));
         dispatch(setModalProduct());
@@ -43,17 +46,22 @@ const FilterBlock: React.FC = () => {
     setQuery(e?.target?.value);
     setOpen(true);
   };
-  const debounced = debounce(updateQuery, 300);
 
   useEffect(() => {
-    const getProduct = async (string: string) => {
-      const prod = await apiGetProduct(string);
-      if (prod) {
-        dispatch(setAllProducts(prod));
-      }
-    };
-    getProduct(query);
+    dispatch(debounceProductsRequest(query));
   }, [query]);
+
+  useEffect(() => {
+    if (locationProducts(location.pathname) && productCategory) {
+      if (query !== '') {
+        const categoryString = productCategory.split(' ')[0];
+        const payload = { category: categoryString, query };
+        dispatch(setProductsHeading(payload));
+      } else {
+        dispatch(setHeading(productCategory));
+      }
+    }
+  }, [query, location.pathname, productCategory]);
 
   return (
     <div className={styles.container}>
@@ -63,12 +71,12 @@ const FilterBlock: React.FC = () => {
           placeholder="Search product..."
           type="text"
           title="Search products"
-          onChange={debounced}
+          onChange={updateQuery}
           onFocus={onFocusHandler}
         />
-        {query !== '' && products && open && (
+        {query !== '' && displayProducts && open && (
           <div className={styles.productslist}>
-            {products.map((product) => (
+            {displayProducts.map((product) => (
               <ProductLine getSelected={getSelected} key={product.title} title={product.title} />
             ))}
           </div>

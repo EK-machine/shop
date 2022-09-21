@@ -1,14 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { AppStateType } from '../../interfaces/intefaces';
+import { AppStateType, HeaderProps } from '../../interfaces/intefaces';
 import { navigationLinks, base } from '../../data/data';
 import LoginButton from '../LoginButton/LoginButton';
 import styles from './style.module.css';
 import Logo from '../../../public/logo.png';
 import FilterBlock from '../FilterBlock/FilterBlock';
 
-const Header: React.FC = () => {
+const Header: React.FC<HeaderProps> = ({ productCategory }) => {
   const logged = useSelector((state: AppStateType) => state.common.logged);
   const heading = useSelector((state: AppStateType) => state.heading.heading);
 
@@ -19,7 +19,7 @@ const Header: React.FC = () => {
           <NavLink className={styles.logoWrapper} to={base}>
             <img className={styles.logo} src={Logo} alt="logo" />
           </NavLink>
-          <FilterBlock />
+          <FilterBlock productCategory={productCategory} />
         </div>
         <div className={styles.links}>
           {logged &&

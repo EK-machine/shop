@@ -21,9 +21,7 @@ export function* workerSetLikeSaga(action: {
   } catch (e) {
     yield put({
       type: setLikeFailed.type,
-      payload: {
-        likedError: `Set like: ${(e as { likedError: string }).likedError}`,
-      },
+      payload: `Set like error: ${(e as { message: string }).message}`,
     });
   }
 }
@@ -39,9 +37,7 @@ export function* workerUnsetLikeSaga(action: {
   } catch (e) {
     yield put({
       type: unsetLikeFailed.type,
-      payload: {
-        likedError: `Unset like: ${(e as { likedError: string }).likedError}`,
-      },
+      payload: `Unset like error: ${(e as { message: string }).message}`,
     });
   }
 }
