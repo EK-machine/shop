@@ -9,7 +9,7 @@ import {
   setLikeRequest,
   unsetLikeRequest,
   addToCartRequest,
-  deleterFromCartRequest,
+  deleteFromCartRequest,
 } from '../../redux/slices/userSlice';
 
 const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id, description, rating }) => {
@@ -36,11 +36,15 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
   };
 
   const productInCart = (val: string) => {
-    if (userCart && userCart.length > 0) {
-      const inside = userCart.find((item) => item.title === val);
-      if (inside && Object.keys(inside).length > 0) {
-        setInCart(true);
-      } else {
+    if (userCart) {
+      if (userCart.length > 0) {
+        const inside = userCart.find((item) => item.title === val);
+        if (inside && Object.keys(inside).length > 0) {
+          setInCart(true);
+        } else {
+          setInCart(false);
+        }
+      } else if (userCart.length === 0) {
         setInCart(false);
       }
     }
@@ -88,7 +92,7 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
         const newCart = userCart.filter((item) => item.title !== title);
         const payload = { id: user && user.id, cart: newCart };
         dispatch(
-          deleterFromCartRequest(
+          deleteFromCartRequest(
             payload as {
               id: number;
               cart: UserCartItem[];

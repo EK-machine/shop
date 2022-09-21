@@ -1,5 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
+import alert from '../components/Alert/Alert';
 import { regexp, specCharacters, errorMessages } from '../data/data';
 import endpoints from '../api/endpoints';
 import { RegExps, ValidateLoginData, ValidateRegisterData, UserType } from '../interfaces/intefaces';
@@ -102,7 +103,7 @@ export const validateRegisterInput = async (
         const res = await x(true, errorMessages[id][0], id);
         return res;
       } catch (e) {
-        console.error(e);
+        alert.error((e as { message: string }).message);
       }
     }
   }

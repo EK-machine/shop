@@ -9,6 +9,7 @@ import {
 } from '../slices/userSlice';
 import { apiPatchUser } from '../../api/apis';
 import { UserLikedItem } from '../../interfaces/intefaces';
+import alert from '../../components/Alert/Alert';
 
 export function* workerSetLikeSaga(action: {
   type: typeof setLikeRequest.type;
@@ -19,9 +20,11 @@ export function* workerSetLikeSaga(action: {
     yield call(setLike);
     yield put({ type: setLikeSuccess.type, payload: { liked: action.payload.liked } });
   } catch (e) {
+    const message = `Set like error: ${(e as { message: string }).message}`;
+    alert.error(message);
     yield put({
       type: setLikeFailed.type,
-      payload: `Set like error: ${(e as { message: string }).message}`,
+      payload: message,
     });
   }
 }
@@ -35,9 +38,11 @@ export function* workerUnsetLikeSaga(action: {
     yield call(unsetLike);
     yield put({ type: unsetLikeSuccess.type, payload: { liked: action.payload.liked } });
   } catch (e) {
+    const message = `Unset like error: ${(e as { message: string }).message}`;
+    alert.error(message);
     yield put({
       type: unsetLikeFailed.type,
-      payload: `Unset like error: ${(e as { message: string }).message}`,
+      payload: message,
     });
   }
 }

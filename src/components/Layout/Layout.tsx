@@ -21,16 +21,15 @@ const Layout: React.FC<LayoutProps> = ({ children, productCategory }) => {
   };
 
   useEffect(() => {
-    dispatch(allProductsRequest());
-  }, []);
-
-  useEffect(() => {
     layoutStyle(location.pathname);
   }, [location.pathname]);
 
+  useEffect(() => {
+    dispatch(allProductsRequest());
+  }, []);
+
   return (
     <div className={styles.mainContainer}>
-      {/* <InfoBanner /> */}
       <Header productCategory={productCategory} />
       <div className={`${styles.mainContent} ${styling ? styles.mainContentReviews : ''}`}>{children}</div>
       <ModalContainer />

@@ -14,7 +14,7 @@ import {
   setLikeRequest,
   unsetLikeRequest,
   addToCartRequest,
-  deleterFromCartRequest,
+  deleteFromCartRequest,
 } from '../../redux/slices/userSlice';
 
 const ModalContainer: React.FC = () => {
@@ -74,11 +74,15 @@ const ModalContainer: React.FC = () => {
   };
 
   const productInCart = () => {
-    if (userCart && userCart.length > 0) {
-      const inside = userCart.find((item) => item.title === modalProduct.title);
-      if (inside && Object.keys(inside).length > 0) {
-        setInCart(true);
-      } else {
+    if (userCart) {
+      if (userCart.length > 0) {
+        const inside = userCart.find((item) => item.title === modalProduct.title);
+        if (inside && Object.keys(inside).length > 0) {
+          setInCart(true);
+        } else {
+          setInCart(false);
+        }
+      } else if (userCart.length === 0) {
         setInCart(false);
       }
     }
@@ -90,7 +94,7 @@ const ModalContainer: React.FC = () => {
         const newCart = userCart.filter((item) => item.title !== modalProduct.title);
         const payload = { id: user && user.id, cart: newCart };
         dispatch(
-          deleterFromCartRequest(
+          deleteFromCartRequest(
             payload as {
               id: number;
               cart: UserCartItem[];

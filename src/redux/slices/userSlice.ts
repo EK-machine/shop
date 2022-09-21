@@ -122,7 +122,7 @@ const userSlice = createSlice({
       state.addToCartRequest = initialState.addToCartRequest;
       state.cartError = action.payload;
     },
-    deleterFromCartRequest: (state, action: PayloadAction<{ id: number; cart: UserCartItem[] }>) => {
+    deleteFromCartRequest: (state, action: PayloadAction<{ id: number; cart: UserCartItem[] }>) => {
       state.deleteFromCartRequest = action.payload;
     },
     deleterFromCartSuccess: (state, action: PayloadAction<{ id: number; cart: UserCartItem[] }>) => {
@@ -218,7 +218,7 @@ export const {
   addToCartRequest,
   addToCartSuccess,
   addToCartFailed,
-  deleterFromCartRequest,
+  deleteFromCartRequest,
   deleterFromCartSuccess,
   deleterFromCartFailed,
   changeQuantityRequest,
@@ -241,8 +241,3 @@ export const {
 } = userSlice.actions;
 
 export default userSlice.reducer;
-
-// {
-//   dateTill: string;
-//   items: UserCartItem[];
-// }
