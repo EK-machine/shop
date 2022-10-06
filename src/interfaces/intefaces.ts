@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { Dispatch } from 'redux';
 
 export interface ProductType {
   id: number;
@@ -20,6 +19,15 @@ export interface UserLikedItem extends ProductType {
 
 export interface UserCartItem extends ProductType {
   quantity: number;
+}
+
+export interface PendingItem {
+  id: number;
+  pending: boolean;
+}
+
+export interface PendingState {
+  pending: PendingItem[];
 }
 
 export interface LayoutProps {
@@ -70,7 +78,6 @@ export interface ModalProductProps {
 export interface UserProfile {
   login: string;
   password: string;
-  role: string;
   id: number;
   imgUrl: string;
   cart: UserCartItem[];
@@ -109,6 +116,8 @@ export interface ButtonProps {
   activeBtn?: boolean;
   like?: () => void;
   liked?: boolean;
+  loading?: boolean;
+  pending?: boolean;
 }
 
 export interface ModalProps {
@@ -122,6 +131,7 @@ export interface ModalProps {
   modalContent: string;
   title?: string;
   addRemove?: () => void;
+  pending?: boolean;
 }
 
 export interface ModalRegisterLogin {
@@ -190,13 +200,6 @@ export interface CommonStateType {
   logged: boolean;
 }
 
-export type BaseAction<T> = {
-  type: string;
-  payload: T;
-};
-
-export type BaseDispatch<T> = Dispatch<BaseAction<T>>;
-
 export interface LikedItemProps {
   image: string;
   title: string;
@@ -235,22 +238,16 @@ export interface UsersState {
   users: UserProfile[];
   user: UserProfile;
   userRequest: UserProfile;
-  avatarRequest: { id: number; imgUrl: string };
-  loginRequest: { id: number; login: string };
-  passwordRequest: { id: number; password: string };
-  addToCartRequest: { id: number; cart: UserCartItem[] };
-  deleteFromCartRequest: { id: number; cart: UserCartItem[] };
+  avatarRequest: { id: number; imgUrl: string; prodId: number };
+  loginRequest: { id: number; login: string; prodId: number };
+  passwordRequest: { id: number; password: string; prodId: number };
+  addToCartRequest: { id: number; cart: UserCartItem[]; title: string; prodId: number };
+  deleteFromCartRequest: { id: number; cart: UserCartItem[]; title: string; prodId: number };
   changeQuantityRequest: { id: number; cart: UserCartItem[] };
-  setLikeRequest: { id: number; liked: UserLikedItem[] };
-  unsetLikeRequest: { id: number; liked: UserLikedItem[] };
-  setOrderRequest: { id: number; orders: UserOrder[] };
-  deleteOrderRequest: { id: number; orders: UserOrder[] };
-  usersError: string;
-  userError: string;
-  createError: string;
-  cartError: string;
-  likedError: string;
-  orderError: string;
+  setLikeRequest: { id: number; liked: UserLikedItem[]; title: string };
+  unsetLikeRequest: { id: number; liked: UserLikedItem[]; title: string };
+  setOrderRequest: { id: number; orders: UserOrder[]; prodId: number };
+  deleteOrderRequest: { id: number; orders: UserOrder[]; prodId: number };
   usetCart: [];
 }
 
@@ -268,10 +265,30 @@ export interface CommonState {
   logged: boolean;
 }
 
+export interface ErrorrsState {
+  errors: string[];
+  error: string;
+}
+
 export interface AppStateType {
   common: CommonState;
   heading: HeadingState;
   user: UsersState;
   modal: ModalState;
   products: AllProductsState;
+  errors: ErrorrsState;
+  pending: PendingState;
+}
+
+export interface ErrorBoundaryProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, react/require-default-props
+  children: any;
+  previousErrors: string[];
+  userId: number;
+  thrownError: string;
+  setTheErros: (data: string[]) => void;
+}
+
+export interface ErrorBoundaryState {
+  error: boolean;
 }

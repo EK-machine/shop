@@ -1,4 +1,4 @@
-import { takeEvery, put, call, fork } from 'redux-saga/effects';
+import { takeEvery, put, call, spawn, all, select } from 'redux-saga/effects';
 import {
   setLikeRequest,
   setLikeSuccess,
@@ -7,13 +7,14 @@ import {
   unsetLikeSuccess,
   unsetLikeFailed,
 } from '../slices/userSlice';
+import { setError } from '../slices/errorSlice';
 import { apiPatchUser } from '../../api/apis';
-import { UserLikedItem } from '../../interfaces/intefaces';
+import { AppStateType, UserLikedItem } from '../../interfaces/intefaces';
 import alert from '../../components/Alert/Alert';
 
 export function* workerSetLikeSaga(action: {
   type: typeof setLikeRequest.type;
-  payload: { id: number; liked: UserLikedItem[] };
+  payload: { id: number; liked: UserLikedItem[]; title: string };
 }) {
   try {
     const setLike = () => apiPatchUser(action.payload.id.toString(), { liked: action.payload.liked });
@@ -22,16 +23,25 @@ export function* workerSetLikeSaga(action: {
   } catch (e) {
     const message = `Set like error: ${(e as { message: string }).message}`;
     alert.error(message);
-    yield put({
-      type: setLikeFailed.type,
-      payload: message,
-    });
+    const state: AppStateType = yield select();
+    const { errors } = state.errors;
+    const newErrors = [...errors, message];
+    const payload = { error: message, errors: newErrors };
+    yield all([
+      put({
+        type: setLikeFailed.type,
+      }),
+      put({
+        type: setError.type,
+        payload,
+      }),
+    ]);
   }
 }
 
 export function* workerUnsetLikeSaga(action: {
   type: typeof unsetLikeRequest.type;
-  payload: { id: number; liked: UserLikedItem[] };
+  payload: { id: number; liked: UserLikedItem[]; title: string };
 }) {
   try {
     const unsetLike = () => apiPatchUser(action.payload.id.toString(), { liked: action.payload.liked });
@@ -40,10 +50,19 @@ export function* workerUnsetLikeSaga(action: {
   } catch (e) {
     const message = `Unset like error: ${(e as { message: string }).message}`;
     alert.error(message);
-    yield put({
-      type: unsetLikeFailed.type,
-      payload: message,
-    });
+    const state: AppStateType = yield select();
+    const { errors } = state.errors;
+    const newErrors = [...errors, message];
+    const payload = { error: message, errors: newErrors };
+    yield all([
+      put({
+        type: unsetLikeFailed.type,
+      }),
+      put({
+        type: setError.type,
+        payload,
+      }),
+    ]);
   }
 }
 
@@ -55,4 +74,4 @@ export function* watchUnsetLikeSaga() {
   yield takeEvery(unsetLikeRequest.type, workerUnsetLikeSaga);
 }
 
-export const likedSaga = [fork(watchSetLikeSaga), fork(watchUnsetLikeSaga)];
+export const likedSaga = [spawn(watchSetLikeSaga), spawn(watchUnsetLikeSaga)];

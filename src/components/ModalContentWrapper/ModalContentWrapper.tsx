@@ -16,6 +16,7 @@ const ModalContentWrapper: React.FC<ModalProps> = ({
   modalContent,
   title,
   addRemove,
+  pending,
 }) => {
   const [inCart, setInCart] = useState<boolean>(false);
   const userCart = useSelector((state: AppStateType) => logged && state.user.user.cart);
@@ -71,9 +72,9 @@ const ModalContentWrapper: React.FC<ModalProps> = ({
       {logged && modalContent === 'product' && (
         <div className={styles.modalBottomWrapper}>
           {inCart ? (
-            <Button usual underlined text="remove from cart" type="button" onClick={addRemove} />
+            <Button loading text="remove from cart" pending={pending} type="button" onClick={addRemove} />
           ) : (
-            <Button usual text="add to cart" type="button" onClick={addRemove} />
+            <Button loading text="add to cart" type="button" pending={pending} onClick={addRemove} />
           )}
         </div>
       )}

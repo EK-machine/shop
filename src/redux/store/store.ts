@@ -7,6 +7,8 @@ import headingReducer from '../slices/headingSlice';
 import userReducer from '../slices/userSlice';
 import modalContentReducer from '../slices/modalContentSlice';
 import allProductsReducer from '../slices/allProductsSlice';
+import pendingReducer from '../slices/pendingSlice';
+import errorsReducer from '../slices/errorSlice';
 import rootSaga from '../sagas/rootSaga';
 
 const rootReducer = combineReducers({
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   modal: modalContentReducer,
   products: allProductsReducer,
   user: userReducer,
+  pending: pendingReducer,
+  errors: errorsReducer,
 });
 
 const persistConfig = {

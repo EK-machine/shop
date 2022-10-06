@@ -61,12 +61,29 @@ const Liked: React.FC = () => {
 
   const like = (val: string) => {
     if (likedProds) {
-      const isLiked = !!likedProds.find((item) => item.title === val && item.liked);
-      if (isLiked) {
-        const newLiked = likedProds.filter((item) => item.title !== val);
-        const dispatchBody = { id: user && user.id, liked: newLiked };
-        dispatch(setLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[] }));
-      } else {
+      if (likedProds.length > 0) {
+        const isLiked = likedProds.find((item) => item.title === val && item.liked);
+        if (isLiked) {
+          const newLiked = likedProds.filter((item) => item.title !== val);
+          const dispatchBody = { id: user && user.id, liked: newLiked, title: val };
+          dispatch(unsetLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[]; title: string }));
+        } else {
+          const product = getProductData(val);
+          const prod = {
+            id: product?.id,
+            title: product?.title,
+            price: product?.price,
+            category: product?.category,
+            description: product?.description,
+            image: product?.image,
+            rating: product?.rating,
+            liked: true,
+          };
+          const newLiked = [...likedProds, prod];
+          const dispatchBody = { id: user && user.id, liked: newLiked, title: val };
+          dispatch(setLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[]; title: string }));
+        }
+      } else if (likedProds.length === 0) {
         const product = getProductData(val);
         const prod = {
           id: product?.id,
@@ -76,11 +93,10 @@ const Liked: React.FC = () => {
           description: product?.description,
           image: product?.image,
           rating: product?.rating,
-          liked: !isLiked,
+          liked: true,
         };
-        const newLiked = [...likedProds, prod];
-        const dispatchBody = { id: user && user.id, liked: newLiked };
-        dispatch(unsetLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[] }));
+        const dispatchBody = { id: user && user.id, liked: [prod], title: val };
+        dispatch(setLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[]; title: string }));
       }
     }
   };
@@ -116,7 +132,6 @@ const Liked: React.FC = () => {
         <MostSlider products={most} getSelected={getSelected} openModal={openModal} />
       ) : (
         <>
-          {' '}
           {likedProds &&
             likedProds.map((item) => (
               <LikedItem

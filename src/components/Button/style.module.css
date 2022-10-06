@@ -80,6 +80,39 @@
   cursor: default;
 }
 
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.pending,
+.pending:hover,
+.pending:focus {
+  background: transparent;
+  height: 50px;
+  min-width: 195px;
+  outline: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  pointer-events: none;
+  cursor: default;
+}
+
+.pendingIcon {
+  height: 40px;
+  width: 40px;
+  animation: loading 3s linear infinite;
+  margin: 0 auto;
+}
+
 .image {
   height: 50px;
 }
@@ -97,6 +130,10 @@
   text-transform: capitalize;
   margin-right: 12px;
   opacity: 0.8;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .categoryBtn,

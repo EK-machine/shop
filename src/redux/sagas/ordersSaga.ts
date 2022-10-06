@@ -1,4 +1,4 @@
-import { takeEvery, put, call, fork } from 'redux-saga/effects';
+import { takeEvery, put, call, spawn, all, select, delay } from 'redux-saga/effects';
 import {
   setOrderRequest,
   setOrderSuccess,
@@ -7,45 +7,78 @@ import {
   deleteOrderSuccess,
   deleteOrderFailed,
 } from '../slices/userSlice';
+import { setPendingTrue, setPendingFalse } from '../slices/pendingSlice';
 import { apiPatchUser } from '../../api/apis';
-import { UserOrder } from '../../interfaces/intefaces';
+import { setError } from '../slices/errorSlice';
+import { AppStateType, UserOrder } from '../../interfaces/intefaces';
 import alert from '../../components/Alert/Alert';
 
 export function* workerSetOrderSaga(action: {
   type: typeof setOrderRequest.type;
-  payload: { id: number; orders: UserOrder[] };
+  payload: { id: number; orders: UserOrder[]; prodId: number };
 }) {
   try {
+    yield put({ type: setPendingTrue.type, payload: { id: action.payload.prodId, pending: true } });
+    yield delay(1500);
     const setOrder = () => apiPatchUser(action.payload.id.toString(), { orders: action.payload.orders });
     yield call(setOrder);
-    yield put({ type: setOrderSuccess.type, payload: { orders: action.payload.orders } });
+    yield all([
+      put({ type: setOrderSuccess.type, payload: { orders: action.payload.orders } }),
+      put({ type: setPendingFalse.type }),
+    ]);
     alert.success('Your order was placed successfully');
   } catch (e) {
     const message = `Add order error: ${(e as { message: string }).message}`;
     alert.error(message);
-    yield put({
-      type: setOrderFailed.type,
-      payload: message,
-    });
+    const state: AppStateType = yield select();
+    const { errors } = state.errors;
+    const newErrors = [...errors, message];
+    const payload = { error: message, errors: newErrors };
+    yield all([
+      put({
+        type: setOrderFailed.type,
+      }),
+      put({
+        type: setError.type,
+        payload,
+      }),
+      put({ type: setPendingFalse.type }),
+    ]);
   }
 }
 
 export function* workerDeleteOrderSaga(action: {
   type: typeof deleteOrderRequest.type;
-  payload: { id: number; orders: UserOrder[] };
+  payload: { id: number; orders: UserOrder[]; prodId: number };
 }) {
   try {
+    yield put({ type: setPendingTrue.type, payload: { id: action.payload.prodId, pending: true } });
+    yield delay(1500);
     const deleteOrder = () => apiPatchUser(action.payload.id.toString(), { orders: action.payload.orders });
     yield call(deleteOrder);
-    yield put({ type: deleteOrderSuccess.type, payload: { orders: action.payload.orders } });
+    yield all([
+      put({ type: deleteOrderSuccess.type, payload: { orders: action.payload.orders } }),
+      put({ type: setPendingFalse.type }),
+    ]);
     alert.success('Your order was cancelled successfully');
   } catch (e) {
     const message = `Delete order error: ${(e as { message: string }).message}`;
     alert.error(message);
-    yield put({
-      type: deleteOrderFailed.type,
-      payload: message,
-    });
+
+    const state: AppStateType = yield select();
+    const { errors } = state.errors;
+    const newErrors = [...errors, message];
+    const payload = { error: message, errors: newErrors };
+    yield all([
+      put({
+        type: deleteOrderFailed.type,
+      }),
+      put({
+        type: setError.type,
+        payload,
+      }),
+      put({ type: setPendingFalse.type }),
+    ]);
   }
 }
 
@@ -57,4 +90,4 @@ export function* watchDeleteOrderSaga() {
   yield takeEvery(deleteOrderRequest.type, workerDeleteOrderSaga);
 }
 
-export const ordersSaga = [fork(watchSetOrderSaga), fork(watchDeleteOrderSaga)];
+export const ordersSaga = [spawn(watchSetOrderSaga), spawn(watchDeleteOrderSaga)];

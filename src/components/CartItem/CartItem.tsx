@@ -21,18 +21,21 @@ const CartItem: React.FC<CartItemProps> = ({
 }) => {
   const userCart = useSelector((state: AppStateType) => state.user.user.cart);
   const user = useSelector((state: AppStateType) => state.user.user);
+  const pending = useSelector((state: AppStateType) => state.pending.pending.find((item) => item.id === id))?.pending;
   const [productQuantity, setProductQuantity] = useState<string>(quantity.toString());
   const dispatch = useDispatch();
 
   const addRemove = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
     const newCart = userCart.filter((item) => item.title !== title);
-    const payload = { id: user && user.id, cart: newCart };
+    const payload = { id: user && user.id, cart: newCart, title, prodId: id };
     dispatch(
       deleteFromCartRequest(
         payload as {
           id: number;
           cart: UserCartItem[];
+          title: string;
+          prodId: number;
         },
       ),
     );
@@ -79,7 +82,7 @@ const CartItem: React.FC<CartItemProps> = ({
         <p className={styles.cartItemTitle}>{title}</p>
       </div>
       <div className={styles.delete}>
-        <Button usual underlined text="remove from cart" type="button" onClick={addRemove} />
+        <Button loading text="remove from cart" type="button" pending={pending} onClick={addRemove} />
       </div>
       <div className={styles.priceQuantity}>
         <div className={styles.quantityWrapper} onClick={(e) => e.stopPropagation()}>

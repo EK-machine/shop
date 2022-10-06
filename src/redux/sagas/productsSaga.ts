@@ -1,4 +1,4 @@
-import { takeEvery, put, call, fork, SagaReturnType, debounce } from 'redux-saga/effects';
+import { takeEvery, put, call, spawn, SagaReturnType, debounce } from 'redux-saga/effects';
 import {
   allProductsRequest,
   setAllProducts,
@@ -46,4 +46,4 @@ export function* watchGetAllProductsSaga() {
   yield takeEvery(allProductsRequest.type, workerGetAllProductsSaga);
 }
 
-export const productsSaga = [fork(watchGetAllProductsSaga), fork(watchProductsDebounceSaga)];
+export const productsSaga = [spawn(watchGetAllProductsSaga), spawn(watchProductsDebounceSaga)];

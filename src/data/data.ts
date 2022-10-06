@@ -10,6 +10,7 @@ import cardIcon from '../../public/creditCard.svg';
 import loginIcon from '../../public/login.svg';
 import passIcon from '../../public/password.svg';
 import avaIcon from '../../public/avatar.svg';
+import loadingIcon from '../../public/loading.svg';
 import refresharrows from '../../public/refresharrows.svg';
 
 export const categoryIcons = [allIcon, manIcon, jewlryIcon, electronicIcon, womanIcon];
@@ -126,3 +127,4 @@ export const newAva = avaIcon;
 export const change = refresharrows;
 export const toLike = tolikeIcon;
 export const isliked = likeIcon;
+export const btnLoading = loadingIcon;

@@ -11,6 +11,7 @@ const SetLogin: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const users = useSelector((state: AppStateType) => state.user.users);
   const user = useSelector((state: AppStateType) => state.user.user);
+  const pending = useSelector((state: AppStateType) => state.pending.pending.find((item) => item.id === 0))?.pending;
   const dispatch = useDispatch();
 
   const submitChange = (event: React.FormEvent<HTMLFormElement>) => {
@@ -21,6 +22,7 @@ const SetLogin: React.FC = () => {
       const payload = {
         id: user.id,
         login: newLogin,
+        prodId: 0,
       };
       dispatch(setLoginRequest(payload));
       setNewLogin('');
@@ -41,7 +43,7 @@ const SetLogin: React.FC = () => {
         content="login"
       />
       <div className={styles.btnsContainer}>
-        <Button disabled={newLogin === ''} usual text="Save changes" type="submit" />
+        <Button disabled={newLogin === ''} loading pending={pending} text="Save changes" type="submit" />
       </div>
     </form>
   );

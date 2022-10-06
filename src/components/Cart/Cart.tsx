@@ -22,6 +22,7 @@ const Cart: React.FC = () => {
   const products = useSelector((state: AppStateType) => state.products.products);
   const orders = useSelector((state: AppStateType) => state.user.user.orders);
   const user = useSelector((state: AppStateType) => state.user.user);
+  const pending = useSelector((state: AppStateType) => state.pending.pending.find((item) => item.id === 0))?.pending;
   const dispatch = useDispatch();
   const cartRef = useRef(null);
 
@@ -86,7 +87,7 @@ const Cart: React.FC = () => {
       };
       const orderItem = { dateTill: date, id: latestId(), items: userCart };
       const newOrders = orders.concat(orderItem);
-      const payload = { id: user && user.id, orders: newOrders };
+      const payload = { id: user && user.id, orders: newOrders, prodId: 0 };
       dispatch(setOrderRequest(payload));
     }
   };
@@ -123,10 +124,12 @@ const Cart: React.FC = () => {
       ) : (
         <>
           <div className={styles.buttonWrapper}>
-            {!isDateSetter && <Button onClick={showDateSetter} usual underlined type="button" text="Place order" />}
+            {!isDateSetter && (
+              <Button onClick={showDateSetter} loading pending={pending} underlined type="button" text="Place order" />
+            )}
             {isDateSetter && (
               <form className={styles.dateForm} onSubmit={orderHandler}>
-                <Button usual text="Place order" disabled={date === ''} type="submit" />
+                <Button text="Place order" disabled={date === ''} loading pending={pending} type="submit" />
                 <Input forId="date" type="date" title="Set delivery date" value={date} setValue={setDate} required />
               </form>
             )}

@@ -1,6 +1,7 @@
 .modalContentWrapper {
   position: fixed;
   overflow-x: hidden;
+  border-radius: 16px 0 0 16px !important;
 }
 
 .modalContentWrapper::-webkit-scrollbar {

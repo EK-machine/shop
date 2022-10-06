@@ -1,12 +1,3 @@
-import alert from '../components/Alert/Alert';
-
-export interface httpErr {
-  response: {
-    data: string;
-  };
-  message: string;
-}
-
 const isJson = (str: string) => {
   try {
     return JSON.parse(str);
@@ -32,7 +23,7 @@ interface IRequestParams {
   body?: string;
 }
 
-function apiService<T>(url: string, method: HTTPMethods, body?: unknown | null, hideError = false): Promise<T> {
+function apiService<T>(url: string, method: HTTPMethods, body?: unknown | null): Promise<T> {
   const requestParams: IRequestParams = {
     method,
     headers: {
@@ -47,53 +38,26 @@ function apiService<T>(url: string, method: HTTPMethods, body?: unknown | null, 
   })
     .then((response) => {
       if (!response.ok) {
-        // eslint-disable-next-line no-shadow
-        return response.json().then((body) => {
-          if (body.length === 0) {
-            throw new Error(response.statusText);
-          } else {
-            throw new Error(JSON.stringify(body));
-          }
-        });
+        throw new Error(
+          `status ${response.status}: ${response.statusText}; bodyUsed: ${response.bodyUsed}; url: ${response.url}; type: ${response.type}; redirected: ${response.redirected}.`,
+        );
       }
       return response.text().then((data) => (data.length === 0 ? null : isJson(data)));
     })
     .then((data: T) => data)
-    .catch((error: httpErr) => {
-      if (!hideError) {
-        if (error.response && error.response.data) {
-          const errorMessage = error.response.data;
-          alert.error(errorMessage);
-          throw error;
-        } else if (error) {
-          if (typeof JSON.parse(error.message) === 'object') {
-            if ('message' in JSON.parse(error.message)) {
-              if (JSON.parse(error.message).message !== '') {
-                alert.error(JSON.parse(error.message).message);
-              }
-            }
-          } else {
-            alert.error(error.message);
-          }
-        } else {
-          alert.error('Something went wrong.');
-        }
-      }
+    .catch((error) => {
       throw error;
     });
 }
 
 const httpService = {
-  get: <T>(url: string, hideError?: boolean): Promise<T> => apiService(url, HTTPMethods.GET, null, hideError),
+  get: <T>(url: string): Promise<T> => apiService(url, HTTPMethods.GET, null),
 
-  post: <T>(url: string, body?: unknown, hideError?: boolean): Promise<T> =>
-    apiService(url, HTTPMethods.POST, body, hideError),
+  post: <T>(url: string, body?: unknown): Promise<T> => apiService(url, HTTPMethods.POST, body),
 
-  put: <T>(url: string, body?: unknown, hideError?: boolean): Promise<T> =>
-    apiService(url, HTTPMethods.PUT, body, hideError),
+  put: <T>(url: string, body?: unknown): Promise<T> => apiService(url, HTTPMethods.PUT, body),
 
-  patch: <T>(url: string, body: unknown, hideError?: boolean): Promise<T> =>
-    apiService(url, HTTPMethods.PATCH, body, hideError),
+  patch: <T>(url: string, body?: unknown): Promise<T> => apiService(url, HTTPMethods.PATCH, body),
 };
 
 export default httpService;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './style.module.css';
-import { OrderItemProps } from '../../interfaces/intefaces';
+import { AppStateType, OrderItemProps } from '../../interfaces/intefaces';
 import { getDate } from '../../helpers/utils';
 import Button from '../Button/Button';
 import useOutsideClick from '../../hooks/useOutsideClick';
@@ -9,6 +10,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ dateTill, items, id, deleteOrder 
   const [orderString, setOrderString] = useState<string>('');
   const [delivered, setDelivered] = useState<boolean>(false);
   const [isOpened, setIsOpened] = useState<boolean>(false);
+  const pending = useSelector((state: AppStateType) => state.pending.pending.find((item) => item.id === 0))?.pending;
   const orderRef = useRef(null);
 
   const closeOrder = () => {
@@ -48,7 +50,9 @@ const OrderItem: React.FC<OrderItemProps> = ({ dateTill, items, id, deleteOrder 
         <p className={`${styles.orderStatus} ${isOpened ? styles.orderStatusOpened : ''}`}>
           {delivered ? 'Order is delivered' : `Await delivery till ${orderString}`}
         </p>
-        {!delivered && isOpened && <Button usual type="button" text="Cancel order" onClick={stopPropag} />}
+        {!delivered && isOpened && (
+          <Button loading pending={pending} type="button" text="Cancel order" onClick={stopPropag} />
+        )}
       </div>
       {items.map((item) => (
         <div key={item.title} className={`${styles.orderItemLine} ${isOpened ? styles.orderItemLineOpened : ''}`}>

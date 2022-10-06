@@ -6,22 +6,16 @@ const initialState: UsersState = {
   users: [],
   user: {} as UserProfile,
   userRequest: {} as UserProfile,
-  avatarRequest: {} as { id: number; imgUrl: string },
-  loginRequest: {} as { id: number; login: string },
-  passwordRequest: {} as { id: number; password: string },
-  addToCartRequest: {} as { id: number; cart: UserCartItem[] },
-  deleteFromCartRequest: {} as { id: number; cart: UserCartItem[] },
+  avatarRequest: {} as { id: number; imgUrl: string; prodId: number },
+  loginRequest: {} as { id: number; login: string; prodId: number },
+  passwordRequest: {} as { id: number; password: string; prodId: number },
+  addToCartRequest: {} as { id: number; cart: UserCartItem[]; title: string; prodId: number },
+  deleteFromCartRequest: {} as { id: number; cart: UserCartItem[]; title: string; prodId: number },
   changeQuantityRequest: {} as { id: number; cart: UserCartItem[] },
-  setLikeRequest: {} as { id: number; liked: UserLikedItem[] },
-  unsetLikeRequest: {} as { id: number; liked: UserLikedItem[] },
-  setOrderRequest: {} as { id: number; orders: UserOrder[] },
-  deleteOrderRequest: {} as { id: number; orders: UserOrder[] },
-  usersError: '',
-  userError: '',
-  createError: '',
-  cartError: '',
-  likedError: '',
-  orderError: '',
+  setLikeRequest: {} as { id: number; liked: UserLikedItem[]; title: string },
+  unsetLikeRequest: {} as { id: number; liked: UserLikedItem[]; title: string },
+  setOrderRequest: {} as { id: number; orders: UserOrder[]; prodId: number },
+  deleteOrderRequest: {} as { id: number; orders: UserOrder[]; prodId: number },
   usetCart: [],
 };
 
@@ -35,8 +29,8 @@ const userSlice = createSlice({
     getUsersSuccess: (state, action: PayloadAction<UserProfile[]>) => {
       state.users = action.payload;
     },
-    getUsersFailed: (state, action: PayloadAction<string>) => {
-      state.usersError = action.payload;
+    getUsersFailed: (state) => {
+      state.users = initialState.users;
     },
     setUsers: (state, action: PayloadAction<UserProfile[]>) => {
       state.users = action.payload;
@@ -52,12 +46,6 @@ const userSlice = createSlice({
       state.user.login = action.payload.login;
       state.user.orders = action.payload.orders;
       state.user.password = action.payload.password;
-      state.user.role = action.payload.role;
-    },
-    unsetUser: (state) => {
-      state.users = initialState.users;
-      state.usersError = initialState.userError;
-      state.user = initialState.user;
     },
     createUserRequest: (state, action: PayloadAction<UserProfile>) => {
       state.userRequest = action.payload;
@@ -71,67 +59,66 @@ const userSlice = createSlice({
       state.user.login = action.payload.login;
       state.user.orders = action.payload.orders;
       state.user.password = action.payload.password;
-      state.user.role = action.payload.role;
     },
-    createUserFailed: (state, action: PayloadAction<string>) => {
+    createUserFailed: (state) => {
       state.userRequest = initialState.userRequest;
-      state.createError = action.payload;
     },
-    setAvatarRequest: (state, action: PayloadAction<{ id: number; imgUrl: string }>) => {
+    setAvatarRequest: (state, action: PayloadAction<{ id: number; imgUrl: string; prodId: number }>) => {
       state.avatarRequest = action.payload;
     },
     setAvatarSuccess: (state, action: PayloadAction<{ imgUrl: string }>) => {
       state.avatarRequest = initialState.avatarRequest;
       state.user.imgUrl = action.payload.imgUrl;
     },
-    setAvatarFailed: (state, action: PayloadAction<string>) => {
+    setAvatarFailed: (state) => {
       state.avatarRequest = initialState.avatarRequest;
-      state.userError = action.payload;
     },
-    setLoginRequest: (state, action: PayloadAction<{ id: number; login: string }>) => {
+    setLoginRequest: (state, action: PayloadAction<{ id: number; login: string; prodId: number }>) => {
       state.loginRequest = action.payload;
     },
     setLoginSuccess: (state, action: PayloadAction<{ login: string }>) => {
       state.loginRequest = initialState.loginRequest;
       state.user.login = action.payload.login;
     },
-    setLoginFailed: (state, action: PayloadAction<string>) => {
+    setLoginFailed: (state) => {
       state.loginRequest = initialState.loginRequest;
-      state.userError = action.payload;
     },
-    setPasswordRequest: (state, action: PayloadAction<{ id: number; password: string }>) => {
+    setPasswordRequest: (state, action: PayloadAction<{ id: number; password: string; prodId: number }>) => {
       state.passwordRequest = action.payload;
     },
     setPasswordSuccess: (state, action: PayloadAction<{ password: string }>) => {
       state.passwordRequest = initialState.passwordRequest;
       state.user.password = action.payload.password;
     },
-    setPasswordFailed: (state, action: PayloadAction<string>) => {
+    setPasswordFailed: (state) => {
       state.passwordRequest = initialState.passwordRequest;
-      state.userError = action.payload;
     },
     // cart
-    addToCartRequest: (state, action: PayloadAction<{ id: number; cart: UserCartItem[] }>) => {
+    addToCartRequest: (
+      state,
+      action: PayloadAction<{ id: number; cart: UserCartItem[]; title: string; prodId: number }>,
+    ) => {
       state.addToCartRequest = action.payload;
     },
     addToCartSuccess: (state, action: PayloadAction<{ id: number; cart: UserCartItem[] }>) => {
       state.addToCartRequest = initialState.addToCartRequest;
       state.user.cart = action.payload.cart;
     },
-    addToCartFailed: (state, action: PayloadAction<string>) => {
+    addToCartFailed: (state) => {
       state.addToCartRequest = initialState.addToCartRequest;
-      state.cartError = action.payload;
     },
-    deleteFromCartRequest: (state, action: PayloadAction<{ id: number; cart: UserCartItem[] }>) => {
+    deleteFromCartRequest: (
+      state,
+      action: PayloadAction<{ id: number; cart: UserCartItem[]; title: string; prodId: number }>,
+    ) => {
       state.deleteFromCartRequest = action.payload;
     },
     deleterFromCartSuccess: (state, action: PayloadAction<{ id: number; cart: UserCartItem[] }>) => {
       state.deleteFromCartRequest = initialState.deleteFromCartRequest;
       state.user.cart = action.payload.cart;
     },
-    deleterFromCartFailed: (state, action: PayloadAction<string>) => {
+    deleterFromCartFailed: (state) => {
       state.deleteFromCartRequest = initialState.deleteFromCartRequest;
-      state.cartError = action.payload;
     },
     changeQuantityRequest: (state, action: PayloadAction<{ id: number; cart: UserCartItem[] }>) => {
       state.changeQuantityRequest = action.payload;
@@ -140,35 +127,32 @@ const userSlice = createSlice({
       state.changeQuantityRequest = initialState.changeQuantityRequest;
       state.user.cart = action.payload.cart;
     },
-    changeQuantityFailed: (state, action: PayloadAction<string>) => {
+    changeQuantityFailed: (state) => {
       state.changeQuantityRequest = initialState.changeQuantityRequest;
-      state.cartError = action.payload;
     },
     // liked
-    setLikeRequest: (state, action: PayloadAction<{ id: number; liked: UserLikedItem[] }>) => {
+    setLikeRequest: (state, action: PayloadAction<{ id: number; liked: UserLikedItem[]; title: string }>) => {
       state.setLikeRequest = action.payload;
     },
     setLikeSuccess: (state, action: PayloadAction<{ id: number; liked: UserLikedItem[] }>) => {
       state.setLikeRequest = initialState.setLikeRequest;
       state.user.liked = action.payload.liked;
     },
-    setLikeFailed: (state, action: PayloadAction<string>) => {
+    setLikeFailed: (state) => {
       state.setLikeRequest = initialState.setLikeRequest;
-      state.likedError = action.payload;
     },
-    unsetLikeRequest: (state, action: PayloadAction<{ id: number; liked: UserLikedItem[] }>) => {
+    unsetLikeRequest: (state, action: PayloadAction<{ id: number; liked: UserLikedItem[]; title: string }>) => {
       state.unsetLikeRequest = action.payload;
     },
     unsetLikeSuccess: (state, action: PayloadAction<{ id: number; liked: UserLikedItem[] }>) => {
       state.unsetLikeRequest = initialState.unsetLikeRequest;
       state.user.liked = action.payload.liked;
     },
-    unsetLikeFailed: (state, action: PayloadAction<string>) => {
+    unsetLikeFailed: (state) => {
       state.unsetLikeRequest = initialState.unsetLikeRequest;
-      state.likedError = action.payload;
     },
     // orders
-    setOrderRequest: (state, action: PayloadAction<{ id: number; orders: UserOrder[] }>) => {
+    setOrderRequest: (state, action: PayloadAction<{ id: number; orders: UserOrder[]; prodId: number }>) => {
       state.setOrderRequest = action.payload;
     },
     setOrderSuccess: (state, action: PayloadAction<{ id: number; orders: UserOrder[] }>) => {
@@ -176,20 +160,34 @@ const userSlice = createSlice({
       state.user.orders = action.payload.orders;
       state.user.cart = initialState.usetCart;
     },
-    setOrderFailed: (state, action: PayloadAction<string>) => {
+    setOrderFailed: (state) => {
       state.setLikeRequest = initialState.setLikeRequest;
-      state.likedError = action.payload;
     },
-    deleteOrderRequest: (state, action: PayloadAction<{ id: number; orders: UserOrder[] }>) => {
+    deleteOrderRequest: (state, action: PayloadAction<{ id: number; orders: UserOrder[]; prodId: number }>) => {
       state.deleteOrderRequest = action.payload;
     },
     deleteOrderSuccess: (state, action: PayloadAction<{ id: number; orders: UserOrder[] }>) => {
       state.deleteOrderRequest = initialState.setOrderRequest;
       state.user.orders = action.payload.orders;
     },
-    deleteOrderFailed: (state, action: PayloadAction<string>) => {
+    deleteOrderFailed: (state) => {
       state.deleteOrderRequest = initialState.deleteOrderRequest;
-      state.likedError = action.payload;
+    },
+    unsetUser: (state) => {
+      state.users = initialState.users;
+      state.user = initialState.user;
+      state.userRequest = initialState.userRequest;
+      state.avatarRequest = initialState.avatarRequest;
+      state.loginRequest = initialState.loginRequest;
+      state.passwordRequest = initialState.passwordRequest;
+      state.addToCartRequest = initialState.addToCartRequest;
+      state.deleteFromCartRequest = initialState.deleteFromCartRequest;
+      state.changeQuantityRequest = initialState.changeQuantityRequest;
+      state.setLikeRequest = initialState.unsetLikeRequest;
+      state.unsetLikeRequest = initialState.unsetLikeRequest;
+      state.setOrderRequest = initialState.setOrderRequest;
+      state.deleteOrderRequest = initialState.deleteOrderRequest;
+      state.usetCart = initialState.usetCart;
     },
   },
 });

@@ -7,13 +7,14 @@ import styles from './style.module.css';
 import alert from '../Alert/Alert';
 import { validateLoginRegister } from '../../helpers/validations';
 import { AppStateType, FormErrors, ModalRegisterLogin } from '../../interfaces/intefaces';
-import { isLogged, isLoading } from '../../redux/slices/commonStateSlice';
+import { isLogged } from '../../redux/slices/commonStateSlice';
 import { setModalOpen } from '../../redux/slices/modalContentSlice';
 import { setUser } from '../../redux/slices/userSlice';
 import { setHeading } from '../../redux/slices/headingSlice';
 
 const ModalLogin: React.FC<ModalRegisterLogin> = ({ text }) => {
   const [login, setLogin] = useState<string>('');
+  const [pending, setPending] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<FormErrors>({});
   const modalContent = useSelector((state: AppStateType) => state.modal.content);
@@ -23,27 +24,27 @@ const ModalLogin: React.FC<ModalRegisterLogin> = ({ text }) => {
 
   const submitRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(isLoading(true));
+    setPending(true);
     const validations = { login, password };
-
     const formValid = await validateLoginRegister(validations, modalContent);
+    setTimeout(() => {
+      if (formValid === true) {
+        const user = users.find((person) => person.login === login && person.password === password);
 
-    if (formValid === true) {
-      const user = users.find((person) => person.login === login && person.password === password);
-
-      if (user && Object.keys(user).length > 0) {
-        alert.success('You have logged in successfully');
-        history.push('/cart');
-        dispatch(setUser(user));
-        dispatch(isLogged(true));
-        dispatch(setHeading('Your cart'));
-        dispatch(isLoading(false));
-        dispatch(setModalOpen(false));
+        if (user && Object.keys(user).length > 0) {
+          alert.success('You have logged in successfully');
+          history.push('/cart');
+          dispatch(setUser(user));
+          dispatch(isLogged(true));
+          dispatch(setHeading('Your cart'));
+          setPending(false);
+          dispatch(setModalOpen(false));
+        }
+      } else {
+        setPending(false);
+        setErrors(formValid as FormErrors);
       }
-    } else {
-      dispatch(isLoading(false));
-      setErrors(formValid as FormErrors);
-    }
+    }, 1500);
   };
 
   return (
@@ -76,7 +77,7 @@ const ModalLogin: React.FC<ModalRegisterLogin> = ({ text }) => {
         />
       </div>
       <div className={styles.btnsContainer}>
-        <Button usual text={modalContent} type="submit" />
+        <Button loading pending={pending} text={modalContent} type="submit" />
       </div>
     </form>
   );

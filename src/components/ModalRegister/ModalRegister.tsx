@@ -6,12 +6,14 @@ import Button from '../Button/Button';
 import styles from './style.module.css';
 import { validateLoginRegister } from '../../helpers/validations';
 import { AppStateType, FormErrors, ModalRegisterLogin } from '../../interfaces/intefaces';
-import { isLogged, isLoading } from '../../redux/slices/commonStateSlice';
+import { isLogged } from '../../redux/slices/commonStateSlice';
 import { setModalOpen } from '../../redux/slices/modalContentSlice';
 import { createUserRequest } from '../../redux/slices/userSlice';
+import { apiPostError } from '../../api/apis';
 
 const ModalRegister: React.FC<ModalRegisterLogin> = ({ text }) => {
   const [login, setLogin] = useState<string>('');
+  const [pending, setPending] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [repeatpassword, setRepeatPassword] = useState<string>('');
   const [errors, setErrors] = useState<FormErrors>({});
@@ -22,31 +24,37 @@ const ModalRegister: React.FC<ModalRegisterLogin> = ({ text }) => {
 
   const submitRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(isLoading(true));
+    setPending(true);
     const validations = { login, password, repeatpassword };
 
     const formValid = await validateLoginRegister(validations, modalContent);
 
-    if (formValid === true) {
-      const body = {
-        login,
-        password,
-        role: 'user',
-        imgUrl: '',
-        cart: [],
-        orders: [],
-        liked: [],
-        id: numberOfUsers + 1,
-      };
-      dispatch(createUserRequest(body));
-      history.push('/settings');
-      dispatch(isLogged(true));
-      dispatch(isLoading(false));
-      dispatch(setModalOpen(false));
-    } else {
-      setErrors(formValid as FormErrors);
-      dispatch(isLoading(false));
-    }
+    setTimeout(() => {
+      if (formValid === true) {
+        const body = {
+          login,
+          password,
+          imgUrl: '',
+          cart: [],
+          orders: [],
+          liked: [],
+          id: numberOfUsers + 1,
+        };
+        const errorBody = {
+          id: numberOfUsers + 1,
+          errors: [],
+        };
+        dispatch(createUserRequest(body));
+        apiPostError(errorBody);
+        history.push('/settings');
+        dispatch(isLogged(true));
+        setPending(false);
+        dispatch(setModalOpen(false));
+      } else {
+        setErrors(formValid as FormErrors);
+        setPending(false);
+      }
+    }, 1500);
   };
 
   return (
@@ -94,7 +102,7 @@ const ModalRegister: React.FC<ModalRegisterLogin> = ({ text }) => {
       </div>
 
       <div className={styles.btnsContainer}>
-        <Button usual text={modalContent} type="submit" />
+        <Button loading pending={pending} text={modalContent} type="submit" />
       </div>
     </form>
   );

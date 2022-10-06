@@ -11,6 +11,7 @@ const SetPassword: React.FC = () => {
   const [repeatpassword, setRepeatPassword] = useState<string>('');
   const [errors, setErrors] = useState<FormErrors>({});
   const user = useSelector((state: AppStateType) => state.user.user);
+  const pending = useSelector((state: AppStateType) => state.pending.pending.find((item) => item.id === 0))?.pending;
   const dispatch = useDispatch();
 
   const submitChange = (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,6 +21,7 @@ const SetPassword: React.FC = () => {
       const payload = {
         id: user.id,
         password,
+        prodId: 0,
       };
       dispatch(setPasswordRequest(payload));
       setPassword('');
@@ -56,7 +58,8 @@ const SetPassword: React.FC = () => {
       <div className={styles.btnsContainer}>
         <Button
           disabled={password === '' || repeatpassword === '' || !(password === repeatpassword)}
-          usual
+          loading
+          pending={pending}
           text="Save changes"
           type="submit"
         />

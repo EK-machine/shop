@@ -24,6 +24,9 @@ const ModalContainer: React.FC = () => {
   const modalContent = useSelector((state: AppStateType) => state.modal.content);
   const modalIsOpen = useSelector((state: AppStateType) => state.modal.isOpen);
   const modalProduct = useSelector((state: AppStateType) => state.products.product);
+  const pending = useSelector((state: AppStateType) =>
+    state.pending.pending.find((item) => item.id === modalProduct.id),
+  )?.pending;
   const user = useSelector((state: AppStateType) => logged && state.user.user);
   const userCart = useSelector((state: AppStateType) => logged && state.user.user.cart);
   const likedProds = useSelector((state: AppStateType) => logged && state.user.user.liked);
@@ -38,11 +41,15 @@ const ModalContainer: React.FC = () => {
   };
 
   const productIsLiked = () => {
-    if (likedProds && likedProds.length > 0) {
-      const productLiked = likedProds.find((item) => item.title === modalProduct.title && item.liked);
-      if (productLiked && Object.keys(productLiked).length > 0) {
-        setLiked(true);
-      } else {
+    if (likedProds) {
+      if (likedProds.length > 0) {
+        const productLiked = likedProds.find((item) => item.title === modalProduct.title && item.liked);
+        if (productLiked && Object.keys(productLiked).length > 0) {
+          setLiked(true);
+        } else {
+          setLiked(false);
+        }
+      } else if (likedProds.length === 0) {
         setLiked(false);
       }
     }
@@ -50,12 +57,28 @@ const ModalContainer: React.FC = () => {
 
   const like = () => {
     if (likedProds) {
-      const isLiked = !!likedProds.find((item) => item.title === modalProduct.title && item.liked);
-      if (isLiked) {
-        const newLiked = likedProds.filter((item) => item.title !== modalProduct.title);
-        const payload = { id: user && user.id, liked: newLiked };
-        dispatch(setLikeRequest(payload as { id: number; liked: UserLikedItem[] }));
-      } else {
+      if (likedProds.length > 0) {
+        const isLiked = likedProds.find((item) => item.title === modalProduct.title && item.liked);
+        if (isLiked) {
+          const newLiked = likedProds.filter((item) => item.title !== modalProduct.title);
+          const payload = { id: user && user.id, liked: newLiked, title: modalProduct.title };
+          dispatch(unsetLikeRequest(payload as { id: number; liked: UserLikedItem[]; title: string }));
+        } else {
+          const prod = {
+            id: modalProduct.id,
+            title: modalProduct.title,
+            price: modalProduct.price,
+            category: modalProduct.category,
+            description: modalProduct.description,
+            image: modalProduct.image,
+            rating: modalProduct.rating,
+            liked: true,
+          };
+          const newLiked = [...likedProds, prod];
+          const payload = { id: user && user.id, liked: newLiked, title: modalProduct.title };
+          dispatch(setLikeRequest(payload as { id: number; liked: UserLikedItem[]; title: string }));
+        }
+      } else if (likedProds.length === 0) {
         const prod = {
           id: modalProduct.id,
           title: modalProduct.title,
@@ -64,11 +87,10 @@ const ModalContainer: React.FC = () => {
           description: modalProduct.description,
           image: modalProduct.image,
           rating: modalProduct.rating,
-          liked: !isLiked,
+          liked: true,
         };
-        const newLiked = [...likedProds, prod];
-        const payload = { id: user && user.id, liked: newLiked };
-        dispatch(unsetLikeRequest(payload as { id: number; liked: UserLikedItem[] }));
+        const payload = { id: user && user.id, liked: [prod], title: modalProduct.title };
+        dispatch(setLikeRequest(payload as { id: number; liked: UserLikedItem[]; title: string }));
       }
     }
   };
@@ -92,12 +114,14 @@ const ModalContainer: React.FC = () => {
     if (userCart) {
       if (inCart) {
         const newCart = userCart.filter((item) => item.title !== modalProduct.title);
-        const payload = { id: user && user.id, cart: newCart };
+        const payload = { id: user && user.id, cart: newCart, title: modalProduct.title, prodId: modalProduct.id };
         dispatch(
           deleteFromCartRequest(
             payload as {
               id: number;
               cart: UserCartItem[];
+              title: string;
+              prodId: number;
             },
           ),
         );
@@ -113,12 +137,14 @@ const ModalContainer: React.FC = () => {
           quantity: 1,
         };
         const newCart = userCart.concat(prod);
-        const payload = { id: user && user.id, cart: newCart };
+        const payload = { id: user && user.id, cart: newCart, title: modalProduct.title, prodId: modalProduct.id };
         dispatch(
           addToCartRequest(
             payload as {
               id: number;
               cart: UserCartItem[];
+              title: string;
+              prodId: number;
             },
           ),
         );
@@ -151,6 +177,7 @@ const ModalContainer: React.FC = () => {
         modalContent={modalContent}
         title={modalProduct.title}
         addRemove={addRemove}
+        pending={pending}
       >
         {modalContent === 'login' && <ModalLogin text={getModalTitle(modalContent)} />}
         {modalContent === 'register' && <ModalRegister text={getModalTitle(modalContent)} />}

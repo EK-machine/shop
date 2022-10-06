@@ -23,9 +23,9 @@ const ProductsPage: React.FC = () => {
   const dispatch = useDispatch();
 
   const setCategs = (data: ProductType[]) => {
-    const all = Array.from(new Set(data.map((cat) => cat.category)));
-    all.unshift('all products');
-    setCategories(all);
+    const all = data && data.length > 0 && Array.from(new Set(data.map((cat) => cat.category)));
+    all && all.length > 0 && all.unshift('all products');
+    all && all.length > 0 && setCategories(all);
   };
 
   const filterByCategory = (title: string) => {
@@ -84,9 +84,11 @@ const ProductsPage: React.FC = () => {
       <div className="contentBlock">
         <div className={styles.btnContainer}>
           <div className={styles.popular}>
-            <p className={styles.preBtnText}>
-              Most popular: <span className={styles.span}>{most.rating.count}</span> purchases!
-            </p>
+            {most && most.rating && most.rating.count && (
+              <p className={styles.preBtnText}>
+                Most popular: <span className={styles.span}>{most.rating.count}</span> purchases!
+              </p>
+            )}
           </div>
           <div className={styles.btn}>
             <Button

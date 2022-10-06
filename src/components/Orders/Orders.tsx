@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './style.module.css';
 import OrderItem from '../OrderItem/OrderItem';
@@ -23,7 +23,7 @@ const Orders: React.FC = () => {
 
   const deleteOrder = (id: number) => {
     const newOrders = orders.filter((item) => item.id !== id);
-    const payload = { id: user && user.id, orders: newOrders };
+    const payload = { id: user && user.id, orders: newOrders, prodId: 0 };
     dispatch(deleteOrderRequest(payload));
   };
 
@@ -45,9 +45,9 @@ const Orders: React.FC = () => {
         <div className={styles.noOrders}>
           <p className={styles.noText}>
             Check out our{' '}
-            <NavLink className={styles.noTextLink} to="/">
+            <Link className={styles.noTextLink} to="/">
               products
-            </NavLink>{' '}
+            </Link>{' '}
             to make an order
           </p>
         </div>
