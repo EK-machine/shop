@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './style.module.css';
 import { ButtonProps } from '../../interfaces/intefaces';
-import { toLike, isliked } from '../../data/data';
+import { toLike, isliked, btnLoading } from '../../data/data';
 
 const Button: React.FC<ButtonProps> = ({
   usual,
@@ -18,8 +18,24 @@ const Button: React.FC<ButtonProps> = ({
   activeBtn,
   like,
   liked,
+  loading,
+  pending,
 }) => (
   <>
+    {loading && (
+      <button
+        onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+          onClick && onClick(event);
+          addAction && addAction(text);
+        }}
+        type={type}
+        style={{ minWidth: '195px' }}
+        className={`${pending ? styles.pending : styles.btnWrapper}
+        ${disabled ? styles.disabled : ''}`}
+      >
+        {pending ? <img className={styles.pendingIcon} src={btnLoading} alt="loading" /> : text}
+      </button>
+    )}
     {usual && (
       <button
         onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

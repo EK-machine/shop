@@ -7,6 +7,7 @@ import Profile from '../../../public/profile.svg';
 import { setModalRegister, setModalLogin, setModalOpen } from '../../redux/slices/modalContentSlice';
 import { isLogged } from '../../redux/slices/commonStateSlice';
 import { unsetUser } from '../../redux/slices/userSlice';
+import { unsetAllErrors } from '../../redux/slices/errorSlice';
 import { AppStateType } from '../../interfaces/intefaces';
 import { base, settings } from '../../data/data';
 
@@ -30,6 +31,7 @@ const LoginButton: React.FC = () => {
     history.push('/');
     dispatch(isLogged(false));
     dispatch(unsetUser());
+    dispatch(unsetAllErrors());
   };
 
   return (

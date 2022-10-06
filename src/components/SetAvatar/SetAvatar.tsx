@@ -12,6 +12,7 @@ const SetAvatar: React.FC = () => {
   const [initNewImg, setInitNewImg] = useState<string>('');
   const avatar = useSelector((state: AppStateType) => state.user.user.imgUrl);
   const userId = useSelector((state: AppStateType) => state.user.user.id);
+  const pending = useSelector((state: AppStateType) => state.pending.pending.find((item) => item.id === 0))?.pending;
   const dispatch = useDispatch();
 
   const submitChange = (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,8 +21,10 @@ const SetAvatar: React.FC = () => {
       const payload = {
         id: userId,
         imgUrl: newImg,
+        prodId: 0,
       };
       dispatch(setAvatarRequest(payload));
+      setNewImg('');
     }
   };
 
@@ -53,7 +56,7 @@ const SetAvatar: React.FC = () => {
           content="login"
         />
         <div className={styles.btnsContainer}>
-          <Button disabled={newImg === ''} usual text="Save changes" type="submit" />
+          <Button disabled={newImg === ''} loading pending={pending} text="Save changes" type="submit" />
         </div>
       </form>
     </div>

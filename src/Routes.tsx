@@ -6,22 +6,25 @@ import ProductsPage from './components/ProductsPage/ProductsPage';
 import NotFoundPage from './components/NotFoundPage/NotFoundPage';
 import SettingsPage from './components/SettingsPage/SettingsPage';
 import MoreReviewsPage from './components/MoreReviewsPage/MoreReviewsPage';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import { base, cart, reviews, settings, notFound, reviewsmore } from './data/data';
 
 const Routes = () => (
   <>
-    <Switch>
-      <Route exact path={base} component={ProductsPage} />
-      <Route path={base + reviews} component={ReviewsPage} />
-      <Route path={base + reviewsmore} component={MoreReviewsPage} />
-      <ProtectedRoute path={base + cart}>
-        <CartPage />
-      </ProtectedRoute>
-      <ProtectedRoute path={base + settings}>
-        <SettingsPage />
-      </ProtectedRoute>
-      <Route path={notFound} component={NotFoundPage} />
-    </Switch>
+    <ErrorBoundary>
+      <Switch>
+        <Route exact path={base} component={ProductsPage} />
+        <Route path={base + reviews} component={ReviewsPage} />
+        <Route path={base + reviewsmore} component={MoreReviewsPage} />
+        <ProtectedRoute path={base + cart}>
+          <CartPage />
+        </ProtectedRoute>
+        <ProtectedRoute path={base + settings}>
+          <SettingsPage />
+        </ProtectedRoute>
+        <Route path={notFound} component={NotFoundPage} />
+      </Switch>
+    </ErrorBoundary>
   </>
 );
 

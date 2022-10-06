@@ -1,4 +1,4 @@
-import { takeEvery, put, call, fork, SagaReturnType } from 'redux-saga/effects';
+import { takeEvery, put, call, spawn, SagaReturnType, all, select, delay } from 'redux-saga/effects';
 import {
   getUsersRequest,
   getUsersSuccess,
@@ -16,10 +16,12 @@ import {
   setPasswordSuccess,
   setPasswordFailed,
 } from '../slices/userSlice';
+import { setPendingTrue, setPendingFalse } from '../slices/pendingSlice';
+import { setError } from '../slices/errorSlice';
 import { apiGetUsers, apiPostUser, apiPatchUser } from '../../api/apis';
 import alert from '../../components/Alert/Alert';
 
-import { UserProfile } from '../../interfaces/intefaces';
+import { AppStateType, UserProfile } from '../../interfaces/intefaces';
 
 export function* workerGetUsersSaga() {
   try {
@@ -52,58 +54,104 @@ export function* workerPostUserSaga(action: { type: typeof createUserRequest.typ
 
 export function* workerSetAvatarSaga(action: {
   type: typeof setAvatarRequest.type;
-  payload: { id: number; imgUrl: string };
+  payload: { id: number; imgUrl: string; prodId: number };
 }) {
   try {
+    yield put({ type: setPendingTrue.type, payload: { id: action.payload.prodId, pending: true } });
+    yield delay(1500);
     const changeAvatar = () => apiPatchUser(action.payload.id.toString(), { imgUrl: action.payload.imgUrl });
     yield call(changeAvatar);
-    yield put({ type: setAvatarSuccess.type, payload: { imgUrl: action.payload.imgUrl } });
+    yield all([
+      put({ type: setAvatarSuccess.type, payload: { imgUrl: action.payload.imgUrl } }),
+      put({ type: setPendingFalse.type }),
+    ]);
     alert.success('Your avatar was successfully changed');
   } catch (e) {
     const message = `Set avatar error: ${(e as { message: string }).message}`;
     alert.error(message);
-    yield put({
-      type: setAvatarFailed.type,
-      payload: message,
-    });
+
+    const state: AppStateType = yield select();
+    const { errors } = state.errors;
+    const newErrors = [...errors, message];
+    const payload = { error: message, errors: newErrors };
+    yield all([
+      put({
+        type: setAvatarFailed.type,
+      }),
+      put({
+        type: setError.type,
+        payload,
+      }),
+      put({ type: setPendingFalse.type }),
+    ]);
   }
 }
 
 export function* workerSetLoginSaga(action: {
   type: typeof setLoginRequest.type;
-  payload: { id: number; login: string };
+  payload: { id: number; login: string; prodId: number };
 }) {
   try {
+    yield put({ type: setPendingTrue.type, payload: { id: action.payload.prodId, pending: true } });
+    yield delay(1500);
     const changeLogin = () => apiPatchUser(action.payload.id.toString(), { login: action.payload.login });
     yield call(changeLogin);
-    yield put({ type: setLoginSuccess.type, payload: { login: action.payload.login } });
+    yield all([
+      put({ type: setLoginSuccess.type, payload: { login: action.payload.login } }),
+      put({ type: setPendingFalse.type }),
+    ]);
     alert.success('Your login was successfully changed');
   } catch (e) {
     const message = `Set login error: ${(e as { message: string }).message}`;
     alert.error(message);
-    yield put({
-      type: setLoginFailed.type,
-      payload: message,
-    });
+    const state: AppStateType = yield select();
+    const { errors } = state.errors;
+    const newErrors = [...errors, message];
+    const payload = { error: message, errors: newErrors };
+    yield all([
+      put({
+        type: setLoginFailed.type,
+      }),
+      put({
+        type: setError.type,
+        payload,
+      }),
+      put({ type: setPendingFalse.type }),
+    ]);
   }
 }
 
 export function* workerSetPasswordSaga(action: {
   type: typeof setPasswordRequest.type;
-  payload: { id: number; password: string };
+  payload: { id: number; password: string; prodId: number };
 }) {
   try {
+    yield put({ type: setPendingTrue.type, payload: { id: action.payload.prodId, pending: true } });
+    yield delay(1500);
     const changePass = () => apiPatchUser(action.payload.id.toString(), { password: action.payload.password });
     yield call(changePass);
-    yield put({ type: setPasswordSuccess.type, payload: { password: action.payload.password } });
+    yield all([
+      put({ type: setPasswordSuccess.type, payload: { password: action.payload.password } }),
+      put({ type: setPendingFalse.type }),
+    ]);
     alert.success('Your password was successfully changed');
   } catch (e) {
     const message = `Set password error: ${(e as { message: string }).message}`;
     alert.error(message);
-    yield put({
-      type: setPasswordFailed.type,
-      payload: message,
-    });
+    const state: AppStateType = yield select();
+    const { errors } = state.errors;
+    const newErrors = [...errors, message];
+    const payload = { error: message, errors: newErrors };
+    yield all([
+      put({
+        type: setPasswordFailed.type,
+      }),
+      put({
+        type: setError.type,
+        payload,
+      }),
+      put({ type: setPendingFalse.type }),
+    ]);
   }
 }
 
@@ -128,9 +176,9 @@ export function* watchSetPasswordSaga() {
 }
 
 export const usersSaga = [
-  fork(watchGetUserSaga),
-  fork(watchCreateUserSaga),
-  fork(watchSetAvatarSaga),
-  fork(watchSetLoginSaga),
-  fork(watchSetPasswordSaga),
+  spawn(watchGetUserSaga),
+  spawn(watchCreateUserSaga),
+  spawn(watchSetAvatarSaga),
+  spawn(watchSetLoginSaga),
+  spawn(watchSetPasswordSaga),
 ];
