@@ -10,7 +10,7 @@
   cursor: pointer;
   height: 44px;
   background-color: #333;
-  z-index: 20;
+  z-index: 21;
 }
 
 .loginIcon {
@@ -20,7 +20,8 @@
   border-radius: 13px;
 }
 
-.loginBtnsWrapper {
+.loginBtnsWrapper,
+.loginBtnsWrapperUnlogged {
   display: none;
   background-color: #fff;
 }
@@ -39,7 +40,8 @@
   background-color: #c9c9c9;
 }
 
-.loginBtnsContainer:hover .loginBtnsWrapper {
+.loginBtnsContainer:hover .loginBtnsWrapper,
+.loginBtnsContainer:hover .loginBtnsWrapperUnlogged {
   display: block;
   width: 110px;
   min-width: 110px;
@@ -48,14 +50,22 @@
   border-radius: 0 0 25px 25px;
   position: absolute;
   left: -2px !important;
-  bottom: -118px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding-bottom: 16px;
 }
 
-.link {
+.loginBtnsContainer:hover .loginBtnsWrapper {
+  bottom: -218px;
+}
+
+.loginBtnsContainer:hover .loginBtnsWrapperUnlogged {
+  bottom: -168px;
+}
+
+.link,
+.moblink {
   background: transparent;
   height: 48px;
   color: #333;
@@ -69,14 +79,27 @@
   font-weight: 400;
   letter-spacing: 1px;
   border-bottom: 2px solid #333;
-  display: flex;
   justify-content: center;
   align-items: center;
   opacity: 0.8;
   text-decoration: none;
+  display: flex;
 }
 
 .link:hover,
-.link:focus {
+.link:focus,
+.moblink:hover,
+.moblink:focus {
   border-bottom: 2px dashed #333;
+}
+
+@media screen and (min-width: 769px) {
+  .moblink {
+    display: none;
+  }
+
+  .loginBtnsContainer:hover .loginBtnsWrapper,
+  .loginBtnsContainer:hover .loginBtnsWrapperUnlogged {
+    bottom: -118px;
+  }
 }

@@ -3,20 +3,36 @@
   height: 100vh;
   overflow: hidden;
   position: relative;
+  box-sizing: border-box;
 }
 
 .mainContent {
   width: 100%;
-  max-width: 1230px;
+  max-width: 1278px;
   margin: 0 auto;
+  padding: 0 10px;
   display: flex;
+  flex-direction: column-reverse;
+  box-sizing: border-box;
 }
 
 .mainContentReviews {
   display: block;
   height: calc(100vh - 140px);
+  width: 100%;
+  max-width: 1278px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+@media screen and (min-width: 769px) {
+  .mainContent {
+    flex-direction: row;
+    padding: 0 24px;
+  }
 }

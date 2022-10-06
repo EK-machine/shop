@@ -38,12 +38,11 @@
 }
 
 .dateLabel {
-  min-width: 120px;
+  min-width: unset;
   margin: 0 14px 0 0;
 }
 
-.labelunset,
-.dateLabelunset {
+.labelunset {
   position: absolute;
   right: -10px;
   bottom: -5px;
@@ -57,6 +56,7 @@
 }
 
 .input,
+.avatarInput,
 .dateInput {
   height: 42px;
   border: 1px solid #d8d8d8;
@@ -64,6 +64,7 @@
   color: #333333;
   width: 100%;
   background-color: transparent;
+  box-sizing: border-box;
 }
 
 .dateInput {
@@ -71,6 +72,17 @@
 }
 
 .dateWrapper {
+  margin: 10px 0 0 0px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (min-width: 461px) {
+  .dateWrapper {
+    margin: 0 0 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
 }

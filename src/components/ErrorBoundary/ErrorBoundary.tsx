@@ -90,7 +90,6 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   };
 
   render(): React.ReactNode {
-    console.log('render');
     if (this.state.error) {
       return (
         <div className={styles.container}>

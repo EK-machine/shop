@@ -1,12 +1,12 @@
 .productContainer {
-  width: 328px;
+  width: 100%;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   padding: 16px 24px;
-  margin: 0 12px 12px 0;
+  margin: 0 0 12px 0;
   display: flex;
   flex-direction: column;
-  max-height: 240px;
+  max-height: 280px;
 }
 
 .titleBtn {
@@ -70,9 +70,26 @@
 .btnContainer {
   margin-top: auto;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
 .btnsCentered {
   justify-content: center;
+}
+
+@media screen and (min-width: 491px) {
+  .btnContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-height: 240px;
+  }
+}
+
+@media screen and (min-width: 1114px) {
+  .productContainer {
+    width: 328px;
+    margin: 0 12px 12px 0;
+  }
 }

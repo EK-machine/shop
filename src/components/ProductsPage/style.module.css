@@ -1,12 +1,10 @@
 .btnContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .popular {
-  max-width: 50%;
+  max-width: 100%;
 }
 
 .preBtnText {
@@ -21,14 +19,41 @@
   text-transform: initial;
   color: #333;
   opacity: 0.8;
-  margin-right: 24px;
+  margin: 0 0 10px 0;
 }
 
 .btn {
-  max-width: 50%;
+  max-width: 100%;
 }
 
 .span {
+  display: none;
   font-size: 20px;
   font-weight: 500;
+  text-decoration: underline;
+}
+
+@media screen and (min-width: 461px) {
+  .btnContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .popular {
+    max-width: 50%;
+  }
+
+  .preBtnText {
+    margin: 0 24px 0 0;
+  }
+
+  .span {
+    display: inline;
+  }
+
+  .btn {
+    max-width: 50%;
+  }
 }

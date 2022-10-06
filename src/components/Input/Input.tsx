@@ -87,7 +87,7 @@ const Input: React.FC<InputProps> = (props) => {
               props.setValue && props.setValue(e.target?.value as SetStateAction<string>)
             }
             autoComplete="off"
-            className={styles.input}
+            className={styles.avatarInput}
           />
         </>
       )}
@@ -95,7 +95,6 @@ const Input: React.FC<InputProps> = (props) => {
         <div className={styles.dateWrapper}>
           <label htmlFor={props.forId} className={styles.dateLabel}>
             {props.title}
-            {props.required && <span className={styles.dateLabelunset}>*</span>}
           </label>
           <input
             name={props.forId}

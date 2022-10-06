@@ -6,9 +6,55 @@
 .dateForm {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+}
+
+.cartItemsContainer {
+  height: calc(100vh - 310px);
+  width: 100%;
+}
+
+.cartItemsShadow {
+  box-sizing: border-box;
+  height: calc(100vh - 310px);
+  top: 245px;
+  overflow-y: scroll;
+  width: 100%;
+  padding: 10px 10px 0 10px;
+}
+
+.cartItemsShadowSetter,
+.cartItemsContainerSetter {
+  height: calc(100vh - 360px);
 }
 
 .buttonWrapper {
   margin-bottom: 10px;
+}
+
+@media screen and (min-width: 461px) {
+  .dateForm,
+  .buttonWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .cartItemsContainer,
+  .cartItemsShadow,
+  .cartItemsShadowSetter,
+  .cartItemsContainerSetter {
+    height: calc(100vh - 260px);
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .cartItemsContainer,
+  .cartItemsShadow,
+  .cartItemsShadowSetter,
+  .cartItemsContainerSetter {
+    height: calc(100vh - 230px);
+  }
 }

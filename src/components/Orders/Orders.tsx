@@ -52,7 +52,7 @@ const Orders: React.FC = () => {
           </p>
         </div>
       ) : (
-        <>
+        <div className={styles.ordersWrapper}>
           {orderedOrders &&
             orderedOrders.map((item, i) => (
               <OrderItem
@@ -63,7 +63,7 @@ const Orders: React.FC = () => {
                 items={item.items}
               />
             ))}
-        </>
+        </div>
       )}
     </div>
   );

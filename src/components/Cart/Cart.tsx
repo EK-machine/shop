@@ -130,26 +130,30 @@ const Cart: React.FC = () => {
             {isDateSetter && (
               <form className={styles.dateForm} onSubmit={orderHandler}>
                 <Button text="Place order" disabled={date === ''} loading pending={pending} type="submit" />
-                <Input forId="date" type="date" title="Set delivery date" value={date} setValue={setDate} required />
+                <Input forId="date" type="date" title="Set delivery date" value={date} setValue={setDate} />
               </form>
             )}
           </div>
-          {userCart &&
-            userCart.map((item) => (
-              <CartItem
-                onClick={openModal}
-                addAction={getSelected}
-                key={item.title}
-                image={item.image}
-                title={item.title}
-                quantity={item.quantity}
-                price={item.price}
-                id={item.id}
-                category={item.category}
-                description={item.description}
-                rating={item.rating}
-              />
-            ))}
+          <div className={`${styles.cartItemsContainer} ${isDateSetter ? styles.cartItemsContainerSetter : ''}`}>
+            <div className={`${styles.cartItemsShadow} ${isDateSetter ? styles.cartItemsShadowSetter : ''}`}>
+              {userCart &&
+                userCart.map((item) => (
+                  <CartItem
+                    onClick={openModal}
+                    addAction={getSelected}
+                    key={item.title}
+                    image={item.image}
+                    title={item.title}
+                    quantity={item.quantity}
+                    price={item.price}
+                    id={item.id}
+                    category={item.category}
+                    description={item.description}
+                    rating={item.rating}
+                  />
+                ))}
+            </div>
+          </div>
         </>
       )}
     </div>

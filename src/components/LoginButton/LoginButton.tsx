@@ -9,7 +9,7 @@ import { isLogged } from '../../redux/slices/commonStateSlice';
 import { unsetUser } from '../../redux/slices/userSlice';
 import { unsetAllErrors } from '../../redux/slices/errorSlice';
 import { AppStateType } from '../../interfaces/intefaces';
-import { base, settings } from '../../data/data';
+import { base, settings, navigationLinks } from '../../data/data';
 
 const LoginButton: React.FC = () => {
   const logged = useSelector((state: AppStateType) => state.common.logged);
@@ -37,9 +37,14 @@ const LoginButton: React.FC = () => {
   return (
     <div className={styles.loginBtnsContainer}>
       <img className={styles.loginIcon} src={logged && userImg ? userImg : Profile} alt="login" />
-      <div className={styles.loginBtnsWrapper}>
+      <div className={logged ? styles.loginBtnsWrapper : styles.loginBtnsWrapperUnlogged}>
         {logged ? (
           <>
+            {navigationLinks.map((item) => (
+              <NavLink className={styles.moblink} key={item.name} to={item.link}>
+                {item.name}
+              </NavLink>
+            ))}
             <NavLink className={styles.link} to={base + settings}>
               settings
             </NavLink>
@@ -49,6 +54,11 @@ const LoginButton: React.FC = () => {
           <>
             <Button usual underlined type="button" text="register" onClick={openRegisterModal} />
             <Button usual underlined type="button" text="login" onClick={openLoginModal} />
+            {[navigationLinks[1]].map((item) => (
+              <NavLink className={styles.moblink} key={item.name} to={item.link}>
+                {item.name}
+              </NavLink>
+            ))}
           </>
         )}
       </div>

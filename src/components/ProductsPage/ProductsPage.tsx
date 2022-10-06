@@ -86,7 +86,7 @@ const ProductsPage: React.FC = () => {
           <div className={styles.popular}>
             {most && most.rating && most.rating.count && (
               <p className={styles.preBtnText}>
-                Most popular: <span className={styles.span}>{most.rating.count}</span> purchases!
+                Most popular: <span className={styles.span}>{most.rating.count} purchases!</span>
               </p>
             )}
           </div>

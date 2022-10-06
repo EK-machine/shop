@@ -7,9 +7,9 @@
 }
 
 .img {
-  width: 200px;
-  height: 200px;
-  border-radius: 200px;
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
 }
 
 .setAvatar {
@@ -32,7 +32,51 @@
   height: 50px;
 }
 
+.form {
+  width: 100%;
+}
+
 .btnsContainer {
   display: flex;
   justify-content: center;
+}
+
+@media screen and (min-width: 331px) {
+  .img {
+    width: 80px;
+    height: 80px;
+    border-radius: 80px;
+  }
+}
+
+@media screen and (min-width: 401px) {
+  .img {
+    width: 120px;
+    height: 120px;
+    border-radius: 120px;
+  }
+}
+
+@media screen and (min-width: 461px) {
+  .img {
+    width: 140px;
+    height: 140px;
+    border-radius: 140px;
+  }
+}
+
+@media screen and (min-width: 541px) {
+  .img {
+    width: 180px;
+    height: 180px;
+    border-radius: 180px;
+  }
+}
+
+@media screen and (min-width: 841px) {
+  .img {
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+  }
 }

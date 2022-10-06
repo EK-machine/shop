@@ -74,6 +74,8 @@ const CartItem: React.FC<CartItemProps> = ({
         addAction && addAction(title);
       }}
       className={styles.cartItem}
+      tabIndex={0}
+      role="button"
     >
       <div className={styles.itemTitle}>
         <div className={styles.cartItemImgWrapper}>
@@ -81,9 +83,7 @@ const CartItem: React.FC<CartItemProps> = ({
         </div>
         <p className={styles.cartItemTitle}>{title}</p>
       </div>
-      <div className={styles.delete}>
-        <Button loading text="remove from cart" type="button" pending={pending} onClick={addRemove} />
-      </div>
+
       <div className={styles.priceQuantity}>
         <div className={styles.quantityWrapper} onClick={(e) => e.stopPropagation()}>
           <p className={styles.cartItemQuantity}>Quantity: </p>
@@ -103,6 +103,10 @@ const CartItem: React.FC<CartItemProps> = ({
         <p className={styles.cartItemPrice}>
           Total: <span>{price * quantity} $</span>
         </p>
+      </div>
+
+      <div className={styles.delete}>
+        <Button loading text="remove from cart" type="button" pending={pending} onClick={addRemove} />
       </div>
     </div>
   );

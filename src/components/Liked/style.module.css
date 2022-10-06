@@ -1,3 +1,26 @@
 .liked {
   max-width: 100%;
+  height: calc(100vh - 250px);
+}
+
+.likedShadow {
+  height: calc(100vh - 250px);
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  padding: 10px 10px 0 10px;
+}
+
+@media screen and (min-width: 461px) {
+  .liked,
+  .likedShadow {
+    height: calc(100vh - 205px);
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .liked,
+  .likedShadow {
+    height: calc(100vh - 175px);
+  }
 }

@@ -1,10 +1,11 @@
 .productsContainer {
-  height: calc(100vh - 270px);
+  height: calc(100vh - 350px);
   width: 100%;
 }
 
 .shadowContainer {
-  height: calc(100vh - 270px);
+  box-sizing: border-box;
+  height: calc(100vh - 350px);
   top: 245px;
   overflow-y: scroll;
   width: 100%;
@@ -16,4 +17,24 @@
   flex-wrap: wrap;
   justify-content: space-around;
   width: 100%;
+}
+
+@media screen and (min-width: 461px) {
+  .productsContainer {
+    height: calc(100vh - 280px);
+  }
+
+  .shadowContainer {
+    height: calc(100vh - 280px);
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .productsContainer {
+    height: calc(100vh - 250px);
+  }
+
+  .shadowContainer {
+    height: calc(100vh - 250px);
+  }
 }

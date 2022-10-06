@@ -137,28 +137,36 @@
 }
 
 .categoryBtn,
-.categoryBtn:focus {
-  display: block;
-  background-color: #fff;
+.categoryBtn:focus,
+.categoryBtnActive,
+.categoryBtnActive:focus {
   width: 100%;
   border: none;
   cursor: pointer;
   height: 50px;
   padding: 6px 10px;
-  outline: none;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   border-radius: 3px;
 }
 
+.categoryBtn {
+  background-color: #fff;
+}
+
+.categoryBtnActive {
+  background: #f7f7f7;
+}
+
+.categoryBtn:hover,
+.categoryBtnActive:hover {
+  background: #f7f7f7;
+}
+
 .categoryIconWrapper {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
+  margin-right: 0;
+  height: 40px;
 }
 
 .categoryIcon {
@@ -167,25 +175,8 @@
   display: inline;
 }
 
-.categoryText,
-.categoryBtn:focus {
-  font-family: sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 16px;
-  text-align: left;
-  text-transform: uppercase;
-  color: #333;
-  opacity: 0.8;
-}
-
-.categoryBtn:hover {
-  background: #f7f7f7;
-}
-
-.categoryBtnActive {
-  background: #f7f7f7;
+.categoryText {
+  display: none;
 }
 
 .cartSideBtn {
@@ -195,6 +186,7 @@
   cursor: pointer;
   padding: 0 16px;
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 100%;
 }
@@ -210,7 +202,7 @@
 .cartSideIcon {
   width: 26px;
   height: 26px;
-  margin-right: 10px;
+  margin-right: 0px;
 }
 
 .cartSideText {
@@ -223,6 +215,7 @@
   color: #333;
   opacity: 0.8;
   letter-spacing: 1px;
+  display: none;
 }
 
 .likebtn,
@@ -241,4 +234,40 @@
 .likeImg {
   width: 30px;
   height: 30px;
+}
+
+@media screen and (min-width: 769px) {
+  .categoryBtn,
+  .categoryBtn:focus {
+    justify-content: flex-start;
+  }
+
+  .categoryIconWrapper {
+    margin-right: 10px;
+  }
+
+  .categoryText {
+    display: inline;
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    text-align: left;
+    text-transform: uppercase;
+    color: #333;
+    opacity: 0.8;
+  }
+
+  .cartSideBtn {
+    justify-content: flex-start;
+  }
+
+  .cartSideIcon {
+    margin-right: 10px;
+  }
+
+  .cartSideText {
+    display: inline;
+  }
 }

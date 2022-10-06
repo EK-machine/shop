@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType, ProductType, UserCartItem, UserLikedItem } from '../../interfaces/intefaces';
 import styles from './style.module.css';
@@ -21,6 +21,7 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
   const userCart = useSelector((state: AppStateType) => logged && state.user.user.cart);
   const likedProds = useSelector((state: AppStateType) => logged && state.user.user.liked);
   const products = useSelector((state: AppStateType) => state.products.products);
+  const modalIsOpen = useSelector((state: AppStateType) => state.modal.isOpen);
   const dispatch = useDispatch();
 
   const getSelected = () => {
@@ -151,7 +152,7 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (title) {
       productInCart(title);
     }
@@ -179,11 +180,13 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
       <div className={`${styles.btnContainer} ${logged ? '' : styles.btnsCentered}`}>
         {logged ? (
           <>
-            {inCart ? (
-              <Button loading text="remove from cart" type="button" pending={pending} onClick={addRemove} />
-            ) : (
-              <Button loading text="add to cart" type="button" pending={pending} onClick={addRemove} />
-            )}
+            <Button
+              loading
+              text={inCart ? 'remove from cart' : 'add to cart'}
+              type="button"
+              pending={!modalIsOpen && pending}
+              onClick={addRemove}
+            />
             <Button usual underlined text="more detail" type="button" onClick={openModal} />
           </>
         ) : (
