@@ -42,28 +42,30 @@ const OrderItem: React.FC<OrderItemProps> = ({ dateTill, items, id, deleteOrder 
       tabIndex={0}
       onKeyUp={openOrder}
       onClick={openOrder}
-      className={`${styles.orderItem} ${isOpened ? styles.orderItemOpened : ''} ${
-        delivered ? styles.orderItemDelivered : ''
-      }`}
+      className={`${styles.orderItem} ${delivered ? styles.orderItemDelivered : ''}`}
     >
-      <div className={`${styles.orderStatusWrapper} ${isOpened ? styles.orderStatusWrapperOpened : ''}`}>
-        <p className={`${styles.orderStatus} ${isOpened ? styles.orderStatusOpened : ''}`}>
-          {delivered ? 'Order is delivered' : `Await delivery till ${orderString}`}
-        </p>
-        {!delivered && isOpened && (
-          <Button loading pending={pending} type="button" text="Cancel order" onClick={stopPropag} />
-        )}
-      </div>
-      {items.map((item) => (
-        <div key={item.title} className={`${styles.orderItemLine} ${isOpened ? styles.orderItemLineOpened : ''}`}>
-          <div className={styles.orderImgWrapper}>
-            <img className={styles.orderImg} src={item.image} alt={item.title} />
-          </div>
-          <p className={`${styles.orderStr} ${isOpened ? styles.orderStrOpened : ''}`}>{item.title}</p>
-          <p className={styles.orderStr}>{item.quantity}</p>
-          <p className={styles.orderStr}>{item.price * item.quantity}</p>
+      <div className={`${styles.overflowContainer} ${isOpened ? styles.overflowContainerOpened : ''}`}>
+        <div className={`${styles.orderStatusWrapper} ${isOpened ? styles.orderStatusWrapperOpened : ''}`}>
+          <p className={`${styles.orderStatus} ${isOpened ? styles.orderStatusOpened : ''}`}>
+            {delivered ? 'Order is delivered' : `Await delivery till ${orderString}`}
+          </p>
+          {!delivered && isOpened && (
+            <Button loading pending={pending} type="button" text="Cancel order" onClick={stopPropag} />
+          )}
         </div>
-      ))}
+        <div className={`${styles.ordersItemsContainer} ${isOpened ? styles.ordersItemsContainerOpened : ''}`}>
+          {items.map((item) => (
+            <div key={item.title} className={`${styles.orderItemLine} ${isOpened ? styles.orderItemLineOpened : ''}`}>
+              <div className={styles.orderImgWrapper}>
+                <img className={styles.orderImg} src={item.image} alt={item.title} />
+              </div>
+              <p className={`${styles.orderStr} ${isOpened ? styles.orderStrOpened : ''}`}>{item.title}</p>
+              <p className={styles.orderStr}>{item.quantity}</p>
+              <p className={styles.orderStr}>{item.price * item.quantity}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

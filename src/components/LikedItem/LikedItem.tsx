@@ -10,6 +10,7 @@ const LikedItem: React.FC<LikedItemProps> = ({ image, title, onClick, addAction,
       addAction && addAction(title);
     }}
     className={styles.likeItem}
+    tabIndex={0}
   >
     <div className={styles.itemTitle}>
       <div className={styles.likeItemImgWrapper}>

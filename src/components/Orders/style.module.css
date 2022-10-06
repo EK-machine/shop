@@ -1,5 +1,7 @@
 .orders {
   max-width: 100%;
+  height: calc(100vh - 250px);
+  overflow: hidden;
 }
 
 .noOrders {
@@ -24,4 +26,30 @@
 .noTextLink {
   text-transform: uppercase;
   text-decoration: underline;
+}
+
+.ordersWrapper {
+  height: calc(100vh - 260px);
+  overflow-y: scroll;
+  padding: 10px 10px 0 10px;
+}
+
+@media screen and (min-width: 461px) {
+  .orders {
+    height: calc(100vh - 205px);
+  }
+
+  .ordersWrapper {
+    height: calc(100vh - 215px);
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .orders {
+    height: calc(100vh - 175px);
+  }
+
+  .ordersWrapper {
+    height: calc(100vh - 185px);
+  }
 }

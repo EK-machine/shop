@@ -1,37 +1,45 @@
 .orderItem {
   border-radius: 3px;
   background-color: #f7f7f7;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
   padding: 14px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
   cursor: pointer;
 }
 
 .orderItem:hover {
-  box-shadow: 4px 4px 10px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.08);
 }
 
 .orderItemDelivered {
   background-color: #4af0a5d0;
 }
 
-.orderItemOpened {
+.overflowContainer {
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.overflowContainerOpened {
   display: block;
+  max-height: calc(100vh - 300px);
 }
 
 .orderStatusWrapper {
   height: 50px;
   display: flex;
   width: 100%;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
   margin: 0 6px 0 0;
 }
 
 .orderStatusWrapperOpened {
-  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 0 10px 0;
 }
 
@@ -52,8 +60,20 @@
 }
 
 .orderStatusOpened {
-  margin: 0 10px 0 74px;
+  margin: 0 0 10px 0;
   width: 200px;
+  text-align: center;
+}
+
+.ordersItemsContainer {
+  display: flex;
+}
+
+.ordersItemsContainerOpened {
+  display: block;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  max-height: calc(100vh - 360px);
 }
 
 .orderItemLine {
@@ -102,4 +122,56 @@
 
 .orderStrOpened {
   display: inline;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 371px) {
+  .orderStatusWrapper {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 6px 0 0;
+  }
+
+  .orderStatusWrapperOpened {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 0 10px 0;
+  }
+
+  .orderStatusOpened {
+    margin: 0 10px 0 0;
+    text-align: left;
+  }
+
+  .ordersItemsContainerOpened {
+    max-height: calc(100vh - 360px);
+  }
+}
+
+@media screen and (min-width: 461px) {
+  .overflowContainerOpened {
+    max-height: calc(100vh - 255px);
+  }
+  .ordersItemsContainerOpened {
+    max-height: calc(100vh - 315px);
+  }
+}
+
+@media screen and (min-width: 471px) {
+  .orderStatusOpened {
+    margin: 0 10px 0 74px;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .overflowContainerOpened {
+    max-height: calc(100vh - 225px);
+  }
+  .ordersItemsContainerOpened {
+    max-height: calc(100vh - 285px);
+  }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { useSelector } from 'react-redux';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import CloseImg from '../../../public/closeIcon.svg';
@@ -38,7 +38,7 @@ const ModalContentWrapper: React.FC<ModalProps> = ({
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (title) {
       productInCart(title);
     }
@@ -71,11 +71,13 @@ const ModalContentWrapper: React.FC<ModalProps> = ({
       <div className={styles.modalContent}>{children}</div>
       {logged && modalContent === 'product' && (
         <div className={styles.modalBottomWrapper}>
-          {inCart ? (
-            <Button loading text="remove from cart" pending={pending} type="button" onClick={addRemove} />
-          ) : (
-            <Button loading text="add to cart" type="button" pending={pending} onClick={addRemove} />
-          )}
+          <Button
+            loading
+            text={inCart ? 'remove from cart' : 'add to cart'}
+            pending={pending}
+            type="button"
+            onClick={addRemove}
+          />
         </div>
       )}
     </SwipeableDrawer>

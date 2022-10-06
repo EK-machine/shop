@@ -19,7 +19,9 @@ const Header: React.FC<HeaderProps> = ({ productCategory }) => {
           <NavLink className={styles.logoWrapper} to={base}>
             <img className={styles.logo} src={Logo} alt="logo" />
           </NavLink>
-          <FilterBlock productCategory={productCategory} />
+          <div className={styles.filterWrapper}>
+            <FilterBlock productCategory={productCategory} />
+          </div>
         </div>
         <div className={styles.links}>
           {logged &&
@@ -39,6 +41,9 @@ const Header: React.FC<HeaderProps> = ({ productCategory }) => {
       </div>
       <div className={styles.headingContent}>
         <h1 className={styles.heading}>{heading}</h1>
+      </div>
+      <div className={styles.filterWrapperMob}>
+        <FilterBlock productCategory={productCategory} />
       </div>
     </div>
   );

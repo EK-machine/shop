@@ -34,6 +34,14 @@
   margin-bottom: 10px;
 }
 
+.mostSlideTitle {
+  margin-top: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
 .mostImgWrapper {
   width: 50%;
   background-color: #fff;

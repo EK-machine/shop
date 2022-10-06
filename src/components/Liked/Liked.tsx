@@ -131,7 +131,7 @@ const Liked: React.FC = () => {
       {likedProds && likedProds.length === 0 ? (
         <MostSlider products={most} getSelected={getSelected} openModal={openModal} />
       ) : (
-        <>
+        <div className={styles.likedShadow}>
           {likedProds &&
             likedProds.map((item) => (
               <LikedItem
@@ -143,7 +143,7 @@ const Liked: React.FC = () => {
                 like={like}
               />
             ))}
-        </>
+        </div>
       )}
     </div>
   );

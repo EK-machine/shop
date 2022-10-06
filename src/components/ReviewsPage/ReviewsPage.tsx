@@ -29,7 +29,7 @@ const ReviewsPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(setHeading(`Our happy ${users.length} customers`));
-  }, []);
+  }, [users]);
 
   useEffect(() => {
     setUsers(
