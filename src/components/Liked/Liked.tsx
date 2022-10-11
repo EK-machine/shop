@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './style.module.css';
 import LikedItem from '../LikedItem/LikedItem';
@@ -47,27 +47,47 @@ const Liked: React.FC = () => {
     setMost(productsArr);
   };
 
-  const getSelected = (val: string) => {
-    const selected = products.find((item) => item.title === val);
-    if (selected) {
-      dispatch(setProduct(selected));
-    }
-  };
+  const getSelected = useCallback(
+    (val: string) => {
+      const selected = products.find((item) => item.title === val);
+      if (selected) {
+        dispatch(setProduct(selected));
+      }
+    },
+    [products, dispatch],
+  );
 
   const getProductData = (val: string) => {
     const product = products.find((item) => item.title === val);
     return product;
   };
 
-  const like = (val: string) => {
-    if (likedProds) {
-      if (likedProds.length > 0) {
-        const isLiked = likedProds.find((item) => item.title === val && item.liked);
-        if (isLiked) {
-          const newLiked = likedProds.filter((item) => item.title !== val);
-          const dispatchBody = { id: user && user.id, liked: newLiked, title: val };
-          dispatch(unsetLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[]; title: string }));
-        } else {
+  const like = useCallback(
+    (val: string) => {
+      if (likedProds) {
+        if (likedProds.length > 0) {
+          const isLiked = likedProds.find((item) => item.title === val && item.liked);
+          if (isLiked) {
+            const newLiked = likedProds.filter((item) => item.title !== val);
+            const dispatchBody = { id: user && user.id, liked: newLiked, title: val };
+            dispatch(unsetLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[]; title: string }));
+          } else {
+            const product = getProductData(val);
+            const prod = {
+              id: product?.id,
+              title: product?.title,
+              price: product?.price,
+              category: product?.category,
+              description: product?.description,
+              image: product?.image,
+              rating: product?.rating,
+              liked: true,
+            };
+            const newLiked = [...likedProds, prod];
+            const dispatchBody = { id: user && user.id, liked: newLiked, title: val };
+            dispatch(setLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[]; title: string }));
+          }
+        } else if (likedProds.length === 0) {
           const product = getProductData(val);
           const prod = {
             id: product?.id,
@@ -79,32 +99,18 @@ const Liked: React.FC = () => {
             rating: product?.rating,
             liked: true,
           };
-          const newLiked = [...likedProds, prod];
-          const dispatchBody = { id: user && user.id, liked: newLiked, title: val };
+          const dispatchBody = { id: user && user.id, liked: [prod], title: val };
           dispatch(setLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[]; title: string }));
         }
-      } else if (likedProds.length === 0) {
-        const product = getProductData(val);
-        const prod = {
-          id: product?.id,
-          title: product?.title,
-          price: product?.price,
-          category: product?.category,
-          description: product?.description,
-          image: product?.image,
-          rating: product?.rating,
-          liked: true,
-        };
-        const dispatchBody = { id: user && user.id, liked: [prod], title: val };
-        dispatch(setLikeRequest(dispatchBody as { id: number; liked: UserLikedItem[]; title: string }));
       }
-    }
-  };
+    },
+    [likedProds, user, dispatch, products],
+  );
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     dispatch(setModalOpen(true));
     dispatch(setModalProduct());
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     setCategs(products);

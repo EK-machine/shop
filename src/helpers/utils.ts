@@ -1,5 +1,5 @@
 /* eslint-disable no-else-return */
-import { UserOrder } from '../interfaces/intefaces';
+import { SidebarProps, UserOrder } from '../interfaces/intefaces';
 
 /* eslint-disable consistent-return */
 export const getModalTitle = (val: string) => {
@@ -120,4 +120,26 @@ export const locationProducts = (val: string): boolean => {
     return false;
   }
   return true;
+};
+
+export const categorySidebarPropsEqual = (prevProps: SidebarProps, nextProps: SidebarProps) => {
+  if (prevProps.products && nextProps.products && prevProps.categories?.length !== 0) {
+    if (prevProps.active === nextProps.active) {
+      return true;
+    }
+    if (prevProps.active !== nextProps.active) {
+      return false;
+    }
+    if (prevProps.categories?.length !== nextProps.categories?.length) {
+      return false;
+    }
+    if (
+      prevProps.categories?.length === nextProps.categories?.length &&
+      prevProps.categories?.join() === nextProps.categories?.join()
+    ) {
+      return true;
+    }
+    return false;
+  }
+  return false;
 };

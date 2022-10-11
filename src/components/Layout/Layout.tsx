@@ -28,6 +28,8 @@ const Layout: React.FC<LayoutProps> = ({ children, productCategory }) => {
     dispatch(allProductsRequest());
   }, []);
 
+  // useEffect(() => () => localStorage.clear(), []);
+
   return (
     <div className={styles.mainContainer}>
       <Header productCategory={productCategory} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
 import Button from '../Button/Button';
@@ -11,28 +11,28 @@ import { unsetAllErrors } from '../../redux/slices/errorSlice';
 import { AppStateType } from '../../interfaces/intefaces';
 import { base, settings, navigationLinks } from '../../data/data';
 
-const LoginButton: React.FC = () => {
+const LoginButtonUnmemoized: React.FC = () => {
   const logged = useSelector((state: AppStateType) => state.common.logged);
   const userImg = useSelector((state: AppStateType) => logged && state.user.user.imgUrl);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const openLoginModal = () => {
+  const openLoginModal = useCallback(() => {
     dispatch(setModalOpen(true));
     dispatch(setModalLogin());
-  };
+  }, [dispatch]);
 
-  const openRegisterModal = () => {
+  const openRegisterModal = useCallback(() => {
     dispatch(setModalOpen(true));
     dispatch(setModalRegister());
-  };
+  }, [dispatch]);
 
-  const logOut = () => {
+  const logOut = useCallback(() => {
     history.push('/');
     dispatch(isLogged(false));
     dispatch(unsetUser());
     dispatch(unsetAllErrors());
-  };
+  }, [dispatch]);
 
   return (
     <div className={styles.loginBtnsContainer}>
@@ -65,5 +65,7 @@ const LoginButton: React.FC = () => {
     </div>
   );
 };
+
+const LoginButton = React.memo(LoginButtonUnmemoized);
 
 export default LoginButton;

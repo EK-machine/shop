@@ -7,7 +7,7 @@ import { MostSliderProps } from '../../interfaces/intefaces';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const MostSlider: React.FC<MostSliderProps> = ({ products, getSelected, openModal }) => (
+const MostSliderUnmemoized: React.FC<MostSliderProps> = ({ products, getSelected, openModal }) => (
   <div className={styles.container}>
     <h1 className={styles.heading}>Check our most rated products</h1>
     <Swiper
@@ -33,5 +33,16 @@ const MostSlider: React.FC<MostSliderProps> = ({ products, getSelected, openModa
     </Swiper>
   </div>
 );
+
+const areEqual = (prevProps: MostSliderProps, nextProps: MostSliderProps) => {
+  const prevProds = prevProps.products.map((item) => item.title).join();
+  const nextProds = nextProps.products.map((item) => item.title).join();
+  if (prevProds === nextProds) {
+    return true;
+  }
+  return false;
+};
+
+const MostSlider = React.memo(MostSliderUnmemoized, areEqual);
 
 export default MostSlider;

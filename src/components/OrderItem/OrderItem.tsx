@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './style.module.css';
 import { AppStateType, OrderItemProps } from '../../interfaces/intefaces';
@@ -24,10 +24,13 @@ const OrderItem: React.FC<OrderItemProps> = ({ dateTill, items, id, deleteOrder 
     setIsOpened(!status);
   };
 
-  const stopPropag = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    deleteOrder && deleteOrder(id);
-  };
+  const stopPropag = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
+      deleteOrder && deleteOrder(id);
+    },
+    [id, deleteOrder],
+  );
 
   useEffect(() => {
     const { strDate, deliv } = getDate(dateTill);

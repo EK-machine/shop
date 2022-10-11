@@ -3,7 +3,7 @@ import StarRate from '../StarRate/StarRate';
 import styles from './style.module.css';
 import { MostSlideProps } from '../../interfaces/intefaces';
 
-const MostSlide: React.FC<MostSlideProps> = ({ title, image, rating, onClick, addAction }) => (
+const MostSlideUnmemoized: React.FC<MostSlideProps> = ({ title, image, rating, onClick, addAction }) => (
   <button
     onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       onClick && onClick(event);
@@ -21,5 +21,7 @@ const MostSlide: React.FC<MostSlideProps> = ({ title, image, rating, onClick, ad
     </div>
   </button>
 );
+
+const MostSlide = React.memo(MostSlideUnmemoized);
 
 export default MostSlide;

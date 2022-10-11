@@ -3,8 +3,16 @@ import { categoryIcons, cartSideData, setSideData } from '../../data/data';
 import Button from '../Button/Button';
 import { SidebarProps } from '../../interfaces/intefaces';
 import '../../common.css';
+import { categorySidebarPropsEqual } from '../../helpers/utils';
 
-const Sidebar: React.FC<SidebarProps> = ({ filterByCategory, categories, products, settings, cart, active }) => (
+const SidebarUnmemoized: React.FC<SidebarProps> = ({
+  filterByCategory,
+  categories,
+  products,
+  settings,
+  cart,
+  active,
+}) => (
   <div className="sidebar">
     {products && (
       <>
@@ -55,5 +63,12 @@ const Sidebar: React.FC<SidebarProps> = ({ filterByCategory, categories, product
     )}
   </div>
 );
+
+const areEqual = (prevProps: SidebarProps, nextProps: SidebarProps) => {
+  const res = categorySidebarPropsEqual(prevProps, nextProps);
+  return res;
+};
+
+const Sidebar = React.memo(SidebarUnmemoized, areEqual);
 
 export default Sidebar;

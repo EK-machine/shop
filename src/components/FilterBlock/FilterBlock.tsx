@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useOutsideClick from '../../hooks/useOutsideClick';
@@ -11,7 +11,7 @@ import { AppStateType } from '@/interfaces/intefaces';
 import { locationProducts } from '../../helpers/utils';
 import { HeaderProps } from '../../interfaces/intefaces';
 
-const FilterBlock: React.FC<HeaderProps> = ({ productCategory }) => {
+const FilterBlockUnmemoized: React.FC<HeaderProps> = ({ productCategory }) => {
   const displayProducts = useSelector((state: AppStateType) => state.products.displayProducts);
   const [query, setQuery] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
@@ -31,16 +31,19 @@ const FilterBlock: React.FC<HeaderProps> = ({ productCategory }) => {
     setOpen(true);
   };
 
-  const getSelected = (title: string) => {
-    if (title) {
-      const selected = displayProducts.find((item) => item.title === title);
-      if (selected) {
-        dispatch(setProduct(selected));
-        dispatch(setModalProduct());
-        dispatch(setModalOpen(true));
+  const getSelected = useCallback(
+    (title: string) => {
+      if (title) {
+        const selected = displayProducts.find((item) => item.title === title);
+        if (selected) {
+          dispatch(setProduct(selected));
+          dispatch(setModalProduct());
+          dispatch(setModalOpen(true));
+        }
       }
-    }
-  };
+    },
+    [displayProducts],
+  );
 
   const updateQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e?.target?.value);
@@ -85,5 +88,7 @@ const FilterBlock: React.FC<HeaderProps> = ({ productCategory }) => {
     </div>
   );
 };
+
+const FilterBlock = React.memo(FilterBlockUnmemoized);
 
 export default FilterBlock;

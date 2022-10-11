@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType } from '../../interfaces/intefaces';
 import Input from '../Input/Input';
@@ -7,7 +7,7 @@ import styles from './style.module.css';
 import { newAva, change } from '../../data/data';
 import { setAvatarRequest } from '../../redux/slices/userSlice';
 
-const SetAvatar: React.FC = () => {
+const SetAvatarUnmemoized: React.FC = () => {
   const [newImg, setNewImg] = useState<string>('');
   const [initNewImg, setInitNewImg] = useState<string>('');
   const avatar = useSelector((state: AppStateType) => state.user.user.imgUrl);
@@ -15,18 +15,21 @@ const SetAvatar: React.FC = () => {
   const pending = useSelector((state: AppStateType) => state.pending.pending.find((item) => item.id === 0))?.pending;
   const dispatch = useDispatch();
 
-  const submitChange = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (newImg !== '' && userId) {
-      const payload = {
-        id: userId,
-        imgUrl: newImg,
-        prodId: 0,
-      };
-      dispatch(setAvatarRequest(payload));
-      setNewImg('');
-    }
-  };
+  const submitChange = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      if (newImg !== '' && userId) {
+        const payload = {
+          id: userId,
+          imgUrl: newImg,
+          prodId: 0,
+        };
+        dispatch(setAvatarRequest(payload));
+        setNewImg('');
+      }
+    },
+    [newImg, userId],
+  );
 
   useEffect(() => {
     setInitNewImg(newAva);
@@ -62,5 +65,7 @@ const SetAvatar: React.FC = () => {
     </div>
   );
 };
+
+const SetAvatar = React.memo(SetAvatarUnmemoized);
 
 export default SetAvatar;
