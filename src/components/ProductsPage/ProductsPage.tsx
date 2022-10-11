@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../Layout/Layout';
 import Button from '../Button/Button';
@@ -12,7 +12,7 @@ import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSl
 import { setHeading } from '../../redux/slices/headingSlice';
 import { setTitle } from '../../helpers/utils';
 
-const ProductsPage: React.FC = () => {
+const ProductsPageUnmemoized: React.FC = () => {
   const products = useSelector((state: AppStateType) => state.products.products);
   const displayProducts = useSelector((state: AppStateType) => state.products.displayProducts);
   const most = useSelector((state: AppStateType) => state.products.product);
@@ -50,17 +50,20 @@ const ProductsPage: React.FC = () => {
     }
   };
 
-  const getSelected = (val: string) => {
-    const selected = displayProducts.find((item) => item.title === val);
-    if (selected) {
-      dispatch(setProduct(selected));
-    }
-  };
+  const getSelected = useCallback(
+    (val: string) => {
+      const selected = displayProducts.find((item) => item.title === val);
+      if (selected) {
+        dispatch(setProduct(selected));
+      }
+    },
+    [displayProducts, dispatch],
+  );
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     dispatch(setModalOpen(true));
     dispatch(setModalProduct());
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     setToDisplay(displayProducts);
@@ -106,5 +109,7 @@ const ProductsPage: React.FC = () => {
     </Layout>
   );
 };
+
+const ProductsPage = React.memo(ProductsPageUnmemoized);
 
 export default ProductsPage;

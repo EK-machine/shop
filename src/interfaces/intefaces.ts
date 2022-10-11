@@ -172,6 +172,7 @@ export interface InputProps {
   title: string;
   value: string | ProductType[];
   setValue?: React.Dispatch<React.SetStateAction<string>>;
+  setDate?: React.Dispatch<React.SetStateAction<string>>;
   required?: boolean;
   requiredMark?: boolean;
   error?: FormErrors;
@@ -261,7 +262,6 @@ export interface ModalState {
 }
 
 export interface CommonState {
-  loading: boolean;
   logged: boolean;
 }
 

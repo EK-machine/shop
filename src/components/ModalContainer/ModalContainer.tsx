@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalContentWrapper from '../ModalContentWrapper/ModalContentWrapper';
-import ModalLogin from '../ModalLogin/ModalLogin';
-import ModalRegister from '../ModalRegister/ModalRegister';
+import ModalLoginRegister from '../ModalLoginRegister/ModalLoginRegister';
 import ModalProduct from '../ModalProduct/ModalProduct';
 import useScreenWidth from '../../hooks/useScreenWidth';
 import { AppStateType, UserCartItem, UserLikedItem } from '../../interfaces/intefaces';
@@ -55,7 +54,7 @@ const ModalContainer: React.FC = () => {
     }
   };
 
-  const like = () => {
+  const like = useCallback(() => {
     if (likedProds) {
       if (likedProds.length > 0) {
         const isLiked = likedProds.find((item) => item.title === modalProduct.title && item.liked);
@@ -93,7 +92,17 @@ const ModalContainer: React.FC = () => {
         dispatch(setLikeRequest(payload as { id: number; liked: UserLikedItem[]; title: string }));
       }
     }
-  };
+  }, [
+    likedProds,
+    modalProduct.title,
+    user,
+    modalProduct.id,
+    modalProduct.price,
+    modalProduct.category,
+    modalProduct.description,
+    modalProduct.image,
+    modalProduct.rating,
+  ]);
 
   const productInCart = () => {
     if (userCart) {
@@ -110,7 +119,7 @@ const ModalContainer: React.FC = () => {
     }
   };
 
-  const addRemove = () => {
+  const addRemove = useCallback(() => {
     if (userCart) {
       if (inCart) {
         const newCart = userCart.filter((item) => item.title !== modalProduct.title);
@@ -150,7 +159,18 @@ const ModalContainer: React.FC = () => {
         );
       }
     }
-  };
+  }, [
+    userCart,
+    inCart,
+    user && user.id,
+    modalProduct.id,
+    modalProduct.title,
+    modalProduct.price,
+    modalProduct.category,
+    modalProduct.description,
+    modalProduct.image,
+    modalProduct.rating,
+  ]);
 
   useEffect(() => {
     if (!logged && modalIsOpen && (modalContent === 'login' || modalContent === 'register')) {
@@ -179,8 +199,9 @@ const ModalContainer: React.FC = () => {
         addRemove={addRemove}
         pending={pending}
       >
-        {modalContent === 'login' && <ModalLogin text={getModalTitle(modalContent)} />}
-        {modalContent === 'register' && <ModalRegister text={getModalTitle(modalContent)} />}
+        {(modalContent === 'register' || modalContent === 'login') && (
+          <ModalLoginRegister text={getModalTitle(modalContent)} />
+        )}
         {modalContent === 'product' && (
           <ModalProduct
             logged={logged}

@@ -3,7 +3,7 @@ import styles from './style.module.css';
 import { ButtonProps } from '../../interfaces/intefaces';
 import { toLike, isliked, btnLoading } from '../../data/data';
 
-const Button: React.FC<ButtonProps> = ({
+const ButtonUnmemoized: React.FC<ButtonProps> = ({
   usual,
   product,
   image,
@@ -97,5 +97,7 @@ const Button: React.FC<ButtonProps> = ({
     )}
   </>
 );
+
+const Button = React.memo(ButtonUnmemoized);
 
 export default Button;

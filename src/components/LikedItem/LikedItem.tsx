@@ -3,7 +3,7 @@ import styles from './style.module.css';
 import { LikedItemProps } from '../../interfaces/intefaces';
 import Heart from '../../../public/likedRed.svg';
 
-const LikedItem: React.FC<LikedItemProps> = ({ image, title, onClick, addAction, like }) => (
+const LikedItemUnmemoized: React.FC<LikedItemProps> = ({ image, title, onClick, addAction, like }) => (
   <button
     onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       onClick && onClick(event);
@@ -35,5 +35,7 @@ const LikedItem: React.FC<LikedItemProps> = ({ image, title, onClick, addAction,
     </div>
   </button>
 );
+
+const LikedItem = React.memo(LikedItemUnmemoized);
 
 export default LikedItem;

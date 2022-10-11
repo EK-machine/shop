@@ -8,7 +8,7 @@ import styles from './style.module.css';
 import Logo from '../../../public/logo.png';
 import FilterBlock from '../FilterBlock/FilterBlock';
 
-const Header: React.FC<HeaderProps> = ({ productCategory }) => {
+const HeaderUnmemoized: React.FC<HeaderProps> = ({ productCategory }) => {
   const logged = useSelector((state: AppStateType) => state.common.logged);
   const heading = useSelector((state: AppStateType) => state.heading.heading);
 
@@ -48,5 +48,7 @@ const Header: React.FC<HeaderProps> = ({ productCategory }) => {
     </div>
   );
 };
+
+const Header = React.memo(HeaderUnmemoized);
 
 export default Header;

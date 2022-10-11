@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './style.module.css';
 import Button from '../Button/Button';
@@ -60,22 +60,22 @@ const Cart: React.FC = () => {
 
   useOutsideClick(cartRef, closeDate);
 
-  const showDateSetter = () => {
+  const showDateSetter = useCallback(() => {
     const shown = isDateSetter;
     setIsDateSetter(!shown);
-  };
+  }, []);
 
-  const getSelected = (val: string) => {
+  const getSelected = useCallback((val: string) => {
     const selected = products.find((item) => item.title === val);
     if (selected) {
       dispatch(setProduct(selected));
     }
-  };
+  }, []);
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     dispatch(setModalOpen(true));
     dispatch(setModalProduct());
-  };
+  }, []);
 
   const placeOrder = () => {
     if (userCart && userCart.length > 0 && date !== '') {
@@ -92,10 +92,10 @@ const Cart: React.FC = () => {
     }
   };
 
-  const orderHandler = () => {
+  const orderHandler = useCallback(() => {
     placeOrder();
     closeDate();
-  };
+  }, [userCart, orders, date, user.id]);
 
   useEffect(() => {
     setCategs(products);
@@ -118,7 +118,7 @@ const Cart: React.FC = () => {
   }, [userCart]);
 
   return (
-    <div ref={cartRef} className={styles.cart}>
+    <div className={styles.cart}>
       {userCart && userCart.length === 0 ? (
         <MostSlider products={most} getSelected={getSelected} openModal={openModal} />
       ) : (
@@ -128,9 +128,9 @@ const Cart: React.FC = () => {
               <Button onClick={showDateSetter} loading pending={pending} underlined type="button" text="Place order" />
             )}
             {isDateSetter && (
-              <form className={styles.dateForm} onSubmit={orderHandler}>
+              <form ref={cartRef} className={styles.dateForm} onSubmit={orderHandler}>
                 <Button text="Place order" disabled={date === ''} loading pending={pending} type="submit" />
-                <Input forId="date" type="date" title="Set delivery date" value={date} setValue={setDate} />
+                <Input forId="date" type="date" title="Set delivery date" value={date} setDate={setDate} />
               </form>
             )}
           </div>

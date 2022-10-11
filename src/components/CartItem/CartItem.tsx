@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './style.module.css';
 import { CartItemProps, AppStateType, UserCartItem } from '../../interfaces/intefaces';
@@ -25,21 +25,24 @@ const CartItem: React.FC<CartItemProps> = ({
   const [productQuantity, setProductQuantity] = useState<string>(quantity.toString());
   const dispatch = useDispatch();
 
-  const addRemove = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    const newCart = userCart.filter((item) => item.title !== title);
-    const payload = { id: user && user.id, cart: newCart, title, prodId: id };
-    dispatch(
-      deleteFromCartRequest(
-        payload as {
-          id: number;
-          cart: UserCartItem[];
-          title: string;
-          prodId: number;
-        },
-      ),
-    );
-  };
+  const addRemove = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
+      const newCart = userCart.filter((item) => item.title !== title);
+      const payload = { id: user && user.id, cart: newCart, title, prodId: id };
+      dispatch(
+        deleteFromCartRequest(
+          payload as {
+            id: number;
+            cart: UserCartItem[];
+            title: string;
+            prodId: number;
+          },
+        ),
+      );
+    },
+    [userCart, title, user.id, id, dispatch],
+  );
 
   const onChangeHandler = (val: string) => {
     const newQuantity = Number(val);

@@ -38,12 +38,18 @@
 
 .productslist {
   position: absolute;
-  width: calc(100% + 4px);
+  width: calc(100% - 2px);
   border: 2px solid #333;
   border-top: none;
   border-radius: 0 0 4px 4px;
   background-color: #fff;
-  max-height: calc(100vh - 70px);
+  max-height: calc(100vh - 200px);
   overflow: hidden;
   overflow-y: scroll;
+}
+
+@media screen and (min-width: 461px) {
+  .productslist {
+    max-height: calc(100vh - 70px);
+  }
 }

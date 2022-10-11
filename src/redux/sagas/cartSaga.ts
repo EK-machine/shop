@@ -1,4 +1,4 @@
-import { takeEvery, put, call, spawn, all, select, delay } from 'redux-saga/effects';
+import { takeEvery, take, put, call, spawn, all, select, delay } from 'redux-saga/effects';
 import {
   addToCartRequest,
   addToCartSuccess,
@@ -111,11 +111,33 @@ export function* workerChangeQuantitySaga(action: {
 }
 
 export function* watchAddToCartSaga() {
-  yield takeEvery(addToCartRequest.type, workerAddToCartSaga);
+  while (true) {
+    const action: {
+      type: string;
+      payload: {
+        id: number;
+        cart: UserCartItem[];
+        title: string;
+        prodId: number;
+      };
+    } = yield take(addToCartRequest.type);
+    yield call(workerAddToCartSaga, action);
+  }
 }
 
 export function* deleteFromCartSaga() {
-  yield takeEvery(deleteFromCartRequest.type, workerDeleteFromCartSaga);
+  while (true) {
+    const action: {
+      type: string;
+      payload: {
+        id: number;
+        cart: UserCartItem[];
+        title: string;
+        prodId: number;
+      };
+    } = yield take(deleteFromCartRequest.type);
+    yield call(workerDeleteFromCartSaga, action);
+  }
 }
 
 export function* changeQuantitySaga() {

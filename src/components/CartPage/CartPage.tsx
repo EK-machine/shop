@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Layout from '../Layout/Layout';
 import Sidebar from '../Sidebar/Sidebar';
@@ -14,7 +14,7 @@ const CartPage: React.FC = () => {
   const [active, setActive] = useState<number>(0);
   const dispatch = useDispatch();
 
-  const setContent = (val: string) => {
+  const setContent = useCallback((val: string) => {
     dispatch(setHeading(setTitle(val)));
     if (val.includes('cart')) {
       setCartPContent('cart');
@@ -28,7 +28,7 @@ const CartPage: React.FC = () => {
       setCartPContent('orders');
       setActive(2);
     }
-  };
+  }, []);
 
   useEffect(() => {
     dispatch(setHeading('Your cart'));

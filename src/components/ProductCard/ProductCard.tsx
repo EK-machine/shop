@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType, ProductType, UserCartItem, UserLikedItem } from '../../interfaces/intefaces';
 import styles from './style.module.css';
@@ -12,7 +12,7 @@ import {
   deleteFromCartRequest,
 } from '../../redux/slices/userSlice';
 
-const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id, description, rating }) => {
+const ProductCardUnmemoized: React.FC<ProductType> = ({ title, price, category, image, id, description, rating }) => {
   const [liked, setLiked] = useState<boolean>(false);
   const [inCart, setInCart] = useState<boolean>(false);
   const pending = useSelector((state: AppStateType) => state.pending.pending.find((item) => item.id === id))?.pending;
@@ -31,11 +31,11 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
     }
   };
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     getSelected();
     dispatch(setModalOpen(true));
     dispatch(setModalProduct());
-  };
+  }, [products, dispatch]);
 
   const productInCart = (val: string) => {
     if (userCart) {
@@ -52,7 +52,7 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
     }
   };
 
-  const like = () => {
+  const like = useCallback(() => {
     if (likedProds) {
       if (likedProds.length > 0) {
         const isLiked = likedProds.find((item) => item.title === title && item.liked);
@@ -93,7 +93,7 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
         setLiked(true);
       }
     }
-  };
+  }, [likedProds, id, title, price, category, description, image, rating, user, dispatch]);
 
   const productIsLiked = (val: string) => {
     if (likedProds) {
@@ -110,7 +110,7 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
     }
   };
 
-  const addRemove = () => {
+  const addRemove = useCallback(() => {
     if (userCart) {
       if (inCart) {
         const newCart = userCart.filter((item) => item.title !== title);
@@ -150,7 +150,7 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
         );
       }
     }
-  };
+  }, [userCart, dispatch, inCart, title, user, id, price, category, description, image, rating]);
 
   useLayoutEffect(() => {
     if (title) {
@@ -196,5 +196,7 @@ const ProductCard: React.FC<ProductType> = ({ title, price, category, image, id,
     </div>
   );
 };
+
+const ProductCard = React.memo(ProductCardUnmemoized);
 
 export default ProductCard;

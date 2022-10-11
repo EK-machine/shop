@@ -1,28 +1,22 @@
 import React, { FocusEventHandler, SetStateAction } from 'react';
 import { InputProps, FormErrors } from '../../interfaces/intefaces';
 import styles from './style.module.css';
-import { validateRegisterInput, validateLoginInput } from '../../helpers/validations';
+import { validateLoginRegisterInput } from '../../helpers/validations';
 import { disablePastDates } from '../../helpers/utils';
 
-const Input: React.FC<InputProps> = (props) => {
+const InputUnmemoized: React.FC<InputProps> = (props) => {
   const blurFormHandler: FocusEventHandler<HTMLInputElement> = async () => {
-    if (props.content && props.content === 'register') {
+    if (props.content) {
       if (props.setError && props.required) {
-        const validObj: { isValid: boolean; err: string; id: string } | undefined = await validateRegisterInput(
-          props.value as string,
-          props.forId,
-          props.addData && props.addData,
-          props.addSetData && props.addSetData,
-        );
-        validObj && props.setError({ ...props.error, [props.forId]: validObj.err });
-      }
-    }
-    if (props.content && props.content === 'login') {
-      if (props.setError && props.required) {
-        const validObj: { isValid: boolean; err: string; id: string } | undefined = await validateLoginInput(
-          props.value as string,
-          props.forId,
-        );
+        const validObj: { isValid: boolean; err: string; id: string } | undefined =
+          props.content === 'register'
+            ? await validateLoginRegisterInput(
+                props.value as string,
+                props.forId,
+                props.addData && props.addData,
+                props.addSetData && props.addSetData,
+              )
+            : await validateLoginRegisterInput(props.value as string, props.forId);
         validObj && props.setError({ ...props.error, [props.forId]: validObj.err });
       }
     }
@@ -102,9 +96,7 @@ const Input: React.FC<InputProps> = (props) => {
             id={props.forId}
             type={props.type}
             value={props.value as string}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              props.setValue && props.setValue(e.target?.value as SetStateAction<string>)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => props.setDate && props.setDate(e.target?.value)}
             autoComplete="off"
             className={styles.dateInput}
           />
@@ -113,5 +105,7 @@ const Input: React.FC<InputProps> = (props) => {
     </div>
   );
 };
+
+const Input = React.memo(InputUnmemoized);
 
 export default Input;

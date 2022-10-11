@@ -4,7 +4,7 @@ import ProductCard from '../ProductCard/ProductCard';
 
 import { ProductsContainerProps } from '../../interfaces/intefaces';
 
-const ProductsContainer: React.FC<ProductsContainerProps> = ({ toDisplay }) => (
+const ProductsContainerUnmemoized: React.FC<ProductsContainerProps> = ({ toDisplay }) => (
   <div className={styles.productsContainer}>
     <div className={styles.shadowContainer}>
       <div className={styles.products}>
@@ -26,5 +26,16 @@ const ProductsContainer: React.FC<ProductsContainerProps> = ({ toDisplay }) => (
     </div>
   </div>
 );
+
+const areEqual = (prevProps: ProductsContainerProps, nextProps: ProductsContainerProps) => {
+  const prevProds = prevProps.toDisplay.map((item) => item.title).join();
+  const nextProds = nextProps.toDisplay.map((item) => item.title).join();
+  if (prevProds === nextProds) {
+    return true;
+  }
+  return false;
+};
+
+const ProductsContainer = React.memo(ProductsContainerUnmemoized, areEqual);
 
 export default ProductsContainer;
