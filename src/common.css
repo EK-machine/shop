@@ -1,13 +1,12 @@
 .contentBlock {
-  box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
-  border-radius: 3px;
-  padding: 10px;
+  border-radius: 0;
+  padding: 0 10px;
   width: 100%;
   box-sizing: border-box;
   max-width: 968px;
   overflow: hidden;
-  height: calc(100vh - 230px);
-  margin-top: 10px;
+  height: calc(100vh - 126px);
+  margin-top: 0;
 }
 
 .sidebar {
@@ -17,6 +16,8 @@
   left: 0;
   background-color: #fff;
   box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
   border-radius: 3px;
   display: flex;
   justify-content: space-around;
@@ -26,6 +27,8 @@
   height: 50px;
   overflow: hidden;
   box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
+  -webkit-box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
+  -moz-box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
 }
 
 .alertSuccess {
@@ -45,21 +48,33 @@
 
 .alertWrapper > div {
   box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
   width: 100%;
   border-radius: 0;
 }
 
 @media screen and (min-width: 461px) {
   .contentBlock {
-    height: calc(100vh - 170px);
+    box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
+    -webkit-box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
+    -moz-box-shadow: 0 4px 17px 0 rgb(0 0 0 / 10%);
+    border-radius: 3px;
+    height: calc(100vh - 165px) !important;
     margin-top: 0px;
     padding: 24px;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 968px;
+    overflow: hidden;
+    height: calc(100vh - 230px);
+    margin: 0 0 10px 0;
   }
 }
 
 @media screen and (min-width: 769px) {
   .contentBlock {
-    height: calc(100vh - 140px);
+    height: calc(100vh - 140px) !important;
   }
 
   .sidebar {

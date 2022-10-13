@@ -14,6 +14,7 @@
   display: flex;
   flex-direction: column-reverse;
   box-sizing: border-box;
+  height: calc(100vh - 208px);
 }
 
 .mainContentReviews {
@@ -30,8 +31,15 @@
   display: none;
 }
 
+@media screen and (min-width: 461px) {
+  .mainContent {
+    height: calc(100vh - 162px);
+  }
+}
+
 @media screen and (min-width: 769px) {
   .mainContent {
+    height: calc(100vh - 126px);
     flex-direction: row;
     padding: 0 24px;
   }

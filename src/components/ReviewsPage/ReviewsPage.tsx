@@ -2,9 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { List, AutoSizer, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 import { faker } from '@faker-js/faker';
-import Layout from '../Layout/Layout';
-import { setHeading } from '../../redux/slices/headingSlice';
-import Reviw from '../Reviw/Reviw';
+import Layout from 'Components/Layout/Layout';
+import Reviw from 'Components/Reviw/Reviw';
+import { setHeading } from 'ReduxSlices/headingSlice';
 
 const ReviewsPage: React.FC = () => {
   const [users, setUsers] = useState<{ id: number; name: string; bio: string; img: string }[]>([]);

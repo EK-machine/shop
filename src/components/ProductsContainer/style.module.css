@@ -1,15 +1,21 @@
 .productsContainer {
-  height: calc(100vh - 350px);
+  height: calc(100vh - 318px);
   width: 100%;
 }
 
 .shadowContainer {
   box-sizing: border-box;
-  height: calc(100vh - 350px);
+  height: calc(100vh - 318px);
   top: 245px;
   overflow-y: scroll;
   width: 100%;
   padding: 10px 10px 0 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.shadowContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .products {

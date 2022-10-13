@@ -6,9 +6,9 @@ import {
   debounceProductsRequest,
   debounceProductsSuccess,
   debounceProductsFailed,
-} from '../slices/allProductsSlice';
-import { apiGetProducts, apiGetProduct } from '../../api/apis';
-import alert from '../../components/Alert/Alert';
+} from 'ReduxSlices/allProductsSlice';
+import { apiGetProducts, apiGetProduct } from 'Apis/apis';
+import alert from 'Components/Alert/Alert';
 
 export function* workerGetAllProductsSaga() {
   try {

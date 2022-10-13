@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import OrderItem from 'Components/OrderItem/OrderItem';
+import { AppStateType, UserOrder } from 'Interfaces/intefaces';
+import { sortByDate } from 'Helpers/utils';
+import { deleteOrderRequest } from 'ReduxSlices/userSlice';
+import { setHeading } from 'ReduxSlices/headingSlice';
 import styles from './style.module.css';
-import OrderItem from '../OrderItem/OrderItem';
-import { AppStateType, UserOrder } from '../../interfaces/intefaces';
-import { sortByDate } from '../../helpers/utils';
-import { deleteOrderRequest } from '../../redux/slices/userSlice';
-import { setHeading } from '../../redux/slices/headingSlice';
 
 const Orders: React.FC = () => {
   const [orderedOrders, setOrderedOrders] = useState<UserOrder[]>([]);
@@ -52,7 +52,7 @@ const Orders: React.FC = () => {
           </p>
         </div>
       ) : (
-        <div className={styles.ordersWrapper}>
+        <div className={styles.ordersShadow}>
           {orderedOrders &&
             orderedOrders.map((item, i) => (
               <OrderItem

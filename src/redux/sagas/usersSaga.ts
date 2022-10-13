@@ -15,11 +15,11 @@ import {
   setPasswordRequest,
   setPasswordSuccess,
   setPasswordFailed,
-} from '../slices/userSlice';
-import { setPendingTrue, setPendingFalse } from '../slices/pendingSlice';
-import { setError } from '../slices/errorSlice';
-import { apiGetUsers, apiPostUser, apiPatchUser } from '../../api/apis';
-import alert from '../../components/Alert/Alert';
+} from 'ReduxSlices/userSlice';
+import { setPendingTrue, setPendingFalse } from 'ReduxSlices/pendingSlice';
+import { setError } from 'ReduxSlices/errorSlice';
+import { apiGetUsers, apiPostUser, apiPatchUser } from 'Apis/apis';
+import alert from 'Components/Alert/Alert';
 
 import { AppStateType, UserProfile } from '../../interfaces/intefaces';
 

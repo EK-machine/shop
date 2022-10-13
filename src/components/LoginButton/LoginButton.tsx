@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
-import Button from '../Button/Button';
+import Button from 'Components/Button/Button';
+import Profile from 'Images/profile.svg';
+import { setModalRegister, setModalLogin, setModalOpen } from 'ReduxSlices/modalContentSlice';
+import { isLogged } from 'ReduxSlices/commonStateSlice';
+import { unsetUser } from 'ReduxSlices/userSlice';
+import { unsetAllErrors } from 'ReduxSlices/errorSlice';
+import { AppStateType } from 'Interfaces/intefaces';
+import { base, settings, navigationLinks } from 'Data/data';
 import styles from './style.module.css';
-import Profile from '../../../public/profile.svg';
-import { setModalRegister, setModalLogin, setModalOpen } from '../../redux/slices/modalContentSlice';
-import { isLogged } from '../../redux/slices/commonStateSlice';
-import { unsetUser } from '../../redux/slices/userSlice';
-import { unsetAllErrors } from '../../redux/slices/errorSlice';
-import { AppStateType } from '../../interfaces/intefaces';
-import { base, settings, navigationLinks } from '../../data/data';
 
 const LoginButtonUnmemoized: React.FC = () => {
   const logged = useSelector((state: AppStateType) => state.common.logged);

@@ -1,7 +1,7 @@
 import React from 'react';
+import { ButtonProps } from 'Interfaces/intefaces';
+import { toLike, isliked, btnLoading } from 'Data/data';
 import styles from './style.module.css';
-import { ButtonProps } from '../../interfaces/intefaces';
-import { toLike, isliked, btnLoading } from '../../data/data';
 
 const ButtonUnmemoized: React.FC<ButtonProps> = ({
   usual,

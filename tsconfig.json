@@ -2,9 +2,14 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "images/*": ["src/assets/images/*"],
-      "fonts/*": ["src/assets/fonts/*"]
+      "Images/*": ["public/*"],
+      "Components/*": ["src/components/*"],
+      "Data/*": ["src/data/*"],
+      "Interfaces/*": ["src/interfaces/*"],
+      "ReduxSlices/*": ["src/redux/slices/*"],
+      "Helpers/*": ["src/helpers/*"],
+      "Hooks/*": ["src/hooks/*"],
+      "Apis/*": ["src/api/*"]
     },
     "jsx": "react-jsx",
     "allowJs": true,

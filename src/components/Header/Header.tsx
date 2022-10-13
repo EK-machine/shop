@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { AppStateType, HeaderProps } from '../../interfaces/intefaces';
-import { navigationLinks, base } from '../../data/data';
-import LoginButton from '../LoginButton/LoginButton';
+import { AppStateType, HeaderProps } from 'Interfaces/intefaces';
+import { navigationLinks, base } from 'Data/data';
+import LoginButton from 'Components/LoginButton/LoginButton';
+import Logo from 'Images/logo.png';
+import FilterBlock from 'Components/FilterBlock/FilterBlock';
 import styles from './style.module.css';
-import Logo from '../../../public/logo.png';
-import FilterBlock from '../FilterBlock/FilterBlock';
 
 const HeaderUnmemoized: React.FC<HeaderProps> = ({ productCategory }) => {
   const logged = useSelector((state: AppStateType) => state.common.logged);

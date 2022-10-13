@@ -284,7 +284,7 @@ export interface ErrorBoundaryProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, react/require-default-props
   children: any;
   previousErrors: string[];
-  userId: number;
+  userId: number | boolean;
   thrownError: string;
   setTheErros: (data: string[]) => void;
 }

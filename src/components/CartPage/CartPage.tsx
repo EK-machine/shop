@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Layout from '../Layout/Layout';
-import Sidebar from '../Sidebar/Sidebar';
-import Cart from '../Cart/Cart';
-import Liked from '../Liked/Liked';
-import Orders from '../Orders/Orders';
-import { setHeading } from '../../redux/slices/headingSlice';
-import { setTitle } from '../../helpers/utils';
+import Layout from 'Components/Layout/Layout';
+import Sidebar from 'Components/Sidebar/Sidebar';
+import Cart from 'Components/Cart/Cart';
+import Liked from 'Components/Liked/Liked';
+import Orders from 'Components/Orders/Orders';
+import { setHeading } from 'ReduxSlices/headingSlice';
 import '../../common.css';
 
 const CartPage: React.FC = () => {
@@ -15,7 +14,6 @@ const CartPage: React.FC = () => {
   const dispatch = useDispatch();
 
   const setContent = useCallback((val: string) => {
-    dispatch(setHeading(setTitle(val)));
     if (val.includes('cart')) {
       setCartPContent('cart');
       setActive(0);

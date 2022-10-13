@@ -41,11 +41,14 @@
 
 .priceImg {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .productImg {
-  width: 50%;
-  margin: 0 24px 24px 0;
+  width: 116px;
+  height: auto;
+  margin: 0 10px 10px 0;
 }
 
 .price,
@@ -88,4 +91,23 @@
 
 .description {
   text-transform: none;
+}
+
+@media screen and (min-width: 371px) {
+  .productImg {
+    width: 175px;
+  }
+}
+
+@media screen and (min-width: 491px) {
+  .productImg {
+    width: 300px;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .productImg {
+    width: 300px;
+    margin: 0 24px 24px 0;
+  }
 }

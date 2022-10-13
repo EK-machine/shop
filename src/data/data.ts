@@ -1,17 +1,18 @@
-import womanIcon from '../../public/woman.svg';
-import manIcon from '../../public/man.svg';
-import jewlryIcon from '../../public/jewlry.svg';
-import allIcon from '../../public/all.svg';
-import electronicIcon from '../../public/electronic.svg';
-import cartIcon from '../../public/cart.svg';
-import likeIcon from '../../public/liked.svg';
-import tolikeIcon from '../../public/tolike.svg';
-import cardIcon from '../../public/creditCard.svg';
-import loginIcon from '../../public/login.svg';
-import passIcon from '../../public/password.svg';
-import avaIcon from '../../public/avatar.svg';
-import loadingIcon from '../../public/loading.svg';
-import refresharrows from '../../public/refresharrows.svg';
+import womanIcon from 'Images/woman.svg';
+import manIcon from 'Images/man.svg';
+import jewlryIcon from 'Images/jewlry.svg';
+import allIcon from 'Images/all.svg';
+import electronicIcon from 'Images/electronic.svg';
+import cartIcon from 'Images/cart.svg';
+import likeIcon from 'Images/liked.svg';
+import tolikeIcon from 'Images/tolike.svg';
+import cardIcon from 'Images/creditCard.svg';
+import loginIcon from 'Images/login.svg';
+import passIcon from 'Images/password.svg';
+import avaIcon from 'Images/avatar.svg';
+import loadingIcon from 'Images/loading.svg';
+import refresharrows from 'Images/refresharrows.svg';
+import arrowIcon from 'Images/arrow.svg';
 
 export const categoryIcons = [allIcon, manIcon, jewlryIcon, electronicIcon, womanIcon];
 
@@ -19,7 +20,6 @@ export const base = '/';
 export const settings = 'settings';
 export const cart = 'cart';
 export const reviews = 'reviews';
-export const reviewsmore = 'reviewsmore';
 export const notFound = '*';
 
 export const navigationLinks = [
@@ -128,3 +128,4 @@ export const change = refresharrows;
 export const toLike = tolikeIcon;
 export const isliked = likeIcon;
 export const btnLoading = loadingIcon;
+export const arrow = arrowIcon;

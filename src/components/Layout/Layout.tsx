@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import Header from '../Header/Header';
+import Header from 'Components/Header/Header';
+import ModalContainer from 'Components/ModalContainer/ModalContainer';
+import { LayoutProps } from 'Interfaces/intefaces';
+import { allProductsRequest } from 'ReduxSlices/allProductsSlice';
 import styles from './style.module.css';
-import ModalContainer from '../ModalContainer/ModalContainer';
-import { LayoutProps } from '../../interfaces/intefaces';
-import { allProductsRequest } from '../../redux/slices/allProductsSlice';
 
 const Layout: React.FC<LayoutProps> = ({ children, productCategory }) => {
   const [styling, setStyling] = useState<boolean>(false);

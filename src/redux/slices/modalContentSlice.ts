@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ModalState } from '../../interfaces/intefaces';
+import { ModalState } from 'Interfaces/intefaces';
 
 const initialState: ModalState = {
   content: '',

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppStateType } from '../../interfaces/intefaces';
-import Input from '../Input/Input';
-import Button from '../Button/Button';
+import { AppStateType } from 'Interfaces/intefaces';
+import Input from 'Components/Input/Input';
+import Button from 'Components/Button/Button';
+import { newAva, change } from 'Data/data';
+import { setAvatarRequest } from 'ReduxSlices/userSlice';
 import styles from './style.module.css';
-import { newAva, change } from '../../data/data';
-import { setAvatarRequest } from '../../redux/slices/userSlice';
 
 const SetAvatarUnmemoized: React.FC = () => {
   const [newImg, setNewImg] = useState<string>('');

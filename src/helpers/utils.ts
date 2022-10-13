@@ -1,5 +1,5 @@
 /* eslint-disable no-else-return */
-import { SidebarProps, UserOrder } from '../interfaces/intefaces';
+import { SidebarProps, UserOrder } from 'Interfaces/intefaces';
 
 /* eslint-disable consistent-return */
 export const getModalTitle = (val: string) => {
@@ -64,46 +64,6 @@ export const disablePastDates = () => {
   const mm = String(today.getMonth() + 1).padStart(2, '0');
   const yyyy = today.getFullYear();
   return `${yyyy}-${mm}-${dd}`;
-};
-
-export const setTitle = (val: string, add?: boolean) => {
-  if (val.toLocaleLowerCase() === `men's clothing`) {
-    return 'Products for men';
-  }
-  if (val.toLocaleLowerCase() === `jewelry`) {
-    return 'Jewelry products';
-  }
-  if (val.toLocaleLowerCase() === `electronics`) {
-    return 'Electronics products';
-  }
-  if (val.toLocaleLowerCase() === `women's clothing`) {
-    return 'Products for women';
-  }
-  if (val.toLocaleLowerCase() === 'all products') {
-    return 'All products';
-  }
-  if (val.toLocaleLowerCase() === 'your cart') {
-    return 'Your cart';
-  }
-  if (val.toLocaleLowerCase() === 'liked') {
-    return 'Products you like';
-  }
-  if (val.toLocaleLowerCase() === 'your orders') {
-    return 'Your orders';
-  }
-  if (val.toLocaleLowerCase() === 'login') {
-    return 'Change your login';
-  }
-  if (val.toLocaleLowerCase() === 'password') {
-    return 'Change your password';
-  }
-  if (val.toLocaleLowerCase() === 'avatar' && add) {
-    return 'Change your avatar';
-  }
-  if (val.toLocaleLowerCase() === 'avatar' && !add) {
-    return 'Set your avatar';
-  }
-  return '';
 };
 
 export const locationProducts = (val: string): boolean => {

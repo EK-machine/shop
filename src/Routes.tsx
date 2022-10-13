@@ -1,13 +1,12 @@
 import { withRouter, Route, Switch } from 'react-router-dom';
+import CartPage from 'Components/CartPage/CartPage';
+import ReviewsPage from 'Components/ReviewsPage/ReviewsPage';
+import ProductsPage from 'Components/ProductsPage/ProductsPage';
+import NotFoundPage from 'Components/NotFoundPage/NotFoundPage';
+import SettingsPage from 'Components/SettingsPage/SettingsPage';
+import ErrorBoundary from 'Components/ErrorBoundary/ErrorBoundary';
+import { base, cart, reviews, settings, notFound } from 'Data/data';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
-import CartPage from './components/CartPage/CartPage';
-import ReviewsPage from './components/ReviewsPage/ReviewsPage';
-import ProductsPage from './components/ProductsPage/ProductsPage';
-import NotFoundPage from './components/NotFoundPage/NotFoundPage';
-import SettingsPage from './components/SettingsPage/SettingsPage';
-import MoreReviewsPage from './components/MoreReviewsPage/MoreReviewsPage';
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import { base, cart, reviews, settings, notFound, reviewsmore } from './data/data';
 
 const Routes = () => (
   <>
@@ -15,7 +14,6 @@ const Routes = () => (
       <Switch>
         <Route exact path={base} component={ProductsPage} />
         <Route path={base + reviews} component={ReviewsPage} />
-        <Route path={base + reviewsmore} component={MoreReviewsPage} />
         <ProtectedRoute path={base + cart}>
           <CartPage />
         </ProtectedRoute>
