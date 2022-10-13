@@ -1,7 +1,7 @@
 import React from 'react';
-import StarRate from '../StarRate/StarRate';
+import StarRate from 'Components/StarRate/StarRate';
+import { MostSlideProps } from 'Interfaces/intefaces';
 import styles from './style.module.css';
-import { MostSlideProps } from '../../interfaces/intefaces';
 
 const MostSlideUnmemoized: React.FC<MostSlideProps> = ({ title, image, rating, onClick, addAction }) => (
   <button

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { AppStateType, OrderItemProps } from 'Interfaces/intefaces';
+import { getDate } from 'Helpers/utils';
+import Button from 'Components/Button/Button';
+import useOutsideClick from 'Hooks/useOutsideClick';
 import styles from './style.module.css';
-import { AppStateType, OrderItemProps } from '../../interfaces/intefaces';
-import { getDate } from '../../helpers/utils';
-import Button from '../Button/Button';
-import useOutsideClick from '../../hooks/useOutsideClick';
 
 const OrderItem: React.FC<OrderItemProps> = ({ dateTill, items, id, deleteOrder }) => {
   const [orderString, setOrderString] = useState<string>('');

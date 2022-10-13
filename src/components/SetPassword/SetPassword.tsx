@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Button from 'Components/Button/Button';
+import Input from 'Components/Input/Input';
+import { setPasswordRequest } from 'ReduxSlices/userSlice';
+import { FormErrors, AppStateType } from 'Interfaces/intefaces';
 import styles from './style.module.css';
-import Button from '../Button/Button';
-import Input from '../Input/Input';
-import { setPasswordRequest } from '../../redux/slices/userSlice';
-import { FormErrors, AppStateType } from '../../interfaces/intefaces';
 
 const SetPasswordUnmemoized: React.FC = () => {
   const [password, setPassword] = useState<string>('');

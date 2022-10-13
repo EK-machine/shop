@@ -8,6 +8,8 @@
 
 .orderItem:hover {
   box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.08);
 }
 
 .orderItemDelivered {
@@ -74,6 +76,12 @@
   overflow-y: scroll;
   box-sizing: border-box;
   max-height: calc(100vh - 360px);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.ordersItemsContainerOpened::-webkit-scrollbar {
+  display: none;
 }
 
 .orderItemLine {

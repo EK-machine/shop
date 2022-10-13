@@ -2,10 +2,10 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { CartItemProps, AppStateType, UserCartItem } from 'Interfaces/intefaces';
+import Button from 'Components/Button/Button';
+import { deleteFromCartRequest, changeQuantityRequest } from 'ReduxSlices/userSlice';
 import styles from './style.module.css';
-import { CartItemProps, AppStateType, UserCartItem } from '../../interfaces/intefaces';
-import Button from '../Button/Button';
-import { deleteFromCartRequest, changeQuantityRequest } from '../../redux/slices/userSlice';
 
 const CartItem: React.FC<CartItemProps> = ({
   image,

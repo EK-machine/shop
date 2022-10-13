@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Input from '../Input/Input';
-import Button from '../Button/Button';
+import Input from 'Components/Input/Input';
+import Button from 'Components/Button/Button';
+import { validateLoginRegister } from 'Helpers/validations';
+import { AppStateType, FormErrors, ModalRegisterLogin } from 'Interfaces/intefaces';
+import { isLogged } from 'ReduxSlices/commonStateSlice';
+import { setModalOpen } from 'ReduxSlices/modalContentSlice';
+import { createUserRequest, setUser } from 'ReduxSlices/userSlice';
+import { apiPostError } from 'Apis/apis';
+import { setHeading } from 'ReduxSlices/headingSlice';
+import alert from 'Components/Alert/Alert';
 import styles from './style.module.css';
-import { validateLoginRegister } from '../../helpers/validations';
-import { AppStateType, FormErrors, ModalRegisterLogin } from '../../interfaces/intefaces';
-import { isLogged } from '../../redux/slices/commonStateSlice';
-import { setModalOpen } from '../../redux/slices/modalContentSlice';
-import { createUserRequest, setUser } from '../../redux/slices/userSlice';
-import { apiPostError } from '../../api/apis';
-import { setHeading } from '../../redux/slices/headingSlice';
-import alert from '../Alert/Alert';
 
 const ModalLoginRegisterUnmemoized: React.FC<ModalRegisterLogin> = ({ text }) => {
   const [login, setLogin] = useState<string>('');

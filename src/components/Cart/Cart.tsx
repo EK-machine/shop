@@ -1,16 +1,16 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Button from 'Components/Button/Button';
+import CartItem from 'Components/CartItem/CartItem';
+import MostSlider from 'Components/MostSlider/MostSlider';
+import useOutsideClick from 'Hooks/useOutsideClick';
+import { AppStateType, ProductType } from 'Interfaces/intefaces';
+import { setProduct } from 'ReduxSlices/allProductsSlice';
+import { setModalOpen, setModalProduct } from 'ReduxSlices/modalContentSlice';
+import { setHeading } from 'ReduxSlices/headingSlice';
+import Input from 'Components/Input/Input';
+import { setOrderRequest } from 'ReduxSlices/userSlice';
 import styles from './style.module.css';
-import Button from '../Button/Button';
-import CartItem from '../CartItem/CartItem';
-import MostSlider from '../MostSlider/MostSlider';
-import useOutsideClick from '../../hooks/useOutsideClick';
-import { AppStateType, ProductType } from '../../interfaces/intefaces';
-import { setProduct } from '../../redux/slices/allProductsSlice';
-import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';
-import { setHeading } from '../../redux/slices/headingSlice';
-import Input from '../Input/Input';
-import { setOrderRequest } from '../../redux/slices/userSlice';
 
 const Cart: React.FC = () => {
   const [isDateSetter, setIsDateSetter] = useState<boolean>(false);

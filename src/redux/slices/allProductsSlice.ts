@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ProductType, AllProductsState } from '../../interfaces/intefaces';
+import { ProductType, AllProductsState } from 'Interfaces/intefaces';
 
 const initialState: AllProductsState = {
   productsRequest: [],

@@ -1,16 +1,11 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppStateType, ProductType, UserCartItem, UserLikedItem } from '../../interfaces/intefaces';
+import { AppStateType, ProductType, UserCartItem, UserLikedItem } from 'Interfaces/intefaces';
+import Button from 'Components/Button/Button';
+import { setModalOpen, setModalProduct } from 'ReduxSlices/modalContentSlice';
+import { setProduct } from 'ReduxSlices/allProductsSlice';
+import { setLikeRequest, unsetLikeRequest, addToCartRequest, deleteFromCartRequest } from 'ReduxSlices/userSlice';
 import styles from './style.module.css';
-import Button from '../Button/Button';
-import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';
-import { setProduct } from '../../redux/slices/allProductsSlice';
-import {
-  setLikeRequest,
-  unsetLikeRequest,
-  addToCartRequest,
-  deleteFromCartRequest,
-} from '../../redux/slices/userSlice';
 
 const ProductCardUnmemoized: React.FC<ProductType> = ({ title, price, category, image, id, description, rating }) => {
   const [liked, setLiked] = useState<boolean>(false);
@@ -22,6 +17,11 @@ const ProductCardUnmemoized: React.FC<ProductType> = ({ title, price, category, 
   const likedProds = useSelector((state: AppStateType) => logged && state.user.user.liked);
   const products = useSelector((state: AppStateType) => state.products.products);
   const modalIsOpen = useSelector((state: AppStateType) => state.modal.isOpen);
+  const otherPending =
+    useSelector((state: AppStateType) =>
+      state.pending.pending.filter((item) => item.id !== id && item.pending === true),
+    ).length > 0;
+
   const dispatch = useDispatch();
 
   const getSelected = () => {
@@ -186,6 +186,7 @@ const ProductCardUnmemoized: React.FC<ProductType> = ({ title, price, category, 
               type="button"
               pending={!modalIsOpen && pending}
               onClick={addRemove}
+              disabled={otherPending}
             />
             <Button usual underlined text="more detail" type="button" onClick={openModal} />
           </>

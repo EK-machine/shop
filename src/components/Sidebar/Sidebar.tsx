@@ -1,9 +1,9 @@
 import React from 'react';
-import { categoryIcons, cartSideData, setSideData } from '../../data/data';
-import Button from '../Button/Button';
-import { SidebarProps } from '../../interfaces/intefaces';
+import { categoryIcons, cartSideData, setSideData } from 'Data/data';
+import Button from 'Components/Button/Button';
+import { SidebarProps } from 'Interfaces/intefaces';
+import { categorySidebarPropsEqual } from 'Helpers/utils';
 import '../../common.css';
-import { categorySidebarPropsEqual } from '../../helpers/utils';
 
 const SidebarUnmemoized: React.FC<SidebarProps> = ({
   filterByCategory,

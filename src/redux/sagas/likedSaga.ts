@@ -6,11 +6,11 @@ import {
   unsetLikeRequest,
   unsetLikeSuccess,
   unsetLikeFailed,
-} from '../slices/userSlice';
-import { setError } from '../slices/errorSlice';
-import { apiPatchUser } from '../../api/apis';
-import { AppStateType, UserLikedItem } from '../../interfaces/intefaces';
-import alert from '../../components/Alert/Alert';
+} from 'ReduxSlices/userSlice';
+import { setError } from 'ReduxSlices/errorSlice';
+import { apiPatchUser } from 'Apis/apis';
+import { AppStateType, UserLikedItem } from 'Interfaces/intefaces';
+import alert from 'Components/Alert/Alert';
 
 export function* workerSetLikeSaga(action: {
   type: typeof setLikeRequest.type;

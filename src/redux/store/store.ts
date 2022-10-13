@@ -2,13 +2,13 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import createSagaMiddleware from '@redux-saga/core';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import commonReducer from '../slices/commonStateSlice';
-import headingReducer from '../slices/headingSlice';
-import userReducer from '../slices/userSlice';
-import modalContentReducer from '../slices/modalContentSlice';
-import allProductsReducer from '../slices/allProductsSlice';
-import pendingReducer from '../slices/pendingSlice';
-import errorsReducer from '../slices/errorSlice';
+import commonReducer from 'ReduxSlices/commonStateSlice';
+import headingReducer from 'ReduxSlices/headingSlice';
+import userReducer from 'ReduxSlices/userSlice';
+import modalContentReducer from 'ReduxSlices/modalContentSlice';
+import allProductsReducer from 'ReduxSlices/allProductsSlice';
+import pendingReducer from 'ReduxSlices/pendingSlice';
+import errorsReducer from 'ReduxSlices/errorSlice';
 import rootSaga from '../sagas/rootSaga';
 
 const rootReducer = combineReducers({

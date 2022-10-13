@@ -1,10 +1,10 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { useSelector } from 'react-redux';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import CloseImg from '../../../public/closeIcon.svg';
-import { AppStateType, ModalProps } from '../../interfaces/intefaces';
+import CloseImg from 'Images/closeIcon.svg';
+import { AppStateType, ModalProps } from 'Interfaces/intefaces';
+import Button from 'Components/Button/Button';
 import styles from './style.module.css';
-import Button from '../Button/Button';
 
 const ModalContentWrapper: React.FC<ModalProps> = ({
   children,

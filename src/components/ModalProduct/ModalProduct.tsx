@@ -1,8 +1,8 @@
 import React from 'react';
-import { ModalProductProps } from '../../interfaces/intefaces';
-import Button from '../Button/Button';
+import { ModalProductProps } from 'Interfaces/intefaces';
+import Button from 'Components/Button/Button';
+import StarRate from 'Components/StarRate/StarRate';
 import styles from './style.module.css';
-import StarRate from '../StarRate/StarRate';
 
 const ModalProductUnmemoized: React.FC<ModalProductProps> = ({ product, text, logged, like, liked }) => (
   <div className={styles.container}>

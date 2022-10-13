@@ -1,14 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Layout from '../Layout/Layout';
-import Sidebar from '../Sidebar/Sidebar';
-import SetLogin from '../SetLogin/SetLogin';
-import SetPassword from '../SetPassword/SetPassword';
-import SetAvatar from '../SetAvatar/SetAvatar';
-import { setHeading } from '../../redux/slices/headingSlice';
-import { setTitle } from '../../helpers/utils';
+import Layout from 'Components/Layout/Layout';
+import Sidebar from 'Components/Sidebar/Sidebar';
+import SetLogin from 'Components/SetLogin/SetLogin';
+import SetPassword from 'Components/SetPassword/SetPassword';
+import SetAvatar from 'Components/SetAvatar/SetAvatar';
+import { setHeading } from 'ReduxSlices/headingSlice';
+import { AppStateType } from 'Interfaces/intefaces';
 import '../../common.css';
-import { AppStateType } from '../../interfaces/intefaces';
 
 const SettingsPageUnmemoized: React.FC = () => {
   const [settingsContent, setSettingsContent] = useState<string>('avatar');
@@ -17,8 +16,6 @@ const SettingsPageUnmemoized: React.FC = () => {
   const dispatch = useDispatch();
 
   const setContent = useCallback((val: string) => {
-    const add = !!currentUser.imgUrl;
-    dispatch(setHeading(setTitle(val, add)));
     if (val.includes('avatar')) {
       setSettingsContent('avatar');
       setActive(0);
@@ -34,10 +31,12 @@ const SettingsPageUnmemoized: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (currentUser && currentUser.imgUrl !== '') {
+    const add = !!currentUser.imgUrl;
+    if (add) {
       dispatch(setHeading('Change your avatar'));
+    } else {
+      dispatch(setHeading('Set your avatar'));
     }
-    dispatch(setHeading('Set your avatar'));
   }, []);
 
   return (

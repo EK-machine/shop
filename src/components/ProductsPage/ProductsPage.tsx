@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Layout from '../Layout/Layout';
-import Button from '../Button/Button';
-import Sidebar from '../Sidebar/Sidebar';
-import ProductsContainer from '../ProductsContainer/ProductsContainer';
+import Layout from 'Components/Layout/Layout';
+import Button from 'Components/Button/Button';
+import Sidebar from 'Components/Sidebar/Sidebar';
+import ProductsContainer from 'Components/ProductsContainer/ProductsContainer';
+import { AppStateType, ProductType } from 'Interfaces/intefaces';
+import { setProduct } from 'ReduxSlices/allProductsSlice';
+import { setModalOpen, setModalProduct } from 'ReduxSlices/modalContentSlice';
+import { setHeading } from 'ReduxSlices/headingSlice';
 import styles from './style.module.css';
 import '../../common.css';
-import { AppStateType, ProductType } from '../../interfaces/intefaces';
-import { setProduct } from '../../redux/slices/allProductsSlice';
-import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';
-import { setHeading } from '../../redux/slices/headingSlice';
-import { setTitle } from '../../helpers/utils';
 
 const ProductsPageUnmemoized: React.FC = () => {
   const products = useSelector((state: AppStateType) => state.products.products);
@@ -29,7 +28,6 @@ const ProductsPageUnmemoized: React.FC = () => {
   };
 
   const filterByCategory = (title: string) => {
-    dispatch(setHeading(setTitle(title)));
     if (title === 'all products') {
       setToDisplay(displayProducts);
       setActive(0);

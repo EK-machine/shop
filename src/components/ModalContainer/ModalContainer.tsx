@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ModalContentWrapper from '../ModalContentWrapper/ModalContentWrapper';
-import ModalLoginRegister from '../ModalLoginRegister/ModalLoginRegister';
-import ModalProduct from '../ModalProduct/ModalProduct';
-import useScreenWidth from '../../hooks/useScreenWidth';
-import { AppStateType, UserCartItem, UserLikedItem } from '../../interfaces/intefaces';
-import { getModalTitle } from '../../helpers/utils';
-import { setModalOpen } from '../../redux/slices/modalContentSlice';
+import ModalContentWrapper from 'Components/ModalContentWrapper/ModalContentWrapper';
+import ModalLoginRegister from 'Components/ModalLoginRegister/ModalLoginRegister';
+import ModalProduct from 'Components/ModalProduct/ModalProduct';
+import useScreenWidth from 'Hooks/useScreenWidth';
+import { AppStateType, UserCartItem, UserLikedItem } from 'Interfaces/intefaces';
+import { getModalTitle } from 'Helpers/utils';
+import { setModalOpen } from 'ReduxSlices/modalContentSlice';
 import {
   getUsersRequest,
   unsetUsers,
@@ -14,7 +14,7 @@ import {
   unsetLikeRequest,
   addToCartRequest,
   deleteFromCartRequest,
-} from '../../redux/slices/userSlice';
+} from 'ReduxSlices/userSlice';
 
 const ModalContainer: React.FC = () => {
   const [liked, setLiked] = useState<boolean>(false);

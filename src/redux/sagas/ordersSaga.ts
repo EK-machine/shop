@@ -6,12 +6,12 @@ import {
   deleteOrderRequest,
   deleteOrderSuccess,
   deleteOrderFailed,
-} from '../slices/userSlice';
-import { setPendingTrue, setPendingFalse } from '../slices/pendingSlice';
-import { apiPatchUser } from '../../api/apis';
-import { setError } from '../slices/errorSlice';
+} from 'ReduxSlices/userSlice';
+import { setPendingTrue, setPendingFalse } from 'ReduxSlices/pendingSlice';
+import { apiPatchUser } from 'Apis/apis';
+import { setError } from 'ReduxSlices/errorSlice';
+import alert from 'Components/Alert/Alert';
 import { AppStateType, UserOrder } from '../../interfaces/intefaces';
-import alert from '../../components/Alert/Alert';
 
 export function* workerSetOrderSaga(action: {
   type: typeof setOrderRequest.type;

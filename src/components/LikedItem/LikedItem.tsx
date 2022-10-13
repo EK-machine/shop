@@ -1,7 +1,7 @@
 import React from 'react';
+import { LikedItemProps } from 'Interfaces/intefaces';
+import Heart from 'Images/likedRed.svg';
 import styles from './style.module.css';
-import { LikedItemProps } from '../../interfaces/intefaces';
-import Heart from '../../../public/likedRed.svg';
 
 const LikedItemUnmemoized: React.FC<LikedItemProps> = ({ image, title, onClick, addAction, like }) => (
   <button

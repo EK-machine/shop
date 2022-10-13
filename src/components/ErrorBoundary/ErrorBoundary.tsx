@@ -1,10 +1,10 @@
 import React, { ErrorInfo } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { AppStateType, ErrorBoundaryProps, ErrorBoundaryState } from 'Interfaces/intefaces';
+import { setErrors } from 'ReduxSlices/errorSlice';
+import { apiGetError, apiPatchError } from 'Apis/apis';
 import styles from './style.module.css';
-import { AppStateType, ErrorBoundaryProps, ErrorBoundaryState } from '../../interfaces/intefaces';
-import { setErrors } from '../../redux/slices/errorSlice';
-import { apiGetError, apiPatchError } from '../../api/apis';
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
@@ -53,12 +53,10 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     });
     if (error) {
       if (this.props.userId) {
-        console.log('componentDidCatch1');
         const errorsToPost = [...this.props.previousErrors, errorData];
         const body = { errors: errorsToPost };
         this.postErrors(this.props.userId.toString(), body);
       } else {
-        console.log('componentDidCatch2');
         const errorsToPost = [...this.props.previousErrors, errorData];
         const body = { errors: errorsToPost };
         this.postErrors('0', body);
@@ -113,11 +111,15 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 });
 
 const mapStateToProps = (state: AppStateType) => {
-  const userId = state.user.user.id;
+  const userLogged = state.common.logged;
+  const userId = userLogged && state.user.user.id;
   const thrownError = state.errors.error;
   const previousErrors = state.errors.errors;
-
-  return { userId, thrownError, previousErrors };
+  return {
+    userId,
+    thrownError,
+    previousErrors,
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ErrorBoundary);

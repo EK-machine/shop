@@ -1,6 +1,6 @@
 import React from 'react';
+import { StarRateProps } from 'Interfaces/intefaces';
 import styles from './style.module.css';
-import { StarRateProps } from '../../interfaces/intefaces';
 
 const StarRateUnmemoized: React.FC<StarRateProps> = ({ rating }) => (
   <div className={styles.starContainer}>

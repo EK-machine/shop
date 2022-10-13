@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserProfile, UsersState, UserCartItem, UserLikedItem, UserOrder } from '../../interfaces/intefaces';
+import { UserProfile, UsersState, UserCartItem, UserLikedItem, UserOrder } from 'Interfaces/intefaces';
 
 const initialState: UsersState = {
   users: [],

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductLineProps } from '../../interfaces/intefaces';
+import { ProductLineProps } from 'Interfaces/intefaces';
 import styles from './style.module.css';
 
 const ProductLine: React.FC<ProductLineProps> = ({ title, getSelected }) => (

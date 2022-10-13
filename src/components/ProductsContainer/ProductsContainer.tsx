@@ -1,8 +1,7 @@
 import React from 'react';
+import ProductCard from 'Components/ProductCard/ProductCard';
+import { ProductsContainerProps } from 'Interfaces/intefaces';
 import styles from './style.module.css';
-import ProductCard from '../ProductCard/ProductCard';
-
-import { ProductsContainerProps } from '../../interfaces/intefaces';
 
 const ProductsContainerUnmemoized: React.FC<ProductsContainerProps> = ({ toDisplay }) => (
   <div className={styles.productsContainer}>

@@ -1,15 +1,14 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import useOutsideClick from '../../hooks/useOutsideClick';
-import ProductLine from '../ProductLine/ProductLine';
+import { locationProducts } from 'Helpers/utils';
+import useOutsideClick from 'Hooks/useOutsideClick';
+import ProductLine from 'Components/ProductLine/ProductLine';
+import { setProduct, debounceProductsRequest } from 'ReduxSlices/allProductsSlice';
+import { setModalProduct, setModalOpen } from 'ReduxSlices/modalContentSlice';
+import { setProductsHeading, setHeading } from 'ReduxSlices/headingSlice';
+import { HeaderProps, AppStateType } from 'Interfaces/intefaces';
 import styles from './style.module.css';
-import { setProduct, debounceProductsRequest } from '../../redux/slices/allProductsSlice';
-import { setModalProduct, setModalOpen } from '../../redux/slices/modalContentSlice';
-import { setProductsHeading, setHeading } from '../../redux/slices/headingSlice';
-import { AppStateType } from '@/interfaces/intefaces';
-import { locationProducts } from '../../helpers/utils';
-import { HeaderProps } from '../../interfaces/intefaces';
 
 const FilterBlockUnmemoized: React.FC<HeaderProps> = ({ productCategory }) => {
   const displayProducts = useSelector((state: AppStateType) => state.products.displayProducts);

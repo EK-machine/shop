@@ -1,8 +1,8 @@
 import React, { FocusEventHandler, SetStateAction } from 'react';
-import { InputProps, FormErrors } from '../../interfaces/intefaces';
+import { InputProps, FormErrors } from 'Interfaces/intefaces';
+import { validateLoginRegisterInput } from 'Helpers/validations';
+import { disablePastDates } from 'Helpers/utils';
 import styles from './style.module.css';
-import { validateLoginRegisterInput } from '../../helpers/validations';
-import { disablePastDates } from '../../helpers/utils';
 
 const InputUnmemoized: React.FC<InputProps> = (props) => {
   const blurFormHandler: FocusEventHandler<HTMLInputElement> = async () => {

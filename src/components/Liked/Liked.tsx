@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import LikedItem from 'Components/LikedItem/LikedItem';
+import { AppStateType, ProductType, UserLikedItem } from 'Interfaces/intefaces';
+import MostSlider from 'Components/MostSlider/MostSlider';
+import { setProduct } from 'ReduxSlices/allProductsSlice';
+import { setModalOpen, setModalProduct } from 'ReduxSlices/modalContentSlice';
+import { setLikeRequest, unsetLikeRequest } from 'ReduxSlices/userSlice';
+import { setHeading } from 'ReduxSlices/headingSlice';
 import styles from './style.module.css';
-import LikedItem from '../LikedItem/LikedItem';
-import { AppStateType, ProductType, UserLikedItem } from '../../interfaces/intefaces';
-import MostSlider from '../MostSlider/MostSlider';
-import { setProduct } from '../../redux/slices/allProductsSlice';
-import { setModalOpen, setModalProduct } from '../../redux/slices/modalContentSlice';
-import { setLikeRequest, unsetLikeRequest } from '../../redux/slices/userSlice';
-import { setHeading } from '../../redux/slices/headingSlice';
 
 const Liked: React.FC = () => {
   const [categories, setCategories] = useState<string[]>([]);

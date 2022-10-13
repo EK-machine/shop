@@ -1,10 +1,10 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
 import React from 'react';
-import alert from '../components/Alert/Alert';
-import { regexp, specCharacters, errorMessages } from '../data/data';
-import endpoints from '../api/endpoints';
-import { RegExps, ValidateLoginData, ValidateRegisterData, UserType } from '../interfaces/intefaces';
+import alert from 'Components/Alert/Alert';
+import { regexp, specCharacters, errorMessages } from 'Data/data';
+import endpoints from 'Apis/endpoints';
+import { RegExps, ValidateLoginData, ValidateRegisterData, UserType } from 'Interfaces/intefaces';
 
 const asyncObj = (isValid: boolean, err: string, id: string): Promise<{ isValid: boolean; err: string; id: string }> =>
   new Promise((resolve) => {

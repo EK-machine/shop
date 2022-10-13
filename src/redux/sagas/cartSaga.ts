@@ -9,12 +9,13 @@ import {
   changeQuantityRequest,
   changeQuantitySuccess,
   changeQuantityFailed,
-} from '../slices/userSlice';
-import { setError } from '../slices/errorSlice';
-import { apiPatchUser } from '../../api/apis';
-import { AppStateType, UserCartItem } from '../../interfaces/intefaces';
-import alert from '../../components/Alert/Alert';
-import { setPendingTrue, setPendingFalse } from '../slices/pendingSlice';
+} from 'ReduxSlices/userSlice';
+import { setError } from 'ReduxSlices/errorSlice';
+import { apiPatchUser } from 'Apis/apis';
+import { UserCartItem } from 'Interfaces/intefaces';
+import alert from 'Components/Alert/Alert';
+import { setPendingTrue, setPendingFalse } from 'ReduxSlices/pendingSlice';
+import getErrors from './selectors';
 
 export function* workerAddToCartSaga(action: {
   type: typeof addToCartRequest.type;
@@ -33,9 +34,7 @@ export function* workerAddToCartSaga(action: {
   } catch (e) {
     const message = `Add cart item error: ${(e as { message: string }).message}`;
     alert.error(message);
-
-    const state: AppStateType = yield select();
-    const { errors } = state.errors;
+    const errors: string[] = yield select(getErrors);
     const newErrors = [...errors, message];
     const payload = { error: message, errors: newErrors };
     yield all([
@@ -71,11 +70,9 @@ export function* workerDeleteFromCartSaga(action: {
   } catch (e) {
     const message = `Delete cart item error: ${(e as { message: string }).message}`;
     alert.error(message);
-    const state: AppStateType = yield select();
-    const { errors } = state.errors;
+    const errors: string[] = yield select(getErrors);
     const newErrors = [...errors, message];
     const payload = { error: message, errors: newErrors };
-
     yield all([
       put({
         type: deleterFromCartFailed.type,

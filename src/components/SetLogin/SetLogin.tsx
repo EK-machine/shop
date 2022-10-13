@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Button from 'Components/Button/Button';
+import Input from 'Components/Input/Input';
+import { setLoginRequest } from 'ReduxSlices/userSlice';
+import { FormErrors, AppStateType } from 'Interfaces/intefaces';
 import styles from './style.module.css';
-import Button from '../Button/Button';
-import Input from '../Input/Input';
-import { setLoginRequest } from '../../redux/slices/userSlice';
-import { FormErrors, AppStateType } from '../../interfaces/intefaces';
 
 const SetLoginUnmemoized: React.FC = () => {
   const [newLogin, setNewLogin] = useState<string>('');
