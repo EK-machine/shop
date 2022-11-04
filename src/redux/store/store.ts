@@ -11,7 +11,7 @@ import pendingReducer from 'ReduxSlices/pendingSlice';
 import errorsReducer from 'ReduxSlices/errorSlice';
 import rootSaga from '../sagas/rootSaga';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   common: commonReducer,
   heading: headingReducer,
   modal: modalContentReducer,

@@ -1,15 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ModalState } from 'Interfaces/intefaces';
-
-const initialState: ModalState = {
-  content: '',
-  isOpen: false,
-};
+import initialState from 'ReduxSlices/initialState';
 
 const modalContentSlice = createSlice({
   name: 'modalContentState',
-  initialState,
+  initialState: initialState.modalInitialState,
   reducers: {
     setModalOpen: (state, action: PayloadAction<boolean>) => {
       state.isOpen = action.payload;

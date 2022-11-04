@@ -11,7 +11,8 @@
     "lint:fix": "eslint --fix .",
     "prepare": "husky install",
     "mock-server": "json-server src/mockserver/mockserver.json --watch -p 3001",
-    "error-server": "json-server src/errorserver/errorserver.json --watch -p 3002"
+    "error-server": "json-server src/errorserver/errorserver.json --watch -p 3002",
+    "test": "react-scripts test"
   },
   "author": "Evgenij Kalabukhin <evgenij.kalabukhin@gmail.com>",
   "license": "ISC",
@@ -22,12 +23,13 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@redux-saga/core": "^1.2.1",
     "@reduxjs/toolkit": "^1.8.5",
-    "jest": "^29.0.2",
     "react": "^18.2.0",
     "react-devtools": "^4.25.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
     "react-router-dom": "^5.3.0",
+    "react-scripts": "^5.0.1",
+    "react-test-renderer": "^18.2.0",
     "react-virtualized": "^9.22.3",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
@@ -42,6 +44,10 @@
     "@babel/core": "^7.19.3",
     "@babel/preset-env": "^7.19.4",
     "@babel/preset-react": "^7.18.6",
+    "@testing-library/dom": "^8.19.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react": "^17.0.0",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-virtualized": "^9.21.21",
@@ -65,6 +71,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "file-loader": "^6.2.0",
     "husky": "^8.0.0",
+    "jest": "^29.1.2",
     "json-server": "^0.17.0",
     "lint-staged": "^13.0.3",
     "mini-css-extract-plugin": "^2.6.1",
@@ -83,5 +90,17 @@
     "@types/react": "18.0.0",
     "@types/react-dom": "18.0.0",
     "@types/react-virtualized": "^9.21.21"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^Images/(.*)$": "<rootDir>/public/$1",
+      "^Components/(.*)$": "<rootDir>/src/components/$1",
+      "^Data/(.*)$": "<rootDir>/src/data/$1",
+      "^Interfaces/(.*)$": "<rootDir>/src/interfaces/$1",
+      "^ReduxSlices/(.*)$": "<rootDir>/src/redux/slices/$1",
+      "^Helpers/(.*)$": "<rootDir>/src/helpers/$1",
+      "^Hooks/(.*)$": "<rootDir>/src/hooks/$1",
+      "^Apis/(.*)$": "<rootDir>/src/api/$1"
+    }
   }
 }

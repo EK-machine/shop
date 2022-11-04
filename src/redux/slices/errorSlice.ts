@@ -1,15 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ErrorrsState } from 'Interfaces/intefaces';
-
-const initialState: ErrorrsState = {
-  errors: [],
-  error: '',
-};
+import initialState from 'ReduxSlices/initialState';
 
 const errorsSlice = createSlice({
   name: 'userState',
-  initialState,
+  initialState: initialState.errorInitialState,
   reducers: {
     setErrors: (state, action: PayloadAction<string[]>) => {
       state.errors = action.payload;
@@ -19,8 +14,8 @@ const errorsSlice = createSlice({
       state.error = action.payload.error;
     },
     unsetAllErrors: (state) => {
-      state.errors = initialState.errors;
-      state.error = initialState.error;
+      state.errors = initialState.errorInitialState.errors;
+      state.error = initialState.errorInitialState.error;
     },
   },
 });
