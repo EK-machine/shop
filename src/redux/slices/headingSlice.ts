@@ -1,13 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-const initialState = {
-  heading: '',
-};
+import initialState from 'ReduxSlices/initialState';
 
 const headingSlice = createSlice({
   name: 'headingState',
-  initialState,
+  initialState: initialState.headingInitialState,
   reducers: {
     setHeading: (state, action: PayloadAction<string>) => {
       state.heading = action.payload;

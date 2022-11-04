@@ -292,3 +292,13 @@ export interface ErrorBoundaryProps {
 export interface ErrorBoundaryState {
   error: boolean;
 }
+
+export interface InitialState {
+  allProductsInitialState: AllProductsState;
+  commonInitialState: CommonState;
+  errorInitialState: ErrorrsState;
+  headingInitialState: HeadingState;
+  modalInitialState: ModalState;
+  pendingInitialState: PendingState;
+  userInitialState: UsersState;
+}

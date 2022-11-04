@@ -75,6 +75,7 @@ const FilterBlockUnmemoized: React.FC<HeaderProps> = ({ productCategory }) => {
           title="Search products"
           onChange={updateQuery}
           onFocus={onFocusHandler}
+          name="filter"
         />
         {query !== '' && displayProducts && open && (
           <div className={styles.productslist}>
