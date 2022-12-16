@@ -1,4 +1,4 @@
-import { takeEvery, take, put, call, spawn, all, select, delay } from 'redux-saga/effects';
+import { takeEvery, put, call, spawn, all, select, delay } from 'redux-saga/effects';
 import {
   addToCartRequest,
   addToCartSuccess,
@@ -107,34 +107,42 @@ export function* workerChangeQuantitySaga(action: {
   }
 }
 
+// export function* watchAddToCartSaga() {
+//   while (true) {
+//     const action: {
+//       type: string;
+//       payload: {
+//         id: number;
+//         cart: UserCartItem[];
+//         title: string;
+//         prodId: number;
+//       };
+//     } = yield take(addToCartRequest.type);
+//     yield call(workerAddToCartSaga, action);
+//   }
+// }
+
+// export function* deleteFromCartSaga() {
+//   while (true) {
+//     const action: {
+//       type: string;
+//       payload: {
+//         id: number;
+//         cart: UserCartItem[];
+//         title: string;
+//         prodId: number;
+//       };
+//     } = yield take(deleteFromCartRequest.type);
+//     yield call(workerDeleteFromCartSaga, action);
+//   }
+// }
+
 export function* watchAddToCartSaga() {
-  while (true) {
-    const action: {
-      type: string;
-      payload: {
-        id: number;
-        cart: UserCartItem[];
-        title: string;
-        prodId: number;
-      };
-    } = yield take(addToCartRequest.type);
-    yield call(workerAddToCartSaga, action);
-  }
+  yield takeEvery(addToCartRequest.type, workerAddToCartSaga);
 }
 
 export function* deleteFromCartSaga() {
-  while (true) {
-    const action: {
-      type: string;
-      payload: {
-        id: number;
-        cart: UserCartItem[];
-        title: string;
-        prodId: number;
-      };
-    } = yield take(deleteFromCartRequest.type);
-    yield call(workerDeleteFromCartSaga, action);
-  }
+  yield takeEvery(deleteFromCartRequest.type, workerDeleteFromCartSaga);
 }
 
 export function* changeQuantitySaga() {
